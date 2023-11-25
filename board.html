@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Board</title>
+    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="board.css">
+    <link rel="stylesheet" href="add_task.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+</head>
+
+<body onload="init();">
+    <div id="message" class="message d-none"></div>
+    <div class="nav" w3-include-html="./assets/templates/nav.html"></div>
+    <div class="content">
+        <div class="board-headline">
+            <div class="board-headline-top">
+                <h2>Board</h2>
+                <button class="btn btn-primary board-addtask-btn-mobile" onclick="showTask('addTaskBox')">
+                </button>
+            </div>
+            <div class="board-headline-right">
+                <input type="search" class="searchbar" placeholder="Find Task" id="search" oninput="filterTasks()">
+                <button class="btn btn-primary board-addtask-btn" onclick="addTask()">Add Task</button>
+            </div>
+        </div>
+        <div class="board-all-progress-columns">
+            <div class="board-two-progress-columns">
+                <div class="board-one-progress-column">
+                    <div class="board-one-progress-column-headline">
+                        <h5>To do</h5>
+                        <div onclick="addTaskSmallBtn('toDo')" class="board-one-progress-column-plus-btn">
+                        </div>
+                    </div>
+                    <!-- Column 'to do' -->
+                    <div ondrop="moveTo('toDo')" ondragover="allowDrop(event); highlight('drag-area-toDo')" ondragleave="removeHighlight('drag-area-toDo')" id="toDo" class="board-progress-item-list"></div>
+                </div>
+                <div class="board-one-progress-column">
+                    <div class="board-one-progress-column-headline">
+                        <h5>In progress</h5>
+                        <div onclick="addTaskSmallBtn('inProgress')" class="board-one-progress-column-plus-btn">
+                        </div>
+                    </div>
+                    <!-- Column 'in progress' -->
+                    <div ondrop="moveTo('inProgress')" ondragover="allowDrop(event); highlight('drag-area-inProgress')" ondragleave="removeHighlight('drag-area-inProgress')" id="inProgress" class="board-progress-item-list"></div>
+                </div>
+            </div>
+            <div class="board-two-progress-columns">
+                <div class="board-one-progress-column">
+                    <div class="board-one-progress-column-headline">
+                        <h5>Awaiting Feedback</h5>
+                        <div onclick="addTaskSmallBtn('awaitingFeedback')" class="board-one-progress-column-plus-btn">
+                        </div>
+                    </div>
+                    <!-- Column 'awaiting feedback' -->
+                    <div ondrop="moveTo('awaitingFeedback')" ondragover="allowDrop(event); highlight('drag-area-awaitingFeedback')" ondragleave="removeHighlight('drag-area-awaitingFeedback')" id="awaitingFeedback" class="board-progress-item-list"></div>
+                </div>
+                <div class="board-one-progress-column">
+                    <div class="board-one-progress-column-headline">
+                        <h5>Done</h5>
+                    </div>
+                    <!-- Column 'done' -->
+                    <div ondrop="moveTo('done')" ondragover="allowDrop(event); highlight('drag-area-done')" ondragleave="removeHighlight('drag-area-done')"  id="done" class="board-progress-item-list">
+                        <div class="board-progress-item-placeholder">No tasks Done</div>    
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-bgr d-none" id="cardBgr" onclick="closeCard('addTaskBox'); closeCard('editTaskBox'); closeCard('cardTaskDetails')">
+        <div class="card-addtask d-none" id="addTaskBox" onclick="event.stopPropagation()">
+            <div class="card-addtask-include"  w3-include-html="./assets/templates/addtask.html"></div>
+            <div class="card-close" onclick="closeCard('addTaskBox')"></div>
+        </div>
+        <div class="card-addtask d-none" id="editTaskBox" onclick="event.stopPropagation()">
+            <div class="card-addtask-include"  w3-include-html="./assets/templates/edittask.html"></div>
+            <div class="card-close" onclick="closeCard('editTaskBox')"></div>
+        </div>
+        <div class="card-taskinfo d-none" id="cardTaskDetails" onclick="event.stopPropagation()"></div>
+    </div>
+    <script src="./js/storage.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/svg.js"></script>
+    <script src="./js/addtask.js"></script>
+    <script src="./js/board.js"></script>
+    <script src="./js/templates.js"></script>
+</body>
+
+</html>

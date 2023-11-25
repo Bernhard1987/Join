@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Log in</title>
+    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="shortcut icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+</head>
+
+<body onload="getUsers();">
+    <div class="logo-container">
+        <img class="logo-animated" src="./assets/img/logo.svg" alt="JOIN">
+    </div>
+    <div class="full-height fade-in">
+        <div class="topbar">
+            <div id="signup-btn" class="signup-btn">
+                <span>Not a Join user?</span>
+                <button class="btn btn-primary" onclick="changeForm('login', 'signup');">Sign up</button>
+            </div>
+        </div>
+        <div id="message" class="message d-none"></div>
+        <div class="card">
+
+            <div id="login" class="login">
+                <h2 class="custom-h2">Log in</h2>
+                <svg class="divider" width="154" height="4" viewBox="0 0 154 4" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path id="Vector 5" d="M152 2L2 2" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                <form action="" class="login-form">
+                    <div class="input-icon">
+                        <input class="field" type="email" placeholder="Email" id="emailLogin" required>
+                        <img class="icon icon-email" src="./assets/img/mail.svg" alt="email icon">
+                    </div>
+                    <div class="input-icon">
+                        <input class="field" type="password" placeholder="Password" id="pwLogin" required>
+                        <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
+                    </div>
+                </form>
+                <div class="options">
+                    <div class="check">
+                        <input class="checkbox" type="checkbox" id="remember">
+                        <div class="label" for="checkbox">Remember me</div>
+                    </div>
+                    <a onclick="changeForm('login', 'forgot_pw')">I forgot my password</a>
+                </div>
+                <div class="form-btn">
+                    <button class="btn btn-primary" onclick="login();">Log in</button>
+                    <button class="btn btn-secondary" onclick="guestLogin()">Guest Log in</button>
+                </div>
+            </div>
+
+            <div id="signup" class="signup d-none">
+                <img class="nav-icon icon-arrow" alt="Zurück" src="./assets/img/arrow-left.svg"
+                    onclick="changeForm('signup', 'login')">
+                <div class="top">
+
+                    <h2 class="custom-h2">Sign Up</h2>
+                </div>
+                <svg class="divider" width="154" height="4" viewBox="0 0 154 4" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path id="Vector 5" d="M152 2L2 2" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                <form onsubmit="collectUserData(); return false" class="login-form">
+                    <div class="input-icon">
+                        <input class="field" type="text" placeholder="Name" id="name" required>
+                        <img class="icon icon-name" src="./assets/img/name.svg" alt="email icon">
+                    </div>
+                    <div class="input-icon">
+                        <input class="field" type="email" placeholder="Email" id="email" required>
+                        <img class="icon icon-email" src="./assets/img/mail.svg" alt="email icon">
+                    </div>
+                    <div class="input-icon">
+                        <input class="field" type="password" placeholder="Password" id="password" required>
+                        <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
+                    </div>
+                    <div class="input-icon">
+                        <input class="field" type="password" placeholder="Confirm password" id="passwordConfirm" required>
+                        <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
+                    </div>
+                    <div class="d-none supportingText" id="supportingText">The entered passwords do not match!</div>
+                
+                <div class="check-policy">
+                    <input id="checkPolicy" class="checkbox" type="checkbox" onchange="disableButton();" required>
+                    <div class="label" for="checkbox">I accept the </div><a>Privacy policy</a>
+                </div>
+                <button class="btn btn-primary" disabled id="signup-confirm" type="submit">Sign
+                    up</button>
+                </form>
+            </div>
+
+            <div id="forgot_pw" class="signup d-none">
+                <img class="nav-icon icon-arrow" alt="Zurück" src="./assets/img/arrow-left.svg"
+                        onclick="changeForm('forgot_pw', 'login')">
+                <div class="top">
+                    <h2 class="custom-h2">I forgot my password</h2>
+                </div>
+                <svg class="divider" width="154" height="4" viewBox="0 0 154 4" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path id="Vector 5" d="M152 2L2 2" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                <p class="p-forgot-pw">Don't worry! We will send you an email with the instructions to reset your password.</p>
+                <form action="" class="login-form">
+                    <div class="input-icon">
+                        <input class="field" type="email" placeholder="Email" required id="pwResetEmail">
+                        <img class="icon icon-email" src="./assets/img/mail.svg" alt="email icon">
+                    </div>
+                </form>
+                <button class="btn btn-primary" id="signup-confirm" onclick="changeForm('forgot_pw', 'reset_pw')">Send me the email</button>
+            </div>
+
+            <div id="reset_pw" class="signup d-none">
+                <img class="nav-icon icon-arrow" alt="Zurück" src="./assets/img/arrow-left.svg"
+                        onclick="changeForm('reset_pw', 'login')">
+                <div class="top">
+                    <h2 class="custom-h2">Reset your password</h2>
+                </div>
+                <svg class="divider" width="154" height="4" viewBox="0 0 154 4" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path id="Vector 5" d="M152 2L2 2" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                <p class="p-forgot-pw">Change your account password</p>
+                <form action="" class="login-form">
+                    <div class="input-icon">
+                        <input class="field" type="password" placeholder="Password" id="passwordReset" required>
+                        <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
+                    </div>
+                    <div class="input-icon">
+                        <input class="field" type="password" placeholder="Confirm password" id="passwordConfirmReset" required>
+                        <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
+                    </div>
+                    <div class="d-none supportingText" id="supportingTextReset">The entered passwords do not match!</div>
+                </form>
+                <button class="btn btn-primary" id="signup-confirm" onclick="resetPassword();">Continue</button>
+            </div>
+
+        </div>
+        <div class="footer-menu">
+            <ul>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="legal-notice.html">Legal Notice</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="./js/login.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/svg.js"></script>
+</body>
+
+</html>

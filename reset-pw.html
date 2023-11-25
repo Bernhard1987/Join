@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Reset Password</title>
+    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="shortcut icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <div class="full-height">
+    <div class="card">
+    <div id="reset_pw" class="reset_pw">
+        <div class="top">
+            <img class="nav-icon icon-arrow" alt="Zurück" src="./assets/img/arrow-left.svg" onclick="changeForm('reset_pw', 'login')">
+        <h2 class="custom-h2">Reset your password</h2>
+    </div>
+        <svg class="divider" width="154" height="4" viewBox="0 0 154 4" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path id="Vector 5" d="M152 2L2 2" stroke="#29ABE2" stroke-width="3" stroke-linecap="round" />
+        </svg>
+        <p>Change your account password</p>
+        <form action="" class="login-form">
+            <div class="input-icon">
+                <input class="field" type="password" placeholder="Password">
+                <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
+            </div>
+            <div class="input-icon">
+                <input class="field" type="password" placeholder="Confirm password">
+                <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
+            </div>
+        </form>
+        <button class="btn btn-primary" disabled id="signup-confirm">Continue</button>
+    </div>
+    <script src="./js/login.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/svg.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+ </head>
+ <body onload="init()">
+    <div class="header">
+        <h3>Kanban Project Managment Tool</h3>
+        <div class="account">
+            <img src="./assets/img/help.svg" alt="Show help">
+            <div class="account-img-container">
+                <div class="nav accountnav" id="accountnav">
+                    <ul>
+                        <li href="#">Impressum</li>
+                        <a onclick="logout();">gfdsg</a>
+                        <li>Log out</li>
+                    </ul>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="sidebar">
+        <img class="logo" src="./assets/img/logo-white.svg" alt="JOIN">
+        <div class="nav uppernav">
+            <ul>
+                <div class="menuitem">
+                    <img src="./assets/img/summary.svg" alt="">
+                    <li>Summary</li>
+                </div>
+                <div class="menuitem">
+                    <img src="./assets/img/board.svg" alt="">
+                    <li>Board</li>
+                </div>
+                <div class="menuitem">
+                    <img src="./assets/img/add-task.svg" alt="">
+                    <li>Add Task</li>
+                </div>
+                <div class="menuitem">
+                    <img src="./assets/img/contacts.svg" alt="">
+                    <li>Contacts</li>
+                </div>
+            </ul>
+        </div>
+        <div class="nav undernav">
+            <ul>
+                <li>Privacy Policy</li>
+                <li>Legal notice</li>
+            </ul>
+        </div>
+    </div>
+    <div class="content"></div>
+<script>
+    function showMenu() {
+    let accountNav = document.getElementById('accountnav');
+    // If the menu is open, close it
+    if (accountNav.classList.contains('open')) {
+        accountNav.classList.remove('open');
+    }
+    // If the menu is closed, open it
+    else {
+        accountNav.classList.add('open');
+    }
+}
+</script>
+<script src="./js/board.js"></script>
+<script src="./js/w3-include.js"></script>
+ </body>
+ </html> 

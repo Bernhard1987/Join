@@ -1,0 +1,59 @@
+<div class="addtask-headline-container">
+    <h2>Add Task</h2>
+</div>
+
+<form id="addTaskForm" onsubmit="addNewTask(); return false">
+    <div class="addtask-form-container">
+        <div class="addtask-form-container-column">
+            <div class="label" for="title">Title</div>
+            <input type="text" id="title" required placeholder="Enter a title">
+            <div class="label" for="description">Description</div>
+            <textarea name="Description" id="description" required placeholder="Enter a Description"></textarea>
+            <div class="label" for="category">Category</div>
+            <select name="category" id="categorySelect" required>
+                <option value="" disabled selected>Select task category</option>
+                <option value="design">Design <div class="addtask-category category-color-design"></div>
+                </option>
+                <option value="development">Development <div class="addtask-category category-color-development"></div>
+                </option>
+                <option value="quality">Q&A <div class="addtask-category category-color-qa"></div>
+                </option>
+            </select>
+        </div>
+
+        <div class="addtask-separator"></div>
+
+        <div class="addtask-form-container-column addtask-form-container-column-2">
+            <div class="label" for="duedate">Due date</div>
+            <input type="date" class="addTaskDateInput" id="duedate" required>
+            <div class="label" for="prio">Prio</div>
+            <div id="prio" class="addtask-priority-container">
+                <button id="btnUrgent" class="addtask-priority-urgent" type="button"
+                    onclick="setPrio('Urgent', 'add')">Urgent <img id="imgPrioUrgent"
+                        src="./assets/img/addtask_urgent_white.svg" alt="set urgent priority"></button>
+                <button id="btnMedium" type="button" onclick="setPrio('Medium', 'add')">Medium <img id="imgPrioMedium"
+                        src="./assets/img/addtask_medium.svg" alt="set medium priority"></button>
+                <button id="btnLow" type="button" onclick="setPrio('Low', 'add')">Low <img id="imgPrioLow"
+                        src="./assets/img/addtask_low.svg" alt="set low priority"></button>
+            </div>
+            <div class="label" for="subtasks">Subtasks</div>
+            <div class="input-icon">
+                <input class="field" type="text" placeholder="subtask..." id="edit-subtask_addSubtasksList">
+                <img onclick="createSubtask('addSubtasksList');" class="icon icon-email actionIcon" src="./assets/img/icon_plus.svg"
+                    alt="plus icon">
+            </div>
+            <p id="alert"></p>
+            <ul id="addSubtasksList" class="addSubtasksList">
+                <!--subtask list dynamic loading-->
+            </ul>
+        </div>
+    </div>
+    <div class="addtask-submit-container">
+        <button class="btn btn-secondary addtask-clear-btn" type="button" onclick="resetForm('add')">
+            Clear
+        </button>
+        <button type="submit" class="btn btn-primary addtask-create-btn">
+            Create Task <img src="./assets/img/icon_check.svg" alt="">
+        </button>
+    </div>
+</form>

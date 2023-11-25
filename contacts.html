@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- link css -->
+    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contacts.css">
+    <link rel="shortcut icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+    <!-- link js -->
+    <title>Join | Contacts</title>
+</head>
+
+<body onload="init()">
+    <div class="nav" w3-include-html="./assets/templates/nav.html"></div>
+    <div id="message" class="message d-none"></div>
+    <div class="content contact-container-content">
+
+        <!-- Dialog: Add contact -->
+        <div id="add-contact" class="dialog-bgr d-none">
+            <div class="dialog-add-contact">
+                <div class="add-contact-close-btn" onclick="showContent('hide', 'add-contact', 'd-none')"></div>
+                <!-- Dialog header -->
+                <div class="dialog-header">
+                    <img class="add-contact-logo" src="./assets/img/Capa 2.svg" alt="join logo">
+                    <h2 class="white">Add contact</h2>
+                    <h4 class="white">Tasks are better with a team</h4>
+                    <span class="line-blue-horizontal"></span>
+                </div>
+                <!-- Dialog textfields -->
+                <div class="dialog-content">
+                    <div class="content-row">
+                        <div class="d-c-monogram">
+                            <img src="./assets/img/person.svg" alt="person">
+                        </div>
+                        <div class="form-container column-gap-48px">
+                            <form onsubmit="addContact(); return false">
+                                <input class="input-field input-field-name" id="name" required type="text"
+                                    placeholder="Name">
+                                <input class="input-field input-field-email" id="email" required type="email"
+                                    placeholder="Email">
+                                <input class="input-field input-field-phone" id="phone" required type="number"
+                                    placeholder="Phone">
+                                <div class="row-24px">
+                                    <button class="btn-addcontact-cancel btn btn-secondary">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Create contact<img class="btn-icon"
+                                            src="./assets/img/check.svg" alt="check"></button>
+                                </div>
+
+                            </form>
+                            <!-- Dialog buttons -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Dialog: Edit contact new -->
+
+        <div id="edit-contact" class="dialog-bgr d-none">
+            <div class="dialog-add-contact">
+                <div class="add-contact-close-btn" onclick="showContent('hide', 'edit-contact', 'd-none')"></div>
+                <!-- Dialog header -->
+                <div class="dialog-header">
+                    <img class="add-contact-logo" src="./assets/img/Capa 2.svg" alt="join logo">
+                    <h2 class="white">Edit contact</h2>
+                    <span class="line-blue-horizontal"></span>
+                </div>
+                <!-- Dialog textfields -->
+                <div class="dialog-content">
+                    <div class="content-row">
+                        <div class="d-c-monogram">
+                            <img src="./assets/img/person.svg" alt="person">
+                        </div>
+                        <div class="form-container column-gap-48px">
+                            <form action="">
+                                <input class="input-field input-field-name" id="edit-name" required type="text"
+                                    placeholder="Name">
+                                <input class="input-field input-field-email" id="edit-email" required type="email"
+                                    placeholder="Email">
+                                <input class="input-field input-field-phone" id="edit-phone" required type="number"
+                                    placeholder="Phone">
+                            </form>
+                            <!-- Dialog buttons -->
+                            <div class="row-24px">
+                                <button id="editDeleteBtn" class="btn btn-secondary"
+                                    onclick="deleteContact();">Delete</button>
+                                <button id="editSaveBtn" class="btn btn-primary" onclick="saveContact();">Save<img
+                                        class="btn-icon" src="./assets/img/check.svg" alt="check"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Contact list-->
+        <div id="contact-list-container" class="contact-list-container">
+            <!-- Add button -->
+            <div class="contact-list-btn contact-list-btn-d-none">
+                <button id="contact-list-btn" class="btn btn-primary"
+                    onclick="showContent('show', 'add-contact', 'd-none')">New contact<img class="btn-icon"
+                        src="./assets/img/person_add.svg" alt="person add"></button>
+            </div>
+            <!-- List -->
+            <div id="contact-list" class="contact-list">
+                <!-- List header -->
+                <div class="c-l-header">
+                    <h6>N</h6>
+                </div>
+            </div>
+
+            <div id="contact-list-btn-mobile" class="contact-list-btn-mobile"
+                onclick="showContent('show', 'add-contact', 'd-none')"></div>
+        </div>
+
+        <!-- Contact content -->
+        <div id="contact-content" class="contact-content contact-content-mobile-d-none">
+            <!-- Headline -->
+            <div class="row-30px contact-content-headline">
+                <h2>Contacts</h2>
+                <span class="line-blue"></span>
+                <h4>Better with a team</h4>
+                <div class="contact-content-headline-mobile-line"><img src="./assets/img/contact_line_h_90.svg" alt="">
+                </div>
+            </div>
+
+            <div id="contact-detailed-info" class="contact-detailed-info d-none">
+                <!-- Contact details -->
+                <div class="contact-details">
+                    <div class="row-54px contact-details-row">
+                        <!-- Monogram -->
+                        <div id="detailed-view-monogram" class="c-d-monogram"></div>
+                        <div class="column-flex-start">
+                            <!-- Name-->
+                            <h3 id="detailed-view-contact-name" class="detailed-view-contact-name"></h3>
+                            <!-- Buttons -->
+                            <div class="row-16px contact-options">
+                                <button id="detailed-edit-button" class="btn btn-tetriary"
+                                    onclick="showContent('show', 'edit-contact', 'd-none'); editContact();"><img
+                                        class="btn-icon" src="./assets/img/edit.svg" alt="edit">Edit</button>
+                                <button id="detailed-delete-button" class="btn btn-tetriary"
+                                    onclick="deleteContact(); showMessage('assets/img/delete_white.svg', 'contact successfully deleted')"><img
+                                        class="btn-icon" src="./assets/img/delete.svg" alt="delete">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact information -->
+                <h6>Contact Information</h6>
+                <div class="column-16px-flex-start">
+                    <p>Email</p>
+                    <p id="detailed-view-contact-email" class="link"></p>
+                    <p>Phone</p>
+                    <p id="detailed-view-contact-phone"></p>
+                </div>
+                <div class="contact-content-back-arrow" onclick="closeContact()"></div>
+                <div class="contact-options-mobile-btn contact-list-btn-mobile"
+                    onclick="showContent('show', 'mobile-menu-bgr', 'd-none'); showContent('show', 'options-mobile', 'd-none');">
+                </div>
+                <div id="mobile-menu-bgr" class="d-none" onclick="showContent('hide', 'options-mobile', 'd-none')">
+                    <div id="options-mobile" class="contact-options-mobile d-none">
+                        <div class="contact-options-mobile-row"
+                            onclick="showContent('show', 'edit-contact', 'd-none'); showContent('hide', 'options-mobile', 'd-none'); editContact(); event.stopPropagation();">
+                            <img class="btn-icon" src="./assets/img/edit.svg" alt="edit">Edit</div>
+                        <div class="contact-options-mobile-row"
+                            onclick="mobileDelete()">
+                            <img class="btn-icon" src="./assets/img/delete.svg" alt="delete">Delete</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="./js/storage.js"></script>
+        <script src="./js/script.js"></script>
+        <script src="./js/svg.js"></script>
+        <script src="./js/contacts.js"></script>
+        <script src="./js/templates.js"></script>
+</body>
+
+</html>

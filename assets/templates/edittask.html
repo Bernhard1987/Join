@@ -1,0 +1,57 @@
+<div class="addtask-headline-container">
+    <h2>Edit Task</h2>
+</div>
+
+<form id="editTaskForm" onsubmit="saveEditedTask(); return false">
+    <div class="addtask-form-container">
+        <div class="addtask-form-container-column">
+            <div class="label" for="title">Title</div>
+            <input type="text" id="edit-title" required placeholder="Enter a title">
+            <div class="label" for="edit-description">Description</div>
+            <textarea name="Description" id="edit-description" required placeholder="Enter a Description"></textarea>
+            <div class="label" for="edit-category">Category</div>
+            <select name="edit-category" id="edit-category" required>
+                <option id="editCatPlaceholder" value="" disabled selected>Select task category</option>
+                <option id="editCatdesign" value="design">Design <div class="addtask-category category-color-design"></div></option>
+                <option id="editCatdevelopment" value="development">Development <div class="addtask-category category-color-development"></div></option>
+                <option id="editCatquality" value="quality">Quality <div class="addtask-category category-color-qa"></div></option>
+            </select>
+            <!-- Progress state -->
+            <div class="label" for="edit-progress-state">Progress state</div>
+            <select name="edit-category" id="edit-progress-state" required>
+                <option id="editCatPlaceholder" value="" disabled selected>Select the progress column</option>
+                <option id="editCatdesign" value="toDo">To Do</option>
+                <option id="editCatdevelopment" value="inProgress">In Progress</option>
+                <option id="editCatquality" value="awaitingFeedback">Awaiting Feedback</option>
+                <option id="editCatquality" value="done">Done</option>
+            </select>
+        </div>
+
+        <div class="addtask-separator"></div>
+
+        <div class="addtask-form-container-column">
+            <div class="label" for="edit-duedate">Due date</div>
+            <input type="date" class="addTaskDateInput" id="edit-duedate" required min="2023-08-09">
+            <div class="label" for="edit-prio">Prio</div>
+            <div id="edit-prio" class="addtask-priority-container">
+                <button id="edit-btnUrgent" class="addtask-priority-urgent" type="button" onclick="setPrio('Urgent', 'edit')">Urgent <img id="edit-imgPrioUrgent" src="./assets/img/addtask_urgent_white.svg" alt="set urgent priority"></button>
+                <button id="edit-btnMedium" type="button" onclick="setPrio('Medium', 'edit')">Medium <img id="edit-imgPrioMedium" src="./assets/img/addtask_medium.svg" alt="set medium priority"></button>
+                <button id="edit-btnLow" type="button" onclick="setPrio('Low', 'edit')">Low <img id="edit-imgPrioLow" src="./assets/img/addtask_low.svg" alt="set low priority"></button>
+            </div>
+            <div class="label" for="edit-subtasks">Subtasks</div>
+            <div class="input-icon">
+                <input class="field" type="text" placeholder="subtask..." id="edit-subtask_editSubtasksList">
+                <img onclick="createSubtask('editSubtasksList');" class="icon icon-email actionIcon" src="./assets/img/icon_plus.svg" alt="plus icon">
+            </div>
+            <p id="alert"></p>
+            <ul id="editSubtasksList" class="addSubtasksList">
+                <!--subtask list dynamic loading-->
+            </ul>
+        </div>
+    </div>
+    <div class="addtask-submit-container">
+        <button type="submit" class="btn btn-primary addtask-create-btn">
+            Save Task <img src="./assets/img/icon_check.svg" alt="">
+        </button>
+    </div>
+</form>

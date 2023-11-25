@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Add Task</title>
+    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="add_task.css">
+    <link rel="shortcut icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+</head>
+
+<body onload="init(); taskProgressState = 'toDo'; taskMode = 'add'">
+    <div w3-include-html="./assets/templates/nav.html"></div>
+    <div class="content" w3-include-html="./assets/templates/addtask.html">
+    </div>
+
+    <div id="message" class="message d-none"></div>
+
+    <script src="./js/storage.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/board.js"></script>
+    <script src="./js/svg.js"></script>
+    <script src="./js/addtask.js"></script>
+    <script src="./js/templates.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Summary </title>
+    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="summary.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+</head>
+
+<body onload="init(); initSummary()">
+    <div class="nav" w3-include-html="./assets/templates/nav.html"></div>
+    <div class="content">
+        <div class="summary-headline">
+            <h2>Summary</h2>
+            <img src="./assets/img/summary_divider_h_59px.svg" alt="" class="summary-headline-vertical-line">
+            <h4>Everything in a nutshell</h4>
+            <img src="./assets/img/summary_divider_horizontal.svg" alt="" class="summary-headline-horizontal-line">
+        </div>
+
+        <div class="summary-container">
+            <div class="summary-container-left gap-28">
+                <div class="summary-container-row gap-28">
+                    <a href="./board.html">
+                        <div class="summary-container-square-btn">
+                            <div class="summary-number" id="tasksInBoard"></div>
+                            <h6>Tasks in Board</h6>
+                        </div>
+                    </a>
+                    <a href="./board.html">
+                        <div class="summary-container-square-btn">
+                            <div class="summary-number" id="tasksInProgress"></div>
+                            <h6>Tasks In Progress</h6>
+                        </div>
+                    </a>
+                    <a href="./board.html">
+                        <div class="summary-container-square-btn">
+                            <div class="summary-number" id="awaitingFeedback"></div>
+                            <h6>Awaiting Feedback</h6>
+                        </div>
+                    </a>
+                </div>
+                <a href="./board.html">
+                    <div class="summary-container-info-urgent">
+                        <div class="summary-container-info-urgent-left">
+                            <div class="summary-container-info-urgent-ellipse"></div>
+                            <div class="summary-container-info-urgent-number-container">
+                                <div class="summary-number" id="urgent"></div>
+                                <p>Urgent</p>
+                            </div>
+                        </div>
+                        <img src="./assets/img/summary_divider_h_102px.svg" alt=""
+                            class="summary-container-info-urgent-divider">
+                        <div class="summary-container-info-urgent-right">
+                            <h5 class="c-dark-blue" id="deadlineDate"></h5>
+                            <p class="c-dark-blue">Upcoming Deadline</p>
+                        </div>
+                    </div>
+                </a>
+                <div class="summary-container-row gap-32">
+                    <a href="./board.html">
+                        <div class="summary-container-rectangle-btn background-icon-todo">
+                            <div
+                                class="summary-container-info-urgent-number-container summary-container-rectangle-btn-icon-spacer">
+                                <div class="summary-number" id="toDo"></div>
+                                <h6>To-do</h6>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./board.html">
+                        <div class="summary-container-rectangle-btn background-icon-done">
+                            <div
+                                class="summary-container-info-urgent-number-container summary-container-rectangle-btn-icon-spacer">
+                                <div class="summary-number" id="done"></div>
+                                <h6>Done</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="summary-container-right">
+                <div class="summary-container-welcome">
+                    <h3 class="c-dark-blue" id="greeting"></h3>
+                    <h1 class="c-blue-light" id="name"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/storage.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/summary.js"></script>
+    <script src="./js/svg.js"></script>
+</body>
+
+</html>
