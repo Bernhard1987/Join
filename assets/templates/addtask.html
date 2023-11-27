@@ -19,10 +19,20 @@
                 <option value="quality">Q&A <div class="addtask-category category-color-qa"></div>
                 </option>
             </select>
+            <div class="label">Assigned to</div>
+            <div class="assigned-users-container">
+                <div class="assigned-users-box" id="assigned-users-box">
+                </div>
+                <div class="input-icon">
+                    <input type="text" id="assign-new-user" placeholder="Enter new assignee">
+                    <img onclick="addNewAssignee()" on class="icon icon-email actionIcon"
+                    src="./assets/img/icon_plus.svg" alt="plus icon">
+                </div>
+            </div>
         </div>
-
-        <div class="addtask-separator"></div>
-
+        <div class="addtask-separator-container">
+            <div class="addtask-separator"></div>
+        </div>
         <div class="addtask-form-container-column addtask-form-container-column-2">
             <div class="label" for="duedate">Due date</div>
             <input type="date" class="addTaskDateInput" id="duedate" required>
@@ -39,8 +49,8 @@
             <div class="label" for="subtasks">Subtasks</div>
             <div class="input-icon">
                 <input class="field" type="text" placeholder="subtask..." id="edit-subtask_addSubtasksList">
-                <img onclick="createSubtask('addSubtasksList');" class="icon icon-email actionIcon" src="./assets/img/icon_plus.svg"
-                    alt="plus icon">
+                <img onclick="createSubtask('addSubtasksList');" class="icon icon-email actionIcon"
+                    src="./assets/img/icon_plus.svg" alt="plus icon">
             </div>
             <p id="alert"></p>
             <ul id="addSubtasksList" class="addSubtasksList">

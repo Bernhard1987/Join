@@ -35,32 +35,32 @@ function getSubtaskTemplate(index, list) {
 
 function taskHTMLTemplate(id, category, title, description, prio, svg, subtasks, subtasksDone) {
     let taskTemplate = /*html*/ `
-    <div id="${title}" onclick="showTaskDetails(${id})" draggable="true" ondragstart="startDragging('${id}')" class="board-progress-item">
-        <div class="board-progress-item-category">
-            <div id="category-id(${id})" class="category-btn">${category}</div>
-        </div>
-        <div class="board-progress-item-text-content">
-            <div class="board-progress-item-headline">
-                <p>${title}</p>
+        <div id="${title}" onclick="showTaskDetails(${id})" draggable="true" ondragstart="startDragging('${id}')" class="board-progress-item">
+            <div class="board-progress-item-category">
+                <div id="category-id(${id})" class="category-btn">${category}</div>
             </div>
-            <div class="board-progress-item-description">
-            ${description}
+            <div class="board-progress-item-text-content">
+                <div class="board-progress-item-headline">
+                    <p>${title}</p>
+                </div>
+                <div class="board-progress-item-description">
+                ${description}
+                </div>
             </div>
-        </div>
-        <div id="show-progress-bar(${id})" class="board-progress-item-progress-row">
-            <div id="progressbar(${id})" class="board-progress-item-progressbar">
+            <div id="show-progress-bar(${id})" class="board-progress-item-progress-row">
+                <div id="progressbar(${id})" class="board-progress-item-progressbar">
+                </div>
+                <div class="board-progress-item-progress-counter">${subtasksDone}/${subtasks} done</div>
             </div>
-            <div class="board-progress-item-progress-counter">${subtasksDone}/${subtasks} done</div>
-        </div>
-        <div class="board-progress-item-assignees">
-            <div class="board-progress-item-assignees-svg">
-                ${svg}
+            <div class="board-progress-item-assignees">
+                <div class="board-progress-item-assignees-svg">
+                    ${svg}
+                </div>
+                <div class="board-progress-item-prio">
+                    ${setPrioImg(prio)}
+                </div>
             </div>
-            <div class="board-progress-item-prio">
-                ${setPrioImg(prio)}
-            </div>
-        </div>
-    </div>`;
+        </div>`;
     return taskTemplate;
 }
 
@@ -81,40 +81,50 @@ function taskHTMLTemplate(id, category, title, description, prio, svg, subtasks,
 
 function taskDetailsHTMLTemplate(taskId, title, description, assignedto, svg, category, duedate, prio) {
     let taskDetailsTemplate = /*html*/ `
-    <div class="card-taskinfo-category-container">
-        <div id="category-id-detailed(${taskId})" class="card-taskinfo-category category-orange">
-            <h6>${category}</h6>
+        <div class="card-taskinfo-category-container">
+            <div id="category-id-detailed(${taskId})" class="card-taskinfo-category category-orange">
+                <h6>${category}</h6>
+            </div>
         </div>
-    </div>
-    <h2>${title}</h2>
-    <h6>${description}</h6>
-    <div class="card-taskinfo-row">
-        <h6 class="card-taskinfo-sub-headline">Due date:</h6>
-        <h6>${duedate}</h6>
-    </div>
-    <div class="card-taskinfo-row">
-        <h6 class="card-taskinfo-sub-headline">Priority:</h6><h6>${prio}</h6>
-        <img id="prio-graphic" src="" alt="">
-    </div>
-    <div class="card-taskinfo-row">
-        <h6>Assigned To:</h6>
-    </div>
-    <div class="card-taskinfo-assignee-list">
+        <h2>${title}</h2>
+        <h6>${description}</h6>
         <div class="card-taskinfo-row">
-            <div class="contact-initials">${svg}</div>
-            <h6>${assignedto}</h6>
+            <h6 class="card-taskinfo-sub-headline">Due date:</h6>
+            <h6>${duedate}</h6>
         </div>
-    </div>
-    <div class="card-taskinfo-assignee-list">
-        <h6>Subtasks</h6>
-            <ul id="subTaskList">
-            </ul>
-    </div>
-    <div class="card-close" onclick="closeCard('cardTaskDetails')"></div>
-    <div class="card-taskinfo-btns">
-        <div class="card-taskinfo-btn-delete" onclick="deleteTask(${taskId})"></div>
-        <div class="card-taskinfo-btn-edit" onclick="editTask(${taskId})"></div>
-    </div>
-    `;
+        <div class="card-taskinfo-row">
+            <h6 class="card-taskinfo-sub-headline">Priority:</h6><h6>${prio}</h6>
+            <img id="prio-graphic" src="" alt="">
+        </div>
+        <div class="card-taskinfo-row">
+            <h6>Assigned To:</h6>
+        </div>
+        <div class="card-taskinfo-assignee-list">
+            <div class="card-taskinfo-row">
+                <div class="contact-initials">${svg}</div>
+                <h6>${assignedto}</h6>
+            </div>
+        </div>
+        <div class="card-taskinfo-assignee-list">
+            <h6>Subtasks</h6>
+                <ul id="subTaskList">
+                </ul>
+        </div>
+        <div class="card-close" onclick="closeCard('cardTaskDetails')"></div>
+        <div class="card-taskinfo-btns">
+            <div class="card-taskinfo-btn-delete" onclick="deleteTask(${taskId})"></div>
+            <div class="card-taskinfo-btn-edit" onclick="editTask(${taskId})"></div>
+        </div>
+        `;
     return taskDetailsTemplate;
+}
+
+function assigneeListHTMLTemplate(name, i) {
+    let assigneeListTemplate = /*html*/ `
+        <div class="assigned-user">
+            <p>${name}</p>
+            <img src="./assets/img/close_white.svg" alt="unassign user" onclick="deleteAssignee(${i})">
+        </div>
+    `;
+    return assigneeListTemplate;
 }

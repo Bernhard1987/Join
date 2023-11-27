@@ -1,5 +1,6 @@
 let subtasks = [];
 let subtasksdone = [];
+let assignedUsers = [];
 let prio = 'Urgent';
 let taskMode; // 'add' oder 'edit'
 let taskToEdit;
@@ -417,23 +418,36 @@ function resetForm(addOrEdit) {
     }
 }
 
+function addNewAssignee() {
+    let assigneeInput = document.getElementById('assign-new-user');
 
-/**
- * Populates the "Assigned To" dropdown list with user names as options.
- *
- * This function retrieves the "Assigned To" dropdown element and dynamically populates it
- * with options based on the user names provided in the `users` array. It sets the first option
- * as a default prompt to select contacts to assign.
- *
- * @function selectAssignedToUser
- */
+    if(assigneeInput.value != '') {
+        assignedUsers.push(assigneeInput.value);
+    }
+    listAssignedUsers();
+    assigneeInput.value = '';
+}
 
-function selectAssignedToUser() {
-    let assignedTo = document.getElementById('assignedto');
-    assignedTo.innerHTML = '<option value="" disabled selected>Select contacts to assign</option>';
-    users.forEach(name => {
-        assignedTo.innerHTML += /*html*/ `<option value="${name}">${name}</option>`;
-    });
+function listAssignedUsers() {
+    let assignedUsersBox = document.getElementById('assigned-users-box');
+    if (assignedUsers.length === 0) {
+        assignedUsersBox.innerHTML = `
+            <div class="assigned-users-no-users">
+                No assigned users yet
+            </div>
+        `;
+    } else {
+        assignedUsersBox.innerHTML = '';
+        for (let i = 0; i < assignedUsers.length; i++) {
+            const user = assignedUsers[i];
+            assignedUsersBox.innerHTML += assigneeListHTMLTemplate(user, i);
+        }
+    }
+}
+
+function deleteAssignee(i) {
+    assignedUsers.splice(i, 1);
+    listAssignedUsers();
 }
 
 
@@ -567,3 +581,9 @@ function setMinDate() {
   }
 
   const intervalID = setInterval(setMinDate, 100);
+
+  addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+        listAssignedUsers();
+    }, 500);
+  });
