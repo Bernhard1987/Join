@@ -432,7 +432,7 @@ function listAssignedUsers() {
     let assignedUsersBox = document.getElementById('assigned-users-box');
     if (assignedUsers.length === 0) {
         assignedUsersBox.innerHTML = `
-            <div class="assigned-users-no-users">
+            <div class="assigned-users-placeholder">
                 No assigned users yet
             </div>
         `;
