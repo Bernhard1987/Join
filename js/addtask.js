@@ -251,7 +251,7 @@ function saveEditedTask() {
  */
 
 function deleteTask(taskId) {
-    user.tasks.splice (taskId, 1);
+    user.tasks.splice(taskId, 1);
     updateUser();
     closeCard('cardTaskDetails');
     initTasks();
@@ -418,12 +418,9 @@ function resetForm(addOrEdit) {
     }
 }
 
-function addNewAssignee() {
+function addNewAssignee(contactId) {
     let assigneeInput = document.getElementById('assign-new-user');
-
-    if(assigneeInput.value != '') {
-        assignedUsers.push(assigneeInput.value);
-    }
+    assignedUsers.push(contactId);
     listAssignedUsers();
     assigneeInput.value = '';
 }
@@ -439,15 +436,37 @@ function listAssignedUsers() {
     } else {
         assignedUsersBox.innerHTML = '';
         for (let i = 0; i < assignedUsers.length; i++) {
-            const user = assignedUsers[i];
-            assignedUsersBox.innerHTML += assigneeListHTMLTemplate(user, i);
-        }
+            const assignedUserId = assignedUsers[i];
+          
+            const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
+          
+            if (foundContact) {
+              assignedUsersBox.innerHTML += assigneeListHTMLTemplate(foundContact.name, i);
+            } else if (assignedUserId === actualUser) {
+              assignedUsersBox.innerHTML += assigneeListHTMLTemplate('You', i);
+            }
+          }          
     }
 }
 
 function deleteAssignee(i) {
     assignedUsers.splice(i, 1);
     listAssignedUsers();
+}
+
+function showAssigneeList() {
+    let contacts = user.contacts;
+    let contactsDropDown = document.getElementById('assigned-dropdown-list');
+
+    contactsDropDown.innerHTML = '';
+    contactsDropDown.innerHTML += `<li onclick="addNewAssignee('${user.id}')">${user.name}</li>`;
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contactName = contacts[i].name;
+        const contactId = contacts[i].id;
+        contactsDropDown.innerHTML +=
+            `<li onclick="addNewAssignee(${contactId})">${contactName}</li>`;
+    }
 }
 
 
@@ -566,24 +585,56 @@ function updatePriority(acutalPrioIds, priority) {
 
 function setMinDate() {
     const element = document.getElementById('duedate');
-    
+
     if (element) {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const day = String(today.getDate()).padStart(2, '0');
-      
-      const currentDate = `${year}-${month}-${day}`;
-      element.min = currentDate;
-      
-      clearInterval(intervalID);  // Stop the interval once the element is found and min is set
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+
+        const currentDate = `${year}-${month}-${day}`;
+        element.min = currentDate;
+
+        clearInterval(intervalID);  // Stop the interval once the element is found and min is set
     }
-  }
+}
 
-  const intervalID = setInterval(setMinDate, 100);
+const intervalID = setInterval(setMinDate, 100);
 
-  addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         listAssignedUsers();
     }, 500);
-  });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(() => {
+        let dropdownInput = document.getElementById('assign-new-user');
+        let dropdownList = document.getElementById('assigned-dropdown-list');
+
+        dropdownInput.addEventListener('click', function () {
+            // Toggle the visibility of the dropdown list
+            if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
+                dropdownList.style.display = 'block';
+            } else {
+                dropdownList.style.display = 'none';
+            }
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        document.addEventListener('click', function (event) {
+            if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
+                dropdownList.style.display = 'none';
+            }
+        });
+
+        // Handle selection of dropdown items
+        dropdownList.addEventListener('click', function (event) {
+            if (event.target.tagName === 'LI') {
+                // dropdownInput.value = event.target.textContent;
+                dropdownList.style.display = 'none';
+            }
+        });
+    }, 500);
+});  

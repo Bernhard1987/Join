@@ -23,10 +23,15 @@
             <div class="assigned-users-container">
                 <div class="assigned-users-box" id="assigned-users-box">
                 </div>
-                <div class="input-icon">
-                    <input type="text" id="assign-new-user" placeholder="Enter new assignee">
-                    <img onclick="addNewAssignee()" on class="icon icon-email actionIcon"
-                    src="./assets/img/icon_plus.svg" alt="plus icon">
+                <div class="dropdown-list-wrapper">
+                    <input type="text" id="assign-new-user" placeholder="Enter new assignee" autocomplete="off">
+                    <ul class="assigned-dropdown-list" id="assigned-dropdown-list">
+                        <li>Option 1</li>
+                        <li>Option 2</li>
+                        <li>Option 3</li>
+                        <li>Option 4</li>
+                        <li>Option 5</li>
+                    </ul>
                 </div>
             </div>
         </div>
