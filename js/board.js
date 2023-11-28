@@ -84,7 +84,6 @@ function getAllSVGs(task) {
             collectedSVGs += user.svg;
         }
     }
-    console.log(collectedSVGs);
     return collectedSVGs;
 }
 

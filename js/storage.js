@@ -55,10 +55,9 @@ async function collectUserData() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     let passwordConfirm = document.getElementById('passwordConfirm').value;
-    let id = users.length;
     let svg = await createSVGForUser(name);
     comparePasswords(password, passwordConfirm);
-    registerUser(name, email, password, register, id, svg);
+    registerUser(name, email, password, register, svg);
 }
 
 
@@ -93,17 +92,18 @@ function comparePasswords(password, passwordConfirm) {
  * @param {string} svg -> The user's SVG avatar as a string.
  */
 
-function registerUser(name, email, password, register, id, svg) {
+function registerUser(name, email, password, register, svg) {
     if (register) {
+        let userId = baseId;
         let user = {
-            id: id,
+            id: userId,
             name: name,
             email: email,
             password: password,
             svg: svg.outerHTML, //SVG saved as string
             tasks: [
                 {
-                    "assignedto": "You",
+                    "assignedto": [`${userId}`],
                     "category": "development",
                     "description": "Develop a secure user authentication system for our web application. The system should allow users to sign up using an email and password, and also provide options for password recovery. The backend should securely store hashed passwords and ensure that every data transmission happens over an encrypted connection. Integration with third-party authentication providers like Google or Facebook is a plus.",
                     "duedate": "2024-10-05",
@@ -115,7 +115,7 @@ function registerUser(name, email, password, register, id, svg) {
                     "title": "Implement User Authentication System"
                 },
                 {
-                    "assignedto": "You",
+                    "assignedto": [`${userId}`],
                     "category": "design",
                     "description": "Revamp the current homepage to ensure a seamless experience for mobile users.",
                     "duedate": "2024-10-05",
@@ -127,7 +127,7 @@ function registerUser(name, email, password, register, id, svg) {
                     "title": "Redesign Homepage for Mobile Responsiveness"
                 },
                 {
-                    "assignedto": "You",
+                    "assignedto": [`${userId}`],
                     "category": "quality",
                     "description": "To ensure our recent application updates align with user expectations, conduct a comprehensive user testing session.",
                     "duedate": "2024-10-05",
