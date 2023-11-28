@@ -2,11 +2,6 @@ h5 {
     color: var(--blue-dark) !important;
 }
 
-p {
-    color: var(--blue-dark) !important;
-    font-weight: 700;
-}
-
 form {
     display: flex;
     height: calc(100% - 60px);
@@ -241,6 +236,11 @@ input[type="search"]::-webkit-search-results-decoration {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.board-progress-item-headline p {
+    color: var(--blue-dark) !important;
+    font-weight: 700;
 }
 
 .board-progress-item-description {

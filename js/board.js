@@ -73,18 +73,40 @@ function loadTasks(tasks) {
 }
 
 function getAllSVGs(task) {
+    const maxVisibleSVGs = 7;
     let collectedSVGs = '';
+    let currentListedItems = 0;
     const taskAssignedTo = task.assignedto;
+
     for (let i = 0; i < taskAssignedTo.length; i++) {
         const assignedUserId = taskAssignedTo[i];
         const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
-        if (foundContact) {
-            collectedSVGs += foundContact.monogram;
-        } else if (assignedUserId === actualUser) {
-            collectedSVGs += user.svg;
+        if (currentListedItems < maxVisibleSVGs) {
+            if (foundContact) {
+                collectedSVGs += foundContact.monogram;
+            } else if (assignedUserId === actualUser) {
+                collectedSVGs += user.svg;
+            }
+            currentListedItems++;
         }
     }
+    if (currentListedItems < taskAssignedTo.length) {
+        const additionalSVGs = taskAssignedTo.length - currentListedItems;
+        collectedSVGs += addAdditionalSVG(additionalSVGs);
+    }
     return collectedSVGs;
+}
+
+function addAdditionalSVG(result) {
+    let additionalSVG = `
+    <svg width="100%" height="100%" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="#000000"></circle>
+        <text x="50" y="60" font-family="Arial" font-size="24" fill="white" text-anchor="middle">
+            +${result}
+        </text>
+    </svg>
+    `;
+    return additionalSVG;
 }
 
 /**
