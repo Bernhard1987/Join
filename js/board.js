@@ -57,7 +57,7 @@ function loadTasks(tasks) {
         let title = task.title;
         let description = task.description;
         let category = task.category;
-        let svg = user.svg;
+        let svg = getAllSVGs(task);
         let prio = task.prio;
         let subtasks = task.subtasks.length;
         let subtasksDone = countDoneSubtasks(task.subtasksdone);
@@ -70,6 +70,22 @@ function loadTasks(tasks) {
     removePadding();
     displayPlaceholder();
     addHighlightBox();
+}
+
+function getAllSVGs(task) {
+    let collectedSVGs = '';
+    const taskAssignedTo = task.assignedto;
+    for (let i = 0; i < taskAssignedTo.length; i++) {
+        const assignedUserId = taskAssignedTo[i];
+        const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
+        if (foundContact) {
+            collectedSVGs += foundContact.monogram;
+        } else if (assignedUserId === actualUser) {
+            collectedSVGs += user.svg;
+        }
+    }
+    console.log(collectedSVGs);
+    return collectedSVGs;
 }
 
 /**

@@ -19,7 +19,7 @@ async function addNewTask() {
     let title = document.getElementById('title').value;
     let description = document.getElementById('description').value;
     let category = document.getElementById('categorySelect').value;
-    let assignedto = 'You';
+    let assignedto = assignedUsers;
     let duedate = document.getElementById('duedate').value;
     let id = createTaskId();
 
@@ -420,7 +420,9 @@ function resetForm(addOrEdit) {
 
 function addNewAssignee(contactId) {
     let assigneeInput = document.getElementById('assign-new-user');
-    assignedUsers.push(contactId);
+    if (assignedUsers.indexOf(contactId) == -1) {
+        assignedUsers.push(contactId);
+    }
     listAssignedUsers();
     assigneeInput.value = '';
 }
@@ -434,18 +436,20 @@ function listAssignedUsers() {
             </div>
         `;
     } else {
-        assignedUsersBox.innerHTML = '';
-        for (let i = 0; i < assignedUsers.length; i++) {
-            const assignedUserId = assignedUsers[i];
-          
-            const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
-          
-            if (foundContact) {
-              assignedUsersBox.innerHTML += assigneeListHTMLTemplate(foundContact.name, i);
-            } else if (assignedUserId === actualUser) {
-              assignedUsersBox.innerHTML += assigneeListHTMLTemplate('You', i);
-            }
-          }          
+        generateAssignedUserList(assignedUsersBox);
+    }
+}
+
+function generateAssignedUserList(assignedUsersBox) {
+    assignedUsersBox.innerHTML = '';
+    for (let i = 0; i < assignedUsers.length; i++) {
+        const assignedUserId = assignedUsers[i];
+        const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
+        if (foundContact) {
+            assignedUsersBox.innerHTML += assigneeListHTMLTemplate(foundContact.name, i);
+        } else if (assignedUserId === actualUser) {
+            assignedUsersBox.innerHTML += assigneeListHTMLTemplate('You', i);
+        }
     }
 }
 
@@ -603,6 +607,7 @@ const intervalID = setInterval(setMinDate, 100);
 
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
+        showAssigneeList();
         listAssignedUsers();
     }, 500);
 });

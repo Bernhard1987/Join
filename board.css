@@ -296,7 +296,12 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .board-progress-item-assignees-svg {
+    display: flex;
     height: 32px;
+}
+
+.board-progress-item-assignees-svg svg:not(:first-child) {
+    margin-left: -12px;
 }
 
 .board-progress-item-prio {
