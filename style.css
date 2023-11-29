@@ -460,6 +460,7 @@ input[type='checkbox']:hover {
     display: flex;
     box-sizing: border-box;
     width: 100%;
+    height: 80px;
     margin-top: 0;
     padding-left: 348px;
     padding-top: 10px;
@@ -899,5 +900,21 @@ Media Queries / Responsiveness
     .full-height {
         padding-left: 16px;
         padding-right: 16px;
+    }
+}
+
+@media (max-width: 359px) {
+    .mobile-nav {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .mobile-nav ul {
+        gap: 2px;
+    }
+
+    .menuitem {
+        min-width: 72px;
+        width: 72px;
     }
 }

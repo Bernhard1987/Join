@@ -316,6 +316,10 @@
     flex-wrap: wrap;
 }
 
+.contact-mail {
+    word-break: break-all;
+}
+
 /* Contact-content
    ========================================================================== */
 .contact-headline {
@@ -814,5 +818,15 @@ input:focus {
 @media (max-height: 720px) {
     .contact-content {
         padding-top: 32px;
+    }
+}
+
+@media (max-width: 359px) {
+    .contact-list-container {
+        max-width: 100%;
+    }
+
+    .contact-list {
+        padding: 0;
     }
 }

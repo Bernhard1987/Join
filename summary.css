@@ -361,3 +361,28 @@ Media Queries / Responsiveness
         width: 151px;
     }
 }
+
+@media (max-width: 359px) {
+    .gap-28 {
+        gap: 4px;
+    }
+
+    .gap-32 {
+        gap: 4px;
+    }
+    .summary-container-square-btn {
+        height: 92px;
+    }
+
+    .summary-number {
+        font-size: 36px;
+    }
+
+    .summary-container-info-urgent {
+        min-width: 286px;
+    }
+
+    .summary-container-rectangle-btn {
+        width: 139px;
+    }
+}

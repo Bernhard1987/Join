@@ -275,7 +275,7 @@ function contactTemplate(id, name, email, monogram) {
                 <div class="row-8px">
                     <h6 class="name">${name}</h6>
                 </div>
-                <p class="link">${email}</p>
+                <p class="link contact-mail">${email}</p>
             </div>
         </div>`;
 }
