@@ -79,7 +79,7 @@ function taskHTMLTemplate(id, category, title, description, prio, svg, subtasks,
  * @returns {promise<string>}
  */
 
-function taskDetailsHTMLTemplate(taskId, title, description, assignedto, svg, category, duedate, prio) {
+function taskDetailsHTMLTemplate(taskId, title, description, category, duedate, prio) {
     let taskDetailsTemplate = /*html*/ `
         <div class="card-taskinfo-category-container">
             <div id="category-id-detailed(${taskId})" class="card-taskinfo-category category-orange">
@@ -99,11 +99,7 @@ function taskDetailsHTMLTemplate(taskId, title, description, assignedto, svg, ca
         <div class="card-taskinfo-row">
             <h6>Assigned To:</h6>
         </div>
-        <div class="card-taskinfo-assignee-list">
-            <div class="card-taskinfo-row">
-                <div class="contact-initials">${svg}</div>
-                <h6>${assignedto}</h6>
-            </div>
+        <div class="card-taskinfo-assignee-list" id="card-taskinfo-assignee-list">
         </div>
         <div class="card-taskinfo-assignee-list">
             <h6>Subtasks</h6>
@@ -117,6 +113,16 @@ function taskDetailsHTMLTemplate(taskId, title, description, assignedto, svg, ca
         </div>
         `;
     return taskDetailsTemplate;
+}
+
+function taskDetailsAssigneeListHTMLTemplate(name, svg) {
+    let taskDetailsAssigneeList = `
+        <div class="card-taskinfo-row">
+            <div class="contact-initials">${svg}</div>
+            <h6>${name}</h6>
+        </div>
+    `;
+    return taskDetailsAssigneeList;
 }
 
 function assigneeListHTMLTemplate(name, i) {

@@ -81,20 +81,32 @@ function getAllSVGs(task) {
     for (let i = 0; i < taskAssignedTo.length; i++) {
         const assignedUserId = taskAssignedTo[i];
         const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
-        if (currentListedItems < maxVisibleSVGs) {
-            if (foundContact) {
-                collectedSVGs += foundContact.monogram;
-            } else if (assignedUserId === actualUser) {
-                collectedSVGs += user.svg;
-            }
-            currentListedItems++;
+
+        if (foundContact) {
+            const result = addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, foundContact.monogram);
+            collectedSVGs = result.collectedSVGs;
+            currentListedItems = result.currentListedItems;
+        } else if (assignedUserId === actualUser) {
+            const result = addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, user.svg);
+            collectedSVGs = result.collectedSVGs;
+            currentListedItems = result.currentListedItems;
         }
     }
+
     if (currentListedItems < taskAssignedTo.length) {
         const additionalSVGs = taskAssignedTo.length - currentListedItems;
         collectedSVGs += addAdditionalSVG(additionalSVGs);
     }
+
     return collectedSVGs;
+}
+
+function addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, monogram) {
+    if (currentListedItems < maxVisibleSVGs) {
+        collectedSVGs += monogram;
+        currentListedItems++;
+    }
+    return { collectedSVGs, currentListedItems };
 }
 
 function addAdditionalSVG(result) {
@@ -167,19 +179,37 @@ async function showTaskDetails(id) {
     let title = user.tasks[idInArray].title;
     let description = user.tasks[idInArray].description;
     let assignedto = user.tasks[idInArray].assignedto;
-    let svg = user.svg;
     let category = user.tasks[idInArray].category;
     let duedate = user.tasks[idInArray].duedate;
     let prio = user.tasks[idInArray].prio;
     let taskDetails = document.getElementById('cardTaskDetails');
 
-    taskDetails.innerHTML = taskDetailsHTMLTemplate(idInArray, title, description, assignedto, svg, category, duedate, prio);
+    taskDetails.innerHTML = taskDetailsHTMLTemplate(idInArray, title, description, category, duedate, prio);
+
+    let taskDetailsAssigneeList = document.getElementById('card-taskinfo-assignee-list');
+    taskDetailsAssigneeList.innerHTML = generateTaskDetailsAssigneeList(assignedto);
+
     listSubtasks(idInArray);
     subtaskCheckboxCheck(idInArray);
     showTask('cardTaskDetails');
     taskprioImageIntoId(prio);
 
     colorizeCategory(category, idInArray, 'showTaskDetails');
+}
+
+function generateTaskDetailsAssigneeList(assignedto) {
+    let taskDetailsAssigneeList = '';
+    for (let i = 0; i < assignedto.length; i++) {
+        const assignedUserId = assignedto[i];
+        const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
+        if (foundContact) {
+            taskDetailsAssigneeList += taskDetailsAssigneeListHTMLTemplate(foundContact.name, foundContact.monogram);
+        } else if (assignedUserId === actualUser) {
+            taskDetailsAssigneeList += taskDetailsAssigneeListHTMLTemplate('You', user.svg);
+            console.log('user svg ', taskDetailsAssigneeList);
+        }
+    }
+    return taskDetailsAssigneeList;
 }
 
 
@@ -332,7 +362,7 @@ async function moveTo(status) {
 /* ==========================================================================
    Search
    ========================================================================== */
-   
+
 /**
  * Filters and displays tasks based on a search term.
  *
@@ -369,7 +399,7 @@ function filterTasks() {
  * @param {string} category 
  * @param {number} id 
  * @param {string} location 
- */ 
+ */
 
 async function colorizeCategory(category, id, location) {
     let actualElementId = checkColorizeCategoryLocation(location);
