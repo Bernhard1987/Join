@@ -375,12 +375,12 @@ input[type="search"]::-webkit-search-results-decoration {
 .card-taskinfo {
     display: inline-flex;
     width: 523px;
-    max-height: 100%;
+    max-height: calc(100% - 200px);
     padding: 50px;
+    padding-bottom: 100px;
     position: relative;
     flex-direction: column;
     align-items: flex-start;
-    gap: 25px;
     border-radius: 30px;
     background: #FFF;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
@@ -404,6 +404,15 @@ input[type="search"]::-webkit-search-results-decoration {
     margin: 0;
 }
 
+.card-taskinfo-details {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    overflow-y: scroll;
+}
+
 .card-taskinfo-row {
     display: flex;
     align-items: center;
@@ -420,8 +429,6 @@ input[type="search"]::-webkit-search-results-decoration {
 .card-taskinfo-assignee-list ul {
     list-style: none;
     margin-left: 16px;
-    max-height: 25vh;
-    overflow-y: auto;
 }
 
 .card-taskinfo-assignee-list ul li {
@@ -677,11 +684,17 @@ input[type="search"]::-webkit-search-results-decoration {
 @media (max-width: 550px) {
     .card-taskinfo {
         width: 100%;
-        height: calc(100% - 80px);
+        height: calc(100vh - 80px);
+        max-height: unset;
         border-radius: 0;
         padding: 16px;
+        padding-bottom: 68px;
         margin-bottom: 80px;
     }
+
+    .card-taskinfo-btns {
+        bottom: 16px;
+    } 
 }
 
 @media (max-width: 406px) {

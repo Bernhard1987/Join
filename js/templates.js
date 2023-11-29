@@ -87,30 +87,33 @@ function taskDetailsHTMLTemplate(taskId, title, description, category, duedate, 
             </div>
         </div>
         <h2>${title}</h2>
-        <h6>${description}</h6>
-        <div class="card-taskinfo-row">
-            <h6 class="card-taskinfo-sub-headline">Due date:</h6>
-            <h6>${duedate}</h6>
+        <div class="card-taskinfo-details">
+            <h6>${description}</h6>
+            <div class="card-taskinfo-row">
+                <h6 class="card-taskinfo-sub-headline">Due date:</h6>
+                <h6>${duedate}</h6>
+            </div>
+            <div class="card-taskinfo-row">
+                <h6 class="card-taskinfo-sub-headline">Priority:</h6><h6>${prio}</h6>
+                <img id="prio-graphic" src="" alt="">
+            </div>
+            <div class="card-taskinfo-row">
+                <h6>Assigned To:</h6>
+            </div>
+            <div class="card-taskinfo-assignee-list" id="card-taskinfo-assignee-list">
+            </div>
+            <div class="card-taskinfo-assignee-list">
+                <h6>Subtasks</h6>
+                    <ul id="subTaskList">
+                    </ul>
+            </div>
+            <div class="card-close" onclick="closeCard('cardTaskDetails')"></div>
+            <div class="card-taskinfo-btns">
+                <div class="card-taskinfo-btn-delete" onclick="deleteTask(${taskId})"></div>
+                <div class="card-taskinfo-btn-edit" onclick="editTask(${taskId})"></div>
+            </div>
         </div>
-        <div class="card-taskinfo-row">
-            <h6 class="card-taskinfo-sub-headline">Priority:</h6><h6>${prio}</h6>
-            <img id="prio-graphic" src="" alt="">
-        </div>
-        <div class="card-taskinfo-row">
-            <h6>Assigned To:</h6>
-        </div>
-        <div class="card-taskinfo-assignee-list" id="card-taskinfo-assignee-list">
-        </div>
-        <div class="card-taskinfo-assignee-list">
-            <h6>Subtasks</h6>
-                <ul id="subTaskList">
-                </ul>
-        </div>
-        <div class="card-close" onclick="closeCard('cardTaskDetails')"></div>
-        <div class="card-taskinfo-btns">
-            <div class="card-taskinfo-btn-delete" onclick="deleteTask(${taskId})"></div>
-            <div class="card-taskinfo-btn-edit" onclick="editTask(${taskId})"></div>
-        </div>
+
         `;
     return taskDetailsTemplate;
 }
