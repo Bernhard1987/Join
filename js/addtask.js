@@ -8,6 +8,12 @@ let taskProgressState;
 let dropdownInput;
 let dropdownList;
 
+async function initAddTaskPage() {
+    await init(); 
+    taskProgressState = 'toDo'; 
+    taskMode = 'add'; 
+    selectAssigneeElements();
+}
 
 /**
  * Adds a new task to the user's task list and updates the user data.
@@ -195,11 +201,10 @@ function addTaskSmallBtn(state) {
 
 function editTask(taskId) {
     taskMode = 'edit';
-    console.log('edit task in taskMode ', taskMode);
-    selectAssigneeElements();
     taskToEdit = user.tasks[taskId];
-
     assignedUsers = taskToEdit.assignedto;
+    selectAssigneeElements();
+
     document.getElementById('edit-title').value = taskToEdit.title;
     document.getElementById('edit-description').value = taskToEdit.description;
     document.getElementById('edit-category').value = taskToEdit.category;
@@ -430,10 +435,8 @@ function addNewAssignee(contactId) {
     let assigneeInput;
     if (taskMode == 'add') {
         assigneeInput = document.getElementById('addtask-assign-new-user');
-        console.log('addtask-assign-new-user');
     } else {
         assigneeInput = document.getElementById('edittask-assign-new-user');
-        console.log('edittask-assign-new-user');
     }
     
     if (assignedUsers.indexOf(contactId) == -1) {
@@ -447,10 +450,8 @@ function listAssignedUsersBox() {
     let assignedUsersBox;
     if (taskMode == 'add') {
         assignedUsersBox = document.getElementById('addtask-assigned-users-box');
-        console.log('addtask-assigned-users-box');
     } else {
         assignedUsersBox = document.getElementById('edittask-assigned-users-box');
-        console.log('edittask-assigned-users-box');
     }
     
     if (assignedUsers.length === 0) {
@@ -487,10 +488,8 @@ function showAssigneeList() {
     let contactsDropDown;
     if (taskMode == 'add') {
         contactsDropDown = document.getElementById('addtask-assigned-dropdown-list');
-        console.log('addtask-assigned-dropdown-list');
     } else {
         contactsDropDown = document.getElementById('edittask-assigned-dropdown-list');
-        console.log('edittask-assigned-dropdown-list');
     }
 
     contactsDropDown.innerHTML = '';
@@ -508,11 +507,9 @@ function selectDropdownBoxElement() {
     if (taskMode == 'add') {
         dropdownInput = document.getElementById('addtask-assign-new-user');
         dropdownList = document.getElementById('addtask-assigned-dropdown-list');
-        console.log('DropdownBox add selected');
     } else if (taskMode == 'edit') {
         dropdownInput = document.getElementById('edittask-assign-new-user');
         dropdownList = document.getElementById('edittask-assigned-dropdown-list');
-        console.log('DropdownBox edit selected');
     }
 }
 
@@ -665,10 +662,8 @@ function selectDropdownBox() {
         // Toggle the visibility of the dropdown list
         if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
             dropdownList.style.display = 'block';
-            console.log(taskMode, ' dropBox now visible.');
         } else {
             dropdownList.style.display = 'none';
-            console.log(taskMode, ' dropBox now INvisible.');
         }
     });
 
@@ -676,7 +671,6 @@ function selectDropdownBox() {
     document.addEventListener('click', function (event) {
         if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
             dropdownList.style.display = 'none';
-            console.log('clicked outside of dropbox container ', taskMode);
         }
     });
 
