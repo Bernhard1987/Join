@@ -206,7 +206,6 @@ function generateTaskDetailsAssigneeList(assignedto) {
             taskDetailsAssigneeList += taskDetailsAssigneeListHTMLTemplate(foundContact.name, foundContact.monogram);
         } else if (assignedUserId === actualUser) {
             taskDetailsAssigneeList += taskDetailsAssigneeListHTMLTemplate('You', user.svg);
-            console.log('user svg ', taskDetailsAssigneeList);
         }
     }
     return taskDetailsAssigneeList;

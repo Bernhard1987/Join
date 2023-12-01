@@ -5,6 +5,8 @@ let prio = 'Urgent';
 let taskMode; // 'add' oder 'edit'
 let taskToEdit;
 let taskProgressState;
+let dropdownInput;
+let dropdownList;
 
 
 /**
@@ -153,6 +155,7 @@ function removeSubtask(index, list) {
 function addTask() {
     taskProgressState = 'toDo';
     taskMode = 'add';
+    selectAssigneeElements();
     showTask('addTaskBox');
 
     document.getElementById('addSubtasksList').innerHTML = '';
@@ -192,8 +195,11 @@ function addTaskSmallBtn(state) {
 
 function editTask(taskId) {
     taskMode = 'edit';
+    console.log('edit task in taskMode ', taskMode);
+    selectAssigneeElements();
     taskToEdit = user.tasks[taskId];
 
+    assignedUsers = taskToEdit.assignedto;
     document.getElementById('edit-title').value = taskToEdit.title;
     document.getElementById('edit-description').value = taskToEdit.description;
     document.getElementById('edit-category').value = taskToEdit.category;
@@ -219,6 +225,7 @@ function editTask(taskId) {
 function saveEditedTask() {
     let title = document.getElementById('edit-title').value;
     let description = document.getElementById('edit-description').value;
+    let assignedto = assignedUsers;
     let duedate = document.getElementById('edit-duedate').value;
     let newPrio = prio;
     let category = document.getElementById('edit-category').value;
@@ -226,6 +233,7 @@ function saveEditedTask() {
 
     taskToEdit.title = title;
     taskToEdit.description = description;
+    taskToEdit.assignedto = assignedto;
     taskToEdit.duedate = duedate;
     taskToEdit.prio = newPrio;
     taskToEdit.category = category;
@@ -419,16 +427,32 @@ function resetForm(addOrEdit) {
 }
 
 function addNewAssignee(contactId) {
-    let assigneeInput = document.getElementById('assign-new-user');
+    let assigneeInput;
+    if (taskMode == 'add') {
+        assigneeInput = document.getElementById('addtask-assign-new-user');
+        console.log('addtask-assign-new-user');
+    } else {
+        assigneeInput = document.getElementById('edittask-assign-new-user');
+        console.log('edittask-assign-new-user');
+    }
+    
     if (assignedUsers.indexOf(contactId) == -1) {
         assignedUsers.push(contactId);
     }
-    listAssignedUsers();
+    listAssignedUsersBox();
     assigneeInput.value = '';
 }
 
-function listAssignedUsers() {
-    let assignedUsersBox = document.getElementById('assigned-users-box');
+function listAssignedUsersBox() {
+    let assignedUsersBox;
+    if (taskMode == 'add') {
+        assignedUsersBox = document.getElementById('addtask-assigned-users-box');
+        console.log('addtask-assigned-users-box');
+    } else {
+        assignedUsersBox = document.getElementById('edittask-assigned-users-box');
+        console.log('edittask-assigned-users-box');
+    }
+    
     if (assignedUsers.length === 0) {
         assignedUsersBox.innerHTML = `
             <div class="assigned-users-placeholder">
@@ -455,12 +479,19 @@ function generateAssignedUserList(assignedUsersBox) {
 
 function deleteAssignee(i) {
     assignedUsers.splice(i, 1);
-    listAssignedUsers();
+    listAssignedUsersBox();
 }
 
 function showAssigneeList() {
     let contacts = user.contacts;
-    let contactsDropDown = document.getElementById('assigned-dropdown-list');
+    let contactsDropDown;
+    if (taskMode == 'add') {
+        contactsDropDown = document.getElementById('addtask-assigned-dropdown-list');
+        console.log('addtask-assigned-dropdown-list');
+    } else {
+        contactsDropDown = document.getElementById('edittask-assigned-dropdown-list');
+        console.log('edittask-assigned-dropdown-list');
+    }
 
     contactsDropDown.innerHTML = '';
     contactsDropDown.innerHTML += `<li onclick="addNewAssignee('${user.id}')">${user.name}</li>`;
@@ -471,6 +502,24 @@ function showAssigneeList() {
         contactsDropDown.innerHTML +=
             `<li onclick="addNewAssignee(${contactId})">${contactName}</li>`;
     }
+}
+
+function selectDropdownBoxElement() {
+    if (taskMode == 'add') {
+        dropdownInput = document.getElementById('addtask-assign-new-user');
+        dropdownList = document.getElementById('addtask-assigned-dropdown-list');
+        console.log('DropdownBox add selected');
+    } else if (taskMode == 'edit') {
+        dropdownInput = document.getElementById('edittask-assign-new-user');
+        dropdownList = document.getElementById('edittask-assigned-dropdown-list');
+        console.log('DropdownBox edit selected');
+    }
+}
+
+function selectAssigneeElements() {
+    showAssigneeList();
+    listAssignedUsersBox();
+    selectDropdownBox();
 }
 
 
@@ -605,41 +654,37 @@ function setMinDate() {
 
 const intervalID = setInterval(setMinDate, 100);
 
-document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-        showAssigneeList();
-        listAssignedUsers();
-    }, 500);
-});
+/* ==========================================================================
+   Everything eventListener related
+   ========================================================================== */
 
+function selectDropdownBox() {
+    selectDropdownBoxElement();
 
-document.addEventListener('DOMContentLoaded', function () {
-    setTimeout(() => {
-        let dropdownInput = document.getElementById('assign-new-user');
-        let dropdownList = document.getElementById('assigned-dropdown-list');
+    dropdownInput.addEventListener('click', function () {
+        // Toggle the visibility of the dropdown list
+        if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
+            dropdownList.style.display = 'block';
+            console.log(taskMode, ' dropBox now visible.');
+        } else {
+            dropdownList.style.display = 'none';
+            console.log(taskMode, ' dropBox now INvisible.');
+        }
+    });
 
-        dropdownInput.addEventListener('click', function () {
-            // Toggle the visibility of the dropdown list
-            if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
-                dropdownList.style.display = 'block';
-            } else {
-                dropdownList.style.display = 'none';
-            }
-        });
+    // Close the dropdown if the user clicks outside of it
+    document.addEventListener('click', function (event) {
+        if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
+            dropdownList.style.display = 'none';
+            console.log('clicked outside of dropbox container ', taskMode);
+        }
+    });
 
-        // Close the dropdown if the user clicks outside of it
-        document.addEventListener('click', function (event) {
-            if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
-                dropdownList.style.display = 'none';
-            }
-        });
-
-        // Handle selection of dropdown items
-        dropdownList.addEventListener('click', function (event) {
-            if (event.target.tagName === 'LI') {
-                // dropdownInput.value = event.target.textContent;
-                dropdownList.style.display = 'none';
-            }
-        });
-    }, 500);
-});  
+    // Handle selection of dropdown items
+    dropdownList.addEventListener('click', function (event) {
+        if (event.target.tagName === 'LI') {
+            // dropdownInput.value = event.target.textContent;
+            dropdownList.style.display = 'none';
+        }
+    });
+}

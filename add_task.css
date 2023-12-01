@@ -149,13 +149,13 @@ input .content {
     max-width: 424px;
 }
 
-#assign-new-user {
+#addtask-assign-new-user, #edittask-assign-new-user {
     width: 422px;
     border-radius: 0 0 10px 10px;
     border-top: none;
 }
 
-#assign-new-user:focus {
+#addtask-assign-new-user:focus, #edittask-assign-new-user:focus {
     border-radius: 0;
 }
 
