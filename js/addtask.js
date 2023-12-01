@@ -7,11 +7,12 @@ let taskToEdit;
 let taskProgressState;
 let dropdownInput;
 let dropdownList;
+let dropdownBoxEventListeners = [];
 
 async function initAddTaskPage() {
-    await init(); 
-    taskProgressState = 'toDo'; 
-    taskMode = 'add'; 
+    await init();
+    taskProgressState = 'toDo';
+    taskMode = 'add';
     selectAssigneeElements();
 }
 
@@ -438,7 +439,7 @@ function addNewAssignee(contactId) {
     } else {
         assigneeInput = document.getElementById('edittask-assign-new-user');
     }
-    
+
     if (assignedUsers.indexOf(contactId) == -1) {
         assignedUsers.push(contactId);
     }
@@ -453,7 +454,7 @@ function listAssignedUsersBox() {
     } else {
         assignedUsersBox = document.getElementById('edittask-assigned-users-box');
     }
-    
+
     if (assignedUsers.length === 0) {
         assignedUsersBox.innerHTML = `
             <div class="assigned-users-placeholder">
@@ -658,7 +659,7 @@ const intervalID = setInterval(setMinDate, 100);
 function selectDropdownBox() {
     selectDropdownBoxElement();
 
-    dropdownInput.addEventListener('click', function () {
+    let dropdownVisible = dropdownInput.addEventListener('click', function () {
         // Toggle the visibility of the dropdown list
         if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
             dropdownList.style.display = 'block';
@@ -668,17 +669,28 @@ function selectDropdownBox() {
     });
 
     // Close the dropdown if the user clicks outside of it
-    document.addEventListener('click', function (event) {
+    let dropdownInvisible = document.addEventListener('click', function (event) {
         if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
             dropdownList.style.display = 'none';
         }
     });
 
     // Handle selection of dropdown items
-    dropdownList.addEventListener('click', function (event) {
+    let selectDropdownItem = dropdownList.addEventListener('click', function (event) {
         if (event.target.tagName === 'LI') {
             // dropdownInput.value = event.target.textContent;
             dropdownList.style.display = 'none';
         }
     });
+
+    dropdownBoxEventListeners.push(dropdownVisible);
+    dropdownBoxEventListeners.push(dropdownInvisible);
+    dropdownBoxEventListeners.push(selectDropdownItem);
 }
+
+function removeEventListeners() {
+    for (let i = 0; i < dropdownBoxEventListeners.length; i++) {
+        const { target, type, listener } = dropdownBoxEventListeners[i];
+        target.removeEventListener(type, listener);
+    }
+}    
