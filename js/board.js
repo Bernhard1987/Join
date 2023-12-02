@@ -57,7 +57,7 @@ function loadTasks(tasks) {
         let title = task.title;
         let description = task.description;
         let category = task.category;
-        let svg = getAllSVGs(task);
+        let svg = getAllSVGsForTask(task);
         let prio = task.prio;
         let subtasks = task.subtasks.length;
         let subtasksDone = countDoneSubtasks(task.subtasksdone);
@@ -72,16 +72,25 @@ function loadTasks(tasks) {
     addHighlightBox();
 }
 
-function getAllSVGs(task) {
+function getAllSVGsForTask(task) {
     const maxVisibleSVGs = 7;
     let collectedSVGs = '';
     let currentListedItems = 0;
     const taskAssignedTo = task.assignedto;
 
+    const findSVGs = findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListedItems, taskAssignedTo);
+    collectedSVGs = findSVGs.collectedSVGs;
+    currentListedItems = findSVGs.currentListedItems;
+
+    collectedSVGs = setNumberSVG(currentListedItems, taskAssignedTo, collectedSVGs);
+
+    return collectedSVGs;
+}
+
+function findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListedItems, taskAssignedTo) {
     for (let i = 0; i < taskAssignedTo.length; i++) {
         const assignedUserId = taskAssignedTo[i];
         const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
-
         if (foundContact) {
             const result = addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, foundContact.monogram);
             collectedSVGs = result.collectedSVGs;
@@ -92,12 +101,14 @@ function getAllSVGs(task) {
             currentListedItems = result.currentListedItems;
         }
     }
+    return { collectedSVGs, currentListedItems };
+}
 
+function setNumberSVG(currentListedItems, taskAssignedTo, collectedSVGs) {
     if (currentListedItems < taskAssignedTo.length) {
         const additionalSVGs = taskAssignedTo.length - currentListedItems;
-        collectedSVGs += addAdditionalSVG(additionalSVGs);
+        collectedSVGs += addNumberSVG(additionalSVGs);
     }
-
     return collectedSVGs;
 }
 
@@ -109,7 +120,7 @@ function addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, monogram) {
     return { collectedSVGs, currentListedItems };
 }
 
-function addAdditionalSVG(result) {
+function addNumberSVG(result) {
     let additionalSVG = `
     <svg width="100%" height="100%" viewBox="0 0 100 100">
         <circle cx="50" cy="50" r="40" fill="#000000"></circle>
@@ -377,7 +388,7 @@ function filterTasks() {
     filteredTasks = [];  // Resetting the filteredTasks array
     if (searchTerm != '') {
         user.tasks.forEach(task => {
-            if (task.title.toLowerCase().includes(searchTerm)) {
+            if (task.title.toLowerCase().includes(searchTerm) || task.description.toLowerCase().includes(searchTerm)) {
                 filteredTasks.push(task);
             }
         });
