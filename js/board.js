@@ -8,7 +8,6 @@ let currentDraggedElement = 0;
    Load task functions
    ========================================================================== */
 
-
 /**
  * This function is responsible for getting the data of actual logged in user and executing the function displayTasks()
  * 
@@ -65,9 +64,6 @@ function loadTasks(tasks) {
 
 /**
  * This function checks if progress bar is necessary
- * 
- * If -> show progress bar -> execute function 'fillProgressBar'
- * Else -> hide progress bar
  * 
  * @param {number} id -> actual user id
  * @param {array} subtasks -> Includes subtasks in JSON format
@@ -296,10 +292,7 @@ async function moveTo(status) {
 
 /**
  * Filters and displays tasks based on a search term.
- * This function retrieves the user's tasks and filters them based on a provided search term.
- * It then displays the filtered tasks using the 'displayTasks' function.
  *
- * @function
  * @throws {Error} Throws an error if 'document.getElementById' or 'displayTasks' is undefined.
  */
 function filterTasks() {
