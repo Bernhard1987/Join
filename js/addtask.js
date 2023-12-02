@@ -5,10 +5,10 @@ let prio = 'Urgent';
 let taskMode; // 'add' oder 'edit'
 let taskToEdit;
 let taskProgressState;
-let dropdownInput;
-let dropdownList;
-let dropdownBoxEventListenerStarted = false;
 
+/**
+ * Provides functionality for add task page
+ */
 async function initAddTaskPage() {
     await init();
     taskProgressState = 'toDo';
@@ -30,8 +30,29 @@ async function addNewTask() {
     let category = document.getElementById('categorySelect').value;
     let assignedto = assignedUsers;
     let duedate = document.getElementById('duedate').value;
-    let id = createTaskId();
+    let id = baseId;
 
+    let newTask = newTaskContent(title, description, category, assignedto, duedate, prio, subtasks, subtasksdone, taskProgressState, id);
+
+    user.tasks.push(newTask);
+    updateUser();
+    showMessage('../assets/img/board.svg', 'Task added to Board!');
+
+    if (window.location.href.indexOf('board') != -1) {
+        closeCard('addTaskBox');
+        initTasks();
+        selectAssigneeElements();
+    } else {
+        window.location.href = 'board.html';
+    }
+    resetForm('add');
+    subtasks = [];
+}
+
+/**
+ * Returns data structure for a new Task.
+ */
+function newTaskContent(title, description, category, assignedto, duedate, prio, subtasks, subtasksdone, taskProgressState, id) {
     let newTask = {
         "title": title,
         "description": description,
@@ -42,37 +63,9 @@ async function addNewTask() {
         "subtasks": subtasks,
         "subtasksdone": subtasksdone,
         "status": taskProgressState,
-        "id": await id
+        "id": id
     }
-
-    user.tasks.push(newTask);
-    updateUser();
-    showMessage('../assets/img/board.svg', 'Task added to Board!');
-
-    if (window.location.href.indexOf('board') != -1) {
-        closeCard('addTaskBox');
-        initTasks();
-    } else {
-        window.location.href = 'board.html';
-    }
-    resetForm('add');
-    subtasks = [];
-    // initTasks();
-}
-
-
-/**
- * Asynchronously creates a new task ID based on the length of the user's tasks array.
- *
- * @async
- * @function createTaskId
- * @returns {Promise<number>} A Promise that resolves to the new task ID.
- * @throws {Error} If there is an issue with fetching actual user data.
- */
-async function createTaskId() {
-    await getActualUserData();
-    let newId = user.tasks.length;
-    return newId;
+    return newTask;
 }
 
 
@@ -432,95 +425,6 @@ function resetForm(addOrEdit) {
     }
 }
 
-function addNewAssignee(contactId) {
-    let assigneeInput;
-    if (taskMode == 'add') {
-        assigneeInput = document.getElementById('addtask-assign-new-user');
-    } else {
-        assigneeInput = document.getElementById('edittask-assign-new-user');
-    }
-
-    if (assignedUsers.indexOf(contactId) == -1) {
-        assignedUsers.push(contactId);
-    }
-    listAssignedUsersBox();
-    assigneeInput.value = '';
-}
-
-function listAssignedUsersBox() {
-    let assignedUsersBox;
-    if (taskMode == 'add') {
-        assignedUsersBox = document.getElementById('addtask-assigned-users-box');
-    } else {
-        assignedUsersBox = document.getElementById('edittask-assigned-users-box');
-    }
-
-    if (assignedUsers.length === 0) {
-        assignedUsersBox.innerHTML = `
-            <div class="assigned-users-placeholder">
-                No assigned users yet
-            </div>
-        `;
-    } else {
-        generateAssignedUserList(assignedUsersBox);
-    }
-}
-
-function generateAssignedUserList(assignedUsersBox) {
-    assignedUsersBox.innerHTML = '';
-    for (let i = 0; i < assignedUsers.length; i++) {
-        const assignedUserId = assignedUsers[i];
-        const foundContact = user.contacts.find(contact => contact.id === assignedUserId);
-        if (foundContact) {
-            assignedUsersBox.innerHTML += assigneeListHTMLTemplate(foundContact.name, i);
-        } else if (assignedUserId === actualUser) {
-            assignedUsersBox.innerHTML += assigneeListHTMLTemplate('You', i);
-        }
-    }
-}
-
-function deleteAssignee(i) {
-    assignedUsers.splice(i, 1);
-    listAssignedUsersBox();
-}
-
-function showAssigneeList() {
-    let contacts = user.contacts;
-    let contactsDropDown;
-    if (taskMode == 'add') {
-        contactsDropDown = document.getElementById('addtask-assigned-dropdown-list');
-    } else {
-        contactsDropDown = document.getElementById('edittask-assigned-dropdown-list');
-    }
-
-    contactsDropDown.innerHTML = '';
-    contactsDropDown.innerHTML += `<li onclick="addNewAssignee('${user.id}')">${user.name}</li>`;
-
-    for (let i = 0; i < contacts.length; i++) {
-        const contactName = contacts[i].name;
-        const contactId = contacts[i].id;
-        contactsDropDown.innerHTML +=
-            `<li onclick="addNewAssignee(${contactId})">${contactName}</li>`;
-    }
-}
-
-function selectDropdownBoxElement() {
-    if (taskMode == 'add') {
-        dropdownInput = document.getElementById('addtask-assign-new-user');
-        dropdownList = document.getElementById('addtask-assigned-dropdown-list');
-    } else if (taskMode == 'edit') {
-        dropdownInput = document.getElementById('edittask-assign-new-user');
-        dropdownList = document.getElementById('edittask-assigned-dropdown-list');
-    }
-}
-
-function selectAssigneeElements() {
-    showAssigneeList();
-    listAssignedUsersBox();
-    selectDropdownBox();
-}
-
-
 /* ==========================================================================
    Priority Button functions
    ========================================================================== */
@@ -650,42 +554,4 @@ function setMinDate() {
     }
 }
 
-const intervalID = setInterval(setMinDate, 100);
-
-/* ==========================================================================
-   Everything eventListener related
-   ========================================================================== */
-
-/**
- * Is only executed if it hasn't already been executed before.
- * Starts eventListeners for dropdownBox. First eventListener Toggles the visibility, 
- * second eventListener closes the dropdown if user clicks outside of it. Third
- * eventListender handles the selection of dropdown items.
- */
-function selectDropdownBox() {
-    if (!dropdownBoxEventListenerStarted) {
-        selectDropdownBoxElement();
-
-        dropdownInput.addEventListener('click', function () {
-            if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
-                dropdownList.style.display = 'block';
-            } else {
-                dropdownList.style.display = 'none';
-            }
-        });
-
-        document.addEventListener('click', function (event) {
-            if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
-                dropdownList.style.display = 'none';
-            }
-        });
-
-        dropdownList.addEventListener('click', function (event) {
-            if (event.target.tagName === 'LI') {
-                dropdownList.style.display = 'none';
-            }
-        });
-
-        dropdownBoxEventListenerStarted = true;
-    }
-}    
+const intervalID = setInterval(setMinDate, 100);  
