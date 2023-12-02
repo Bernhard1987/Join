@@ -1,7 +1,5 @@
 let filteredTasks = [];
 let searchTerm;
-if (document.getElementById('search'))
-    searchTerm = document.getElementById('search').value
 tasks = [];
 
 let currentDraggedElement = 0;
@@ -75,7 +73,6 @@ function loadTasks(tasks) {
  * @param {array} subtasks -> Includes subtasks in JSON format
  * @param {array} subtasksDone -> Includes subtask state (done = true, notdone = false -> boolean)
  */
-
 function checkProgressBar(id, subtasks, subtasksDone) {
     if (subtasks !== 0) {
         fillProgressBar(id, subtasks, subtasksDone);

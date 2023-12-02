@@ -5,6 +5,7 @@ let prio = 'Urgent';
 let taskMode; // 'add' oder 'edit'
 let taskToEdit;
 let taskProgressState;
+const intervalID = setInterval(setMinDate, 100);
 
 /**
  * Provides functionality for add task page
@@ -19,10 +20,8 @@ async function initAddTaskPage() {
 /**
  * Adds a new task to the user's task list and updates the user data.
  *
- * @function addNewTask
  * @async
  */
-
 async function addNewTask() {
     taskMode = 'add';
     let title = document.getElementById('title').value;
@@ -72,11 +71,9 @@ function newTaskContent(title, description, category, assignedto, duedate, prio,
 /**
  * Creates a new subtask for a given list.
  *
- * @function createSubtask
  * @param {string} list - The identifier of the list to which the subtask should be added.
  * @throws {Error} Throws an error if the list identifier is not found.
  */
-
 function createSubtask(list) {
     let subtask = document.getElementById(`edit-subtask_${list}`);
     let subtaskdone = 'notdone';
@@ -96,10 +93,8 @@ function createSubtask(list) {
 /**
  * Updates the subtask list in the specified HTML element with new subtask items.
  *
- * @function actualiseSubtaskList
  * @param {string} list - The identifier of the HTML element where the subtask list should be updated.
  */
-
 function actualiseSubtaskList(list) {
     let subTaskList = document.getElementById(list);
     subTaskList.innerHTML = '';
@@ -116,12 +111,10 @@ function actualiseSubtaskList(list) {
 /**
  * Removes a subtask from the 'subtasks' array and updates the subtask list in the specified HTML element.
  *
- * @function removeSubtask
  * @param {number} index - The index of the subtask to be removed from the 'subtasks' and 'subtasksdone' arrays.
  * @param {string} list - The identifier of the HTML element where the subtask list should be updated.
  * @throws {Error} Throws an error if the provided index is out of bounds or if updating the subtask list fails.
  */
-
 function removeSubtask(index, list) {
     subtasks.splice(index, 1);
     subtasksdone.splice(index, 1);
@@ -131,10 +124,7 @@ function removeSubtask(index, list) {
 
 /**
  * Prepares the application to add a new task.
- *
- * @function addTask
  */
-
 function addTask() {
     taskProgressState = 'toDo';
     taskMode = 'add';
@@ -148,10 +138,8 @@ function addTask() {
 /**
  * Prepares the application to add a new task with a specified progress state.
  *
- * @function addTaskSmallBtn
  * @param {string} state - The progress state of the new task (e.g., 'toDo', 'inProgress', 'completed').
  */
-
 function addTaskSmallBtn(state) {
     taskProgressState = state;
     taskMode = 'add';
@@ -162,11 +150,9 @@ function addTaskSmallBtn(state) {
 /**
  * Prepares the application to edit an existing task with the specified task ID.
  *
- * @function editTask
  * @param {number} taskId - The unique identifier of the task to be edited.
  * @throws {Error} Throws an error if the provided task ID is invalid or if any UI updates fail.
  */
-
 function editTask(taskId) {
     taskMode = 'edit';
     taskToEdit = user.tasks[taskId];
@@ -191,10 +177,7 @@ function editTask(taskId) {
 
 /**
  * Saves the edited task with updated information.
- *
- * @function saveEditedTask
  */
-
 function saveEditedTask() {
     let title = document.getElementById('edit-title').value;
     let description = document.getElementById('edit-description').value;
@@ -222,11 +205,9 @@ function saveEditedTask() {
 /**
  * Deletes a task with the specified task ID and performs related actions.
  *
- * @function deleteTask
  * @param {number} taskId - The unique identifier of the task to be deleted.
  * @throws {Error} Throws an error if the provided task ID is invalid or if any action fails.
  */
-
 function deleteTask(taskId) {
     user.tasks.splice(taskId, 1);
     updateUser();
@@ -239,11 +220,9 @@ function deleteTask(taskId) {
 /**
  * Populates the options of select fields in the task editing interface based on user task data.
  *
- * @function selectEditTaskOptions
  * @param {object} userTask - The user task data containing information to populate select fields.
  * @throws {Error} Throws an error if any of the select field operations fail.
  */
-
 function selectEditTaskOptions(userTask) {
     for (let i = 0; i < selectFieldIds.length; i++) {
         const actualSelectField = selectFieldIds[i];
@@ -257,10 +236,8 @@ function selectEditTaskOptions(userTask) {
 /**
  * Selects the appropriate subtask list element based on the current task mode.
  *
- * @function selectSubtaskList
  * @returns {HTMLElement} The HTML element representing the selected subtask list.
  */
-
 function selectSubtaskList() {
     let selectCorrectSubtaskList;
     if (taskMode == 'edit') {
@@ -275,12 +252,10 @@ function selectSubtaskList() {
 /**
  * Retrieves the actual value to load into a select field based on the select field identifier and user task data.
  *
- * @function getActualSelectField
  * @param {string} actualSelectField - The identifier of the select field to retrieve data for (e.g., 'edit-category', 'edit-assignedto').
  * @param {object} userTask - The user task data containing information to populate select fields.
  * @returns {string} The actual value to load into the specified select field.
  */
-
 function getActualSelectField(actualSelectField, userTask) {
     if (actualSelectField == 'edit-category') {
         actualValueToLoad = userTask.category;
@@ -294,11 +269,9 @@ function getActualSelectField(actualSelectField, userTask) {
 /**
  * Sets the selected option in a select field based on the actual value to load.
  *
- * @function setOptionsInSelect
  * @param {string} actualValueToLoad - The actual value to load into the select field.
  * @param {string} actualSelectField - The identifier of the select field to set options in.
  */
-
 function setOptionsInSelect(actualValueToLoad, actualSelectField) {
     let actualSelectFieldDocument = document.getElementById(actualSelectField);
 
@@ -318,11 +291,9 @@ function setOptionsInSelect(actualValueToLoad, actualSelectField) {
 /**
  * Prepares a subtask for editing within a specified list.
  *
- * @function editSubtask
  * @param {number} index - The index of the subtask to be edited.
  * @param {string} list - The identifier of the list containing the subtask to be edited.
  */
-
 function editSubtask(index, list) {
     let subtask = document.getElementById(`subtask${index}_${list}`);
     let editIcons = document.getElementById(`editIcons${index}_${list}`);
@@ -338,11 +309,9 @@ function editSubtask(index, list) {
 /**
  * Confirms the editing of a subtask and updates the subtask list in the specified list.
  *
- * @function confirmEditSubtask
  * @param {number} index - The index of the subtask being edited.
  * @param {string} list - The identifier of the list containing the subtask.
  */
-
 function confirmEditSubtask(index, list) {
     let editedSubtask = document.getElementById(`editSubtaskInput_${index}_${list}`);
     subtasks[index] = editedSubtask.value;
@@ -354,10 +323,8 @@ function confirmEditSubtask(index, list) {
 /**
  * Resets the form fields of either the "Add Task" or "Edit Task" form.
  *
- * @function resetForm
  * @param {string} addOrEdit - A string specifying whether to reset the "Add Task" or "Edit Task" form ('add' or 'edit').
  */
-
 function resetForm(addOrEdit) {
     if (addOrEdit == 'add') {
         document.getElementById('addTaskForm').reset();
@@ -378,7 +345,6 @@ function resetForm(addOrEdit) {
  *
  * @returns {void}
  */
-
 function setMinDate() {
     const element = document.getElementById('duedate');
 
@@ -394,5 +360,3 @@ function setMinDate() {
         clearInterval(intervalID);  // Stop the interval once the element is found and min is set
     }
 }
-
-const intervalID = setInterval(setMinDate, 100);  

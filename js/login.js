@@ -1,11 +1,9 @@
 /**
  * Switches between two forms by toggling their visibility.
  *
- * @function changeForm
  * @param {string} form1 -> The ID of the form to hide.
  * @param {string} form2 -> The ID of the form to display.
  */
-
 function changeForm(form1, form2) {
     let nodisplay = document.getElementById(form1);
     let display = document.getElementById(form2);
@@ -18,11 +16,9 @@ function changeForm(form1, form2) {
 /**
  * Updates the visibility of signup button based on the active form.
  *
- * @function checkActualForm
  * @param {string} form1 -> The ID of the form that was hidden.
  * @param {string} form2 -> The ID of the form that is active.
  */
-
 function checkActualForm(form1, form2) {
     if (form1 == 'login') {
         document.getElementById('signup-btn').classList.add('d-none');
@@ -38,10 +34,7 @@ function checkActualForm(form1, form2) {
 
 /**
  * Resets the user's password based on the provided email and new password.
- *
- * @function resetPassword
  */
-
 function resetPassword() {
     let email = document.getElementById('pwResetEmail').value;
     let password = document.getElementById('passwordReset').value;
@@ -54,13 +47,11 @@ function resetPassword() {
 /**
  * Compares and resets the password for a user if passwords match.
  *
- * @function comparePasswordsForResetPassword
  * @param {string} password -> The new password.
  * @param {string} passwordConfirm -> The confirmation of the new password.
  * @param {string} email -> The user's email address.
  * @param {HTMLElement} notice -> The notice element to display feedback.
  */
-
 function comparePasswordsForResetPassword(password, passwordConfirm, email, notice) {
     if(password == passwordConfirm) {
         let user = users.find(user => user.email == email);
@@ -77,10 +68,7 @@ function comparePasswordsForResetPassword(password, passwordConfirm, email, noti
 
 /**
  * Disables or enables a button based on the status of a checkbox.
- *
- * @function disableButton
  */
-
 function disableButton() {
     let signupbtn = document.getElementById('signup-confirm');
     if (checkPolicy.checked) {

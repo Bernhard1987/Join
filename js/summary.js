@@ -6,9 +6,7 @@
  * number of tasks, tasks in progress, tasks awaiting feedback, tasks with 'Urgent' priority,
  * task deadlines, tasks to do, tasks marked as done, and a greeting message based on the time of day.
  *
- * @function showSummaryContent
  */
-
 function showSummaryContent() {
     let totalTasks = document.getElementById('tasksInBoard');
     let tasksInProgress = document.getElementById('tasksInProgress');
@@ -39,12 +37,10 @@ function showSummaryContent() {
  * parameter matching the provided value. It is useful for summarizing tasks based on various criteria,
  * such as their status or priority.
  *
- * @function taskCounter
  * @param {string} param -> The parameter to filter tasks by (e.g., 'status', 'prio').
  * @param {string} value -> The value to match within the specified parameter (e.g., 'inProgress', 'Urgent').
  * @returns {number} -> The count of tasks that match the specified parameter and value.
  */
-
 function taskCounter(param, value) {
     let taskCounterValue = 0;
     user.tasks.forEach(task => {
@@ -63,10 +59,8 @@ function taskCounter(param, value) {
  * are tasks with due dates in the user's tasks array. It returns "No" if there are no tasks
  * with due dates.
  *
- * @function getDeadlineTask
  * @returns {string} -> The formatted due date of the upcoming task or "No" if no tasks have due dates.
  */
-
 function getDeadlineTask() {
     const currentDate = new Date()
     let acutalMinDays = Infinity;
@@ -95,11 +89,9 @@ function getDeadlineTask() {
  * This function takes a date string in "YYYY-MM-DD" format and converts it into a human-readable
  * format like "DD Month, YYYY". It is useful for presenting dates in a more user-friendly manner.
  *
- * @function formatDate
  * @param {string} dateString -> The date string in "YYYY-MM-DD" format to be formatted.
  * @returns {string} -> The formatted date in "DD Month, YYYY" format.
  */
-
 function formatDate(dateString) {
     const months = [
         "January", "February", "March", "April", "May", "June", "July",
@@ -122,10 +114,8 @@ function formatDate(dateString) {
  * This function calculates the current hour and returns a greeting based on the time of day,
  * including "Good Morning," "Good Afternoon," "Good Evening," or "Good Night."
  *
- * @function getGreetingBasedOnTime
  * @returns {string} -> A greeting based on the current time of day.
  */
-
 function getGreetingBasedOnTime() {
     const currentHour = new Date().getHours();
     let greeting;
@@ -156,10 +146,7 @@ function getGreetingBasedOnTime() {
  *
  * This asynchronous function first retrieves the user's data using `getActualUserData`,
  * and then displays the summary content using `showSummaryContent`.
- *
- * @function initSummary
  */
-   
 async function initSummary() {
     await getActualUserData();
     showSummaryContent();

@@ -17,11 +17,9 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
  * This asynchronous function sends a POST request to a specified storage URL with a payload
  * containing a key and value to set in storage. It uses a predefined token for authentication.
  *
- * @function setItem
  * @param {string} key - The key to set in storage.
  * @param {any} value - The value associated with the key to set in storage.
  */
-
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN };
     let res = await fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) });
@@ -31,11 +29,9 @@ async function setItem(key, value) {
 /**
  * Retrieves a value from storage based on a key.
  *
- * @function getItem
  * @param {string} key - The key to retrieve a value from storage.
  * @returns {Promise<any>} A promise that resolves to the retrieved value.
  */
-
 async function getItem(key) {
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
     let res = await fetch(url);
@@ -46,10 +42,7 @@ async function getItem(key) {
 
 /**
  * Collects user data from input fields and registers a new user.
- *
- * @function collectUserData
  */
-
 async function collectUserData() {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
@@ -64,11 +57,9 @@ async function collectUserData() {
 /**
  * Compares two passwords and updates the registration status.
  *
- * @function comparePasswords
  * @param {string} password -> The user's password.
  * @param {string} passwordConfirm -> The confirmation of the user's password.
  */
-
 function comparePasswords(password, passwordConfirm) {
     if (password == passwordConfirm) {
         document.getElementById('supportingText').classList.add('d-none');
@@ -83,7 +74,6 @@ function comparePasswords(password, passwordConfirm) {
 /**
  * Registers a new user if the registration flag is true.
  *
- * @function registerUser
  * @param {string} name -> The user's name.
  * @param {string} email -> The user's email address.
  * @param {string} password -> The user's password.
@@ -91,7 +81,6 @@ function comparePasswords(password, passwordConfirm) {
  * @param {number} id -> The user's unique identifier.
  * @param {string} svg -> The user's SVG avatar as a string.
  */
-
 function registerUser(name, email, password, register, svg) {
     if (register) {
         let userId = baseId;
@@ -174,11 +163,9 @@ function registerUser(name, email, password, register, svg) {
 /**
  * Updates the password for a user.
  *
- * @function updatePassword
  * @param {object} user -> The user object to update.
  * @param {string} password -> The new password to set for the user.
  */
-
 function updatePassword(user, password) {
     user.password = password;
     updateUser();
@@ -187,10 +174,7 @@ function updatePassword(user, password) {
 
 /**
  * Retrieves and loads user data from storage.
- *
- * @function getUsers
  */
-
 async function getUsers() {
     loadedUsers = await getItem('users');
     if (loadedUsers) {
@@ -204,10 +188,7 @@ async function getUsers() {
 
 /**
  * Logs in a user based on provided email and password.
- *
- * @function login
  */
-
 function login() {
     let checkbox = document.getElementById('remember').checked;
     let email = document.getElementById('emailLogin');
@@ -219,11 +200,9 @@ function login() {
 
 /**
  * Sets the login status based on user authentication and checkbox selection.
- *
- * @function setLogin
+ * 
  * @param {boolean} checkbox -> A flag indicating whether the "Remember Me" checkbox is checked.
  */
-
 function setLogin(checkbox) {
     if (loggedInUser && checkbox) {
         window.location.href = "summary.html";
@@ -241,10 +220,7 @@ function setLogin(checkbox) {
 
 /**
  * Performs a guest login using predefined guest user credentials.
- *
- * @function guestLogin
  */
-
 function guestLogin() {
     // you need to create a new user for this to work; name = 'guest', password: 'guest', after signup, change id to 'guest'
     loggedInUser = users.find(user => user.email == 'guest' && user.password == 'guest');
@@ -257,10 +233,7 @@ function guestLogin() {
 
 /**
  * Logs the user out and redirects to the index page.
- *
- * @function logout
  */
-
 function logout() {
     localStorage.removeItem('actualUser');
     sessionStorage.removeItem('actualUser');
@@ -270,10 +243,7 @@ function logout() {
 
 /**
  * Retrieves and sets the user data for the currently authenticated user.
- *
- * @function getActualUserData
  */
-
 async function getActualUserData() {
     await getUsers();
     users.forEach(thisUser => {
@@ -286,10 +256,7 @@ async function getActualUserData() {
 
 /**
  * Updates user data and stores it in storage.
- *
- * @function updateUser
  */
-
 function updateUser() {
     actualUser = localStorage.getItem('actualUser') ? localStorage.getItem('actualUser') : sessionStorage.getItem('actualUser');
     users.forEach(function (user, index) {

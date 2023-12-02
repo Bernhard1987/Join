@@ -150,7 +150,7 @@ function filterAssignees() {
  * Is only executed if it hasn't already been executed before.
  * Starts eventListeners for dropdownBox. First eventListener Toggles the visibility, 
  * second eventListener closes the dropdown if user clicks outside of it. Third
- * eventListender handles the selection of dropdown items.
+ * eventListener handles the selection of dropdown items.
  */
 function selectDropdownBox() {
     if (!dropdownBoxEventListenerStarted) {

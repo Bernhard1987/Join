@@ -3,8 +3,6 @@ let actualContact;
 
 /**
  * Adds a new contact to the user's contact list.
- *
- * @function addContact
  */
 function addContact() {
     let nameField = document.getElementById('name').value;
@@ -19,7 +17,7 @@ function addContact() {
         'phone': phoneField,
         'monogram': svg.outerHTML
     }
-    
+
     user.contacts.push(newContact);
     setItem('users', users); // allgemeiner Schlüssel für alles ;)
     showContactList();
@@ -29,9 +27,7 @@ function addContact() {
 
 
 /**
- * Resets the input fields for adding a new contact.
- *
- * @function resetAddContactInputs
+ * Resets the input fields for adding a new contact.s
  */
 function resetAddContactInputs() {
     document.getElementById('name').value = '';
@@ -42,8 +38,6 @@ function resetAddContactInputs() {
 
 /**
  * Deletes a contact from the user's contact list.
- *
- * @function deleteContact
  */
 function deleteContact() {
     contact = user.contacts.find(contact => contact.id === actualContact);
@@ -56,8 +50,6 @@ function deleteContact() {
 
 /**
  * Populates input fields with contact details for editing.
- *
- * @function editContact
  */
 function editContact() {
     contact = user.contacts.find(contact => contact.id === actualContact);
@@ -70,8 +62,6 @@ function editContact() {
 
 /**
  * Saves edited contact details and updates the contact list.
- *
- * @function saveContact
  */
 function saveContact() {
     let name = document.getElementById('edit-name').value;
@@ -92,8 +82,6 @@ function saveContact() {
 
 /**
  * Displays the user's contact list.
- *
- * @function showContactList
  */
 function showContactList() {
     let contacts = user.contacts;
@@ -110,7 +98,6 @@ function showContactList() {
 /**
  * Generates and populates a contact list based on provided contact data.
  *
- * @function generateContactList
  * @param {Array} contacts -> The array of contacts to display.
  * @param {HTMLElement} contactList -> The container element for the contact list.
  * @param {string} currentHeader -> The current header for grouping contacts.
@@ -129,7 +116,6 @@ function generateContactList(contacts, contactList, currentHeader) {
 /**
  * Adds a header element to the contact list for a new grouping letter.
  *
- * @function addFirstLetterToList
  * @param {string} firstLetter -> The first letter of a contact's name.
  * @param {string} currentHeader -> The current header letter.
  * @param {HTMLElement} contactList -> The container element for the contact list.
@@ -148,7 +134,6 @@ function addFirstLetterToList(firstLetter, currentHeader, contactList) {
 /**
  * Generates and appends a contact element to the contact list.
  *
- * @function generateContactForList
  * @param {Object} contact -> The contact object containing name, email, and monogram.
  * @param {number} index -> The index of the contact.
  * @param {HTMLElement} contactList -> The container element for the contact list.
@@ -166,7 +151,6 @@ function generateContactForList(contact, index, contactList) {
 /**
  * Displays detailed information for a contact.
  *
- * @function showContact
  * @param {number} index -> The index of the contact to display.
  */
 function showContact(id) {
@@ -181,8 +165,7 @@ function showContact(id) {
 
 /**
  * Fills the detailed view with contact information.
- *
- * @function fillDetailedView
+ * 
  * @param {Object} contact -> The contact object containing name, email, phone, and monogram.
  */
 function fillDetailedView(contact) {
@@ -200,13 +183,11 @@ function fillDetailedView(contact) {
 
 /**
  * Deletes a contact and provides a success message for mobile view.
- *
- * @function mobileDelete
  */
 function mobileDelete() {
-    deleteContact(); 
-    showContent('hide', 'options-mobile', 'd-none'); 
-    showContent('hide', 'contact-content', 'd-none'); 
+    deleteContact();
+    showContent('hide', 'options-mobile', 'd-none');
+    showContent('hide', 'contact-content', 'd-none');
     showMessage('assets/img/delete_white.svg', 'contact successfully deleted');
 }
 
@@ -217,8 +198,6 @@ function mobileDelete() {
 
 /**
  * Closes the contact details view.
- *
- * @function closeContact
  */
 function closeContact() {
     showContent('hide', 'contact-content', 'contact-content-mobile-d-none');
@@ -229,8 +208,6 @@ function closeContact() {
 
 /**
  * Displays contact details for mobile view.
- *
- * @function showMobileContact
  */
 function showMobileContact() {
     showContent('hide', 'contact-list-btn-mobile', 'contact-content-mobile-d-none');
@@ -245,7 +222,6 @@ function showMobileContact() {
 /**
  * Generates an HTML template for displaying a contact item.
  *
- * @function contactTemplate
  * @param {number} index -> The index of the contact item.
  * @param {string} name -> The name of the contact.
  * @param {string} email -> The email address of the contact.
@@ -275,7 +251,6 @@ function contactTemplate(id, name, email, monogram) {
 /**
  * Initializes the contacts feature by fetching user data and displaying the contact list.
  *
- * @function initContacts
  * @async
  */
 async function initContacts() {

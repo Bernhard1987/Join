@@ -5,7 +5,6 @@
  * initials with a randomly colored background circle. The SVG is created dynamically and can be
  * used to display user avatars or profile images.
  *
- * @function createSVGForUser
  * @param {string} name -> The name of the user for which the SVG avatar is generated.
  * @returns {SVGElement} -> An SVG element representing the user's initials with a background circle.
  */
@@ -57,7 +56,6 @@ function createSVGForUser(name) {
  * includes an SVG avatar, it adds the SVG to the specified HTML container with the ID 'account-img-container'.
  * The function is designed to handle errors gracefully and logs any encountered errors to the console.
  *
- * @function displayUserSVG
  * @throws {Error} Throws an error if there is an issue with retrieving user data or adding the SVG to the container.
  */
 

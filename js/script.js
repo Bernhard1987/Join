@@ -4,8 +4,6 @@
 
 /**
  * Initializes the web application.
- *
- * @function init
  */
 
 async function init() {
@@ -22,11 +20,9 @@ async function init() {
 /**
  * Displays a message with an icon for a limited duration.
  *
- * @function showMessage
  * @param {string} icon -> The path to the message icon image.
  * @param {string} text -> The text content of the message.
  */
-
 function showMessage(icon, text) {
     const messageDiv = document.getElementById('message');
     messageDiv.innerHTML = `<img class="" src="${icon}">`
@@ -43,12 +39,10 @@ function showMessage(icon, text) {
 /**
  * Shows or hides an HTML element by adding or removing a CSS class.
  *
- * @function showContent
  * @param {string} showOrHide -> The action to show or hide the element ('show' or 'hide').
  * @param {string} classId -> The ID of the HTML element to modify.
  * @param {string} actualClass -> The CSS class to add or remove.
  */
-
 function showContent(showOrHide, classId, actualClass) {
     if (showOrHide == 'show') {
         document.getElementById(classId).classList.remove(actualClass);
@@ -62,12 +56,10 @@ function showContent(showOrHide, classId, actualClass) {
 /**
  * Shows or hides an HTML element by adding or removing a CSS class.
  *
- * @function showContent
  * @param {string} showOrHide -> The action to show or hide the element ('show' or 'hide').
  * @param {string} classId -> The ID of the HTML element to modify.
  * @param {string} actualClass -> The CSS class to add or remove.
  */
-
 function showMenu() {
     let menu = document.getElementById('accountnav');
     let monogram = document.getElementById('account-img-container');
@@ -82,10 +74,7 @@ function showMenu() {
 
 /**
  * Checks if a user is logged in and redirects to the index page if not.
- *
- * @function checkLogin
  */
-
 function checkLogin() {
     if (window.location.pathname === '/index.html') {
     }
@@ -116,10 +105,7 @@ function isLoggedIn() {
 
 /**
  * Sets the active state for menu links based on the current page URL.
- *
- * @function setActiveLink
  */
-
 function setActiveLink() {
     if (window.location.href.indexOf('summary') != -1) {
         document.getElementById('summaryMenu').classList.add('active');
@@ -151,7 +137,6 @@ function setActiveLink() {
 /**
  * Adds the 'active' class to the menu item corresponding to the current page.
  */
-
 document.addEventListener('DOMContentLoaded', (event) => {
     setTimeout(() => {
         const currentPathname = window.location.pathname;
@@ -173,10 +158,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 /**
  * Includes HTML content from external files into specified elements.
- *
- * @function includeHTML
  */
-
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
@@ -191,6 +173,13 @@ async function includeHTML() {
     }
 }
 
+
+/**
+ * Navigates the user either back in history or to the "index.html" page based on the login status.
+ *
+ * If the user is logged in, it navigates back in the browser history. 
+ * If the user is not logged in, it redirects to the "index.html" page.
+ */
 function chooseNav() {
     if (checkLogin) {
         window.history.back()
