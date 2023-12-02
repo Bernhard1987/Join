@@ -4,6 +4,7 @@ let dropdownInput;
 let dropdownList;
 let dropdownBoxEventListenerStarted = false;
 
+
 /**
  * Selects the relevant HTML elements for displaying assigned users and updates them.
  */
@@ -12,6 +13,7 @@ function selectAssigneeElements() {
     listAssignedUsersBox();
     selectDropdownBox();
 }
+
 
 /**
  * Adds a new assignee.
@@ -32,6 +34,7 @@ function addNewAssignee(contactId) {
     assigneeInput.value = '';
     selectAssigneeElements();
 }
+
 
 /**
  * Lists assigned users and updates the corresponding HTML element.
@@ -56,6 +59,7 @@ function listAssignedUsersBox() {
     }
 }
 
+
 /**
  * Generates a list of already assigned users and updates the provided HTML element.
  * Assigned users can be contacts or the current user.
@@ -75,6 +79,7 @@ function generateAssignedUserList(assignedUsersBox) {
     }
 }
 
+
 /**
  * Deletes an assignee based on their index in the assigned users list.
  *
@@ -84,6 +89,7 @@ function deleteAssignee(i) {
     assignedUsers.splice(i, 1);
     listAssignedUsersBox();
 }
+
 
 /**
  * Displays the list of available assignees and updates the dropdown element.
@@ -108,6 +114,7 @@ function showAssigneeList() {
     }
 }
 
+
 /**
  * Selects the relevant HTML elements for the dropdown based on the editing mode.
  */
@@ -120,6 +127,7 @@ function selectDropdownBoxElement() {
         dropdownList = document.getElementById('edittask-assigned-dropdown-list');
     }
 }
+
 
 /**
  * Filters the displayed assignees based on the entered search term.

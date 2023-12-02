@@ -1,4 +1,87 @@
 /**
+ * Function displays placeholder in board (-> board.js)
+ */
+
+function displayPlaceholder() {
+    if (document.getElementById('toDo').innerHTML == '') {
+        document.getElementById('toDo').innerHTML = '<div class="board-progress-item-placeholder">No tasks in "to Do"</div>';
+    }
+    if (document.getElementById('inProgress').innerHTML == '') {
+        document.getElementById('inProgress').innerHTML = '<div class="board-progress-item-placeholder">No tasks in "in Progress"</div>';
+    }
+    if (document.getElementById('awaitingFeedback').innerHTML == '') {
+        document.getElementById('awaitingFeedback').innerHTML = '<div class="board-progress-item-placeholder">No tasks in "awaiting Feedback"</div>';
+    }
+    if (document.getElementById('done').innerHTML == '') {
+        document.getElementById('done').innerHTML = '<div class="board-progress-item-placeholder">No tasks in "done"</div>';
+    }
+}
+
+
+/**
+ * Function removes padding progress columns in board (-> board.js)
+ */
+
+function removePadding() {
+    let progressIds = ['toDo', 'awaitingFeedback', 'inProgress', 'done'];
+    progressIds.forEach(progress => {
+        if (document.getElementById(progress).innerHTML != '') {
+            document.getElementById(progress).classList.add('remove-padding-bottom');
+        } else {
+            document.getElementById(progress).classList.remove('remove-padding-bottom');
+        }
+    });
+}
+
+
+/**
+ * Function adds "box to drag" the "task item" inside in board (-> board.js)
+ */
+
+function addHighlightBox() {
+    let progressIds = ['toDo', 'inProgress', 'awaitingFeedback', 'done'];
+    progressIds.forEach(progress => {
+        document.getElementById(progress).innerHTML += `<div id="drag-area-${progress}" class="drag-area"></div>`;
+    });
+}
+
+
+/**
+ * Function fills blue progress line into progess bar (calc %) in board (-> board.js)
+ * 
+ * @param {number} id 
+ * @param {string} subtasks 
+ * @param {string} subtasksDone 
+ */
+
+function fillProgressBar(id, subtasks, subtasksDone) {
+    let percentDone = 100 / subtasks * subtasksDone;
+    let blueBar = `<div class="board-progress-item-progressbar-filled" style="width: ${percentDone}%;">`;
+    document.getElementById(`progressbar(${id})`).innerHTML = blueBar;
+}
+
+
+/**
+ * Adds prio image beneath progress bar in task card in board (-> board.js)
+ * 
+ * @param {string} prio 
+ * @returns {promise<string>}
+ */
+
+function setPrioImg(prio) {
+    if (prio == "Urgent") {
+        return `<img src="./assets/img/addtask_urgent.svg" alt="">`;
+    } else if (prio == "Medium") {
+        return `<img src="./assets/img/addtask_medium.svg" alt="">`;
+    } else if (prio == "Low") {
+        return `<img src="./assets/img/addtask_low.svg" alt="">`;
+    } else {
+        return '';
+    }
+}
+
+
+/**
  * Generates an HTML template for a subtask item with edit and delete options (-> link to addtask.js)
  *
  * @param {number} index - The index of the subtask.

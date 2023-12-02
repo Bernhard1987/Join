@@ -6,7 +6,6 @@ let actualContact;
  *
  * @function addContact
  */
-
 function addContact() {
     let nameField = document.getElementById('name').value;
     let emailField = document.getElementById('email').value;
@@ -34,7 +33,6 @@ function addContact() {
  *
  * @function resetAddContactInputs
  */
-
 function resetAddContactInputs() {
     document.getElementById('name').value = '';
     document.getElementById('email').value = '';
@@ -47,7 +45,6 @@ function resetAddContactInputs() {
  *
  * @function deleteContact
  */
-
 function deleteContact() {
     contact = user.contacts.find(contact => contact.id === actualContact);
     user.contacts.splice(contact, 1);
@@ -62,7 +59,6 @@ function deleteContact() {
  *
  * @function editContact
  */
-
 function editContact() {
     contact = user.contacts.find(contact => contact.id === actualContact);
     document.getElementById('edit-name').value = contact.name;
@@ -77,7 +73,6 @@ function editContact() {
  *
  * @function saveContact
  */
-
 function saveContact() {
     let name = document.getElementById('edit-name').value;
     let email = document.getElementById('edit-email').value;
@@ -100,7 +95,6 @@ function saveContact() {
  *
  * @function showContactList
  */
-
 function showContactList() {
     let contacts = user.contacts;
     contacts.sort((a, b) => a.name.localeCompare(b.name));
@@ -121,7 +115,6 @@ function showContactList() {
  * @param {HTMLElement} contactList -> The container element for the contact list.
  * @param {string} currentHeader -> The current header for grouping contacts.
  */
-
 function generateContactList(contacts, contactList, currentHeader) {
     for (let index = 0; index < contacts.length; index++) {
         let contact = contacts[index];
@@ -141,7 +134,6 @@ function generateContactList(contacts, contactList, currentHeader) {
  * @param {string} currentHeader -> The current header letter.
  * @param {HTMLElement} contactList -> The container element for the contact list.
  */
-
 function addFirstLetterToList(firstLetter, currentHeader, contactList) {
     if (firstLetter !== currentHeader) {
         currentHeader = firstLetter;
@@ -161,7 +153,6 @@ function addFirstLetterToList(firstLetter, currentHeader, contactList) {
  * @param {number} index -> The index of the contact.
  * @param {HTMLElement} contactList -> The container element for the contact list.
  */
-
 function generateContactForList(contact, index, contactList) {
     let name = contact.name;
     let email = contact.email;
@@ -178,7 +169,6 @@ function generateContactForList(contact, index, contactList) {
  * @function showContact
  * @param {number} index -> The index of the contact to display.
  */
-
 function showContact(id) {
     let contact = user.contacts.find(contact => contact.id === id);
     fillDetailedView(contact);
@@ -195,7 +185,6 @@ function showContact(id) {
  * @function fillDetailedView
  * @param {Object} contact -> The contact object containing name, email, phone, and monogram.
  */
-
 function fillDetailedView(contact) {
     let showContactMonogram = document.getElementById('detailed-view-monogram');
     let showContactName = document.getElementById('detailed-view-contact-name');
@@ -214,7 +203,6 @@ function fillDetailedView(contact) {
  *
  * @function mobileDelete
  */
-
 function mobileDelete() {
     deleteContact(); 
     showContent('hide', 'options-mobile', 'd-none'); 
@@ -232,7 +220,6 @@ function mobileDelete() {
  *
  * @function closeContact
  */
-
 function closeContact() {
     showContent('hide', 'contact-content', 'contact-content-mobile-d-none');
     showContent('hide', 'options-mobile', 'contact-content-mobile-d-none');
@@ -245,7 +232,6 @@ function closeContact() {
  *
  * @function showMobileContact
  */
-
 function showMobileContact() {
     showContent('hide', 'contact-list-btn-mobile', 'contact-content-mobile-d-none');
     showContent('show', 'contact-content', 'contact-content-mobile-d-none');
@@ -266,7 +252,6 @@ function showMobileContact() {
  * @param {string} monogram -> The monogram for the contact.
  * @returns {string} -> The HTML template for the contact item.
  */
-
 function contactTemplate(id, name, email, monogram) {
     return /*html*/ `   
         <div class="c-l-item" onclick="showContact(${id})">
@@ -293,7 +278,6 @@ function contactTemplate(id, name, email, monogram) {
  * @function initContacts
  * @async
  */
-
 async function initContacts() {
     await getActualUserData();
     showContactList();
