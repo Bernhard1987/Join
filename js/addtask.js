@@ -24,34 +24,27 @@ async function initAddTaskPage() {
  */
 async function addNewTask() {
     taskMode = 'add';
-    let title = document.getElementById('title').value;
-    let description = document.getElementById('description').value;
-    let category = document.getElementById('categorySelect').value;
-    let assignedto = assignedUsers;
-    let duedate = document.getElementById('duedate').value;
-    let id = baseId;
-
-    let newTask = newTaskContent(title, description, category, assignedto, duedate, prio, subtasks, subtasksdone, taskProgressState, id);
+    let newTask = newTaskContent();
 
     user.tasks.push(newTask);
     updateUser();
-    showMessage('../assets/img/board.svg', 'Task added to Board!');
-
-    if (window.location.href.indexOf('board') != -1) {
-        closeCard('addTaskBox');
-        initTasks();
-        selectAssigneeElements();
-    } else {
-        window.location.href = 'board.html';
-    }
+    actionsNewTaskDependsLocation();
     resetForm('add');
     subtasks = [];
+    showMessage('../assets/img/board.svg', 'Task added to Board!');
 }
 
 /**
  * Returns data structure for a new Task.
  */
-function newTaskContent(title, description, category, assignedto, duedate, prio, subtasks, subtasksdone, taskProgressState, id) {
+function newTaskContent() {
+    let title = document.getElementById('title').value;
+    let description = document.getElementById('description').value;
+    let category = document.getElementById('categorySelect').value;
+    let assignedto = assignedUsers;
+    let duedate = document.getElementById('duedate').value;
+    let id = Date.now();
+
     let newTask = {
         "title": title,
         "description": description,
@@ -65,6 +58,19 @@ function newTaskContent(title, description, category, assignedto, duedate, prio,
         "id": id
     }
     return newTask;
+}
+
+/**
+ * Actions after new task is created, depending on location
+ */
+function actionsNewTaskDependsLocation() {
+    if (window.location.href.indexOf('board') != -1) {
+        closeCard('addTaskBox');
+        initTasks();
+        selectAssigneeElements();
+    } else {
+        window.location.href = 'board.html';
+    }
 }
 
 
