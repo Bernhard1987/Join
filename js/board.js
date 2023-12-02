@@ -479,7 +479,6 @@ function showTask(divIdToShow) {
 function closeCard(cardid) {
     showContent('hide', cardid, 'd-none');
     showContent('hide', 'cardBgr', 'd-none');
-    removeEventListeners();
     initTasks();
 }
 

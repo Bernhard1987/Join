@@ -7,7 +7,7 @@ let taskToEdit;
 let taskProgressState;
 let dropdownInput;
 let dropdownList;
-let dropdownBoxEventListeners = [];
+let dropdownBoxEventListenerStarted = false;
 
 async function initAddTaskPage() {
     await init();
@@ -656,41 +656,36 @@ const intervalID = setInterval(setMinDate, 100);
    Everything eventListener related
    ========================================================================== */
 
+/**
+ * Is only executed if it hasn't already been executed before.
+ * Starts eventListeners for dropdownBox. First eventListener Toggles the visibility, 
+ * second eventListener closes the dropdown if user clicks outside of it. Third
+ * eventListender handles the selection of dropdown items.
+ */
 function selectDropdownBox() {
-    selectDropdownBoxElement();
+    if (!dropdownBoxEventListenerStarted) {
+        selectDropdownBoxElement();
 
-    let dropdownVisible = dropdownInput.addEventListener('click', function () {
-        // Toggle the visibility of the dropdown list
-        if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
-            dropdownList.style.display = 'block';
-        } else {
-            dropdownList.style.display = 'none';
-        }
-    });
+        dropdownInput.addEventListener('click', function () {
+            if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
+                dropdownList.style.display = 'block';
+            } else {
+                dropdownList.style.display = 'none';
+            }
+        });
 
-    // Close the dropdown if the user clicks outside of it
-    let dropdownInvisible = document.addEventListener('click', function (event) {
-        if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
-            dropdownList.style.display = 'none';
-        }
-    });
+        document.addEventListener('click', function (event) {
+            if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
+                dropdownList.style.display = 'none';
+            }
+        });
 
-    // Handle selection of dropdown items
-    let selectDropdownItem = dropdownList.addEventListener('click', function (event) {
-        if (event.target.tagName === 'LI') {
-            // dropdownInput.value = event.target.textContent;
-            dropdownList.style.display = 'none';
-        }
-    });
+        dropdownList.addEventListener('click', function (event) {
+            if (event.target.tagName === 'LI') {
+                dropdownList.style.display = 'none';
+            }
+        });
 
-    dropdownBoxEventListeners.push(dropdownVisible);
-    dropdownBoxEventListeners.push(dropdownInvisible);
-    dropdownBoxEventListeners.push(selectDropdownItem);
-}
-
-function removeEventListeners() {
-    for (let i = 0; i < dropdownBoxEventListeners.length; i++) {
-        const { target, type, listener } = dropdownBoxEventListeners[i];
-        target.removeEventListener(type, listener);
+        dropdownBoxEventListenerStarted = true;
     }
 }    
