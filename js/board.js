@@ -389,11 +389,13 @@ function showTask(divIdToShow) {
 
 
 /**
- * Adds 'display none' css class
+ * Adds 'display none' css class, resets dropdown eventlistener and calls initTasks()
  * 
  * @param {number} cardid 
  */
 function closeCard(cardid) {
+    dropdownBoxEventListenerStarted = false;
+    dropdownList.style.display = 'none';
     showContent('hide', cardid, 'd-none');
     showContent('hide', 'cardBgr', 'd-none');
     initTasks();

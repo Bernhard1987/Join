@@ -91,6 +91,9 @@ function createSubtask(list) {
     }
     else {
         document.getElementById('alert').innerHTML = 'Please enter something';
+        setTimeout(() => {
+            document.getElementById('alert').innerHTML = '';
+        }, 3000);
     }
     actualiseSubtaskList(list);
 }

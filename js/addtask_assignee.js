@@ -159,23 +159,25 @@ function selectDropdownBox() {
         dropdownInput.addEventListener('click', function () {
             if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
                 dropdownList.style.display = 'block';
+                dropdownBoxEventListenerStarted = true;
             } else {
                 dropdownList.style.display = 'none';
             }
+            console.log('eventListenerDropdownbox dropdownBoxEventListenerStarted', dropdownBoxEventListenerStarted)
         });
 
         document.addEventListener('click', function (event) {
             if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
                 dropdownList.style.display = 'none';
+                dropdownBoxEventListenerStarted = false;
             }
         });
 
         dropdownList.addEventListener('click', function (event) {
             if (event.target.tagName === 'LI') {
                 dropdownList.style.display = 'none';
+                dropdownBoxEventListenerStarted = false;
             }
         });
-
-        dropdownBoxEventListenerStarted = true;
     }
-}  
+}
