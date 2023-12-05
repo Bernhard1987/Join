@@ -2,7 +2,7 @@ let subtasks = [];
 let subtasksdone = [];
 let assignedUsers = [];
 let prio = 'Urgent';
-let taskMode; // 'add' oder 'edit'
+let taskMode = 'add'; // 'add' oder 'edit'
 let taskToEdit;
 let taskProgressState;
 const intervalID = setInterval(setMinDate, 100);

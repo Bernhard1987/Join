@@ -163,7 +163,6 @@ function selectDropdownBox() {
             } else {
                 dropdownList.style.display = 'none';
             }
-            console.log('eventListenerDropdownbox dropdownBoxEventListenerStarted', dropdownBoxEventListenerStarted)
         });
 
         document.addEventListener('click', function (event) {

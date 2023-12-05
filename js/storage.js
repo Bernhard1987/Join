@@ -222,8 +222,8 @@ function setLogin(checkbox) {
  * Performs a guest login using predefined guest user credentials.
  */
 function guestLogin() {
-    // you need to create a new user for this to work; name = 'guest', password: 'guest', after signup, change id to 'guest'
-    loggedInUser = users.find(user => user.email == 'guest' && user.password == 'guest');
+    // you need to create a new user for this to work; e-mail = 'guest', password: 'guest'
+    loggedInUser = users.find(user => user.email == 'guest@guest.com' && user.password == 'guest');
     if (loggedInUser) {
         window.location.href = "summary.html";
         sessionStorage.setItem('actualUser', loggedInUser.id);

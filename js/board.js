@@ -15,6 +15,7 @@ let currentDraggedElement = 0;
  */
 async function initTasks() {
     await getActualUserData();
+    await selectDropdownBoxElement();
     displayTasks(user.tasks);
 }
 
