@@ -104,7 +104,7 @@ function showAssigneeList() {
     }
 
     contactsDropDown.innerHTML = '';
-    contactsDropDown.innerHTML += `<li onclick="addNewAssignee('${user.id}')">${user.name}</li>`;
+    contactsDropDown.innerHTML += `<li onclick="addNewAssignee('${user.id}')">${user.name} (You)</li>`;
 
     for (let i = 0; i < contacts.length; i++) {
         const contactName = contacts[i].name;
