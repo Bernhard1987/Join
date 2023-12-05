@@ -8,11 +8,11 @@
 
 async function init() {
     checkLogin();
-    if(isLoggedIn()) {
+    if (isLoggedIn()) {
         await includeHTML();
         setActiveLink();
         await displayUserSVG();
-    showMenu();
+        showMenu();
     }
 }
 
@@ -76,20 +76,20 @@ function showMenu() {
  * Checks if a user is logged in and redirects to the index page if not.
  */
 function checkLogin() {
-    if (window.location.pathname === '/index.html') {
-    }
-    else if (window.location.pathname === '/privacy-policy.html') {
-    }
-     else if (window.location.pathname === '/legal-notice.html') {
-    }
-    else {
+    let partiallyPath = window.location.pathname.split('/');
+    let pageName = partiallyPath[partiallyPath.length - 1];
+    console.log(pageName);
+    if (!(pageName === 'index.html' ||
+        pageName === 'privacy-policy.html' ||
+        pageName === 'legal-notice.html')) {
+
         if (isLoggedIn()) {
-        return
+            return;
+        } else {
+            window.location.href = "index.html";
+        }
+
     }
-    else {
-        window.location.href = "index.html";
-    }
-}
 }
 
 function isLoggedIn() {
