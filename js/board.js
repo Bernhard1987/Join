@@ -396,6 +396,7 @@ function showTask(divIdToShow) {
 function closeCard(cardid) {
     dropdownBoxEventListenerStarted = false;
     dropdownList.style.display = 'none';
+    selectAssigneeElements();
     showContent('hide', cardid, 'd-none');
     showContent('hide', 'cardBgr', 'd-none');
     initTasks();

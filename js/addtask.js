@@ -137,6 +137,7 @@ function removeSubtask(index, list) {
 function addTask() {
     taskProgressState = 'toDo';
     taskMode = 'add';
+    assignedUsers = [];
     selectAssigneeElements();
     showTask('addTaskBox');
 
