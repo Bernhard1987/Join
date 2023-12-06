@@ -37,7 +37,7 @@ function addNewAssignee(contactId) {
 
 
 /**
- * Lists assigned users and updates the corresponding HTML element.
+ * Lists assigned users and updates the corresponding HTML element (addTask or editTask).
  * Adds a placeholder if no assignedUsers were found.
  */
 function listAssignedUsersBox() {
@@ -75,6 +75,8 @@ function generateAssignedUserList(assignedUsersBox) {
             assignedUsersBox.innerHTML += assigneeListHTMLTemplate(foundContact.name, i);
         } else if (assignedUserId === actualUser) {
             assignedUsersBox.innerHTML += assigneeListHTMLTemplate('You', i);
+        } else {
+            assignedUsersBox.innerHTML += assigneeListHTMLTemplate(`Deleted (id: ${assignedUserId})`, i);
         }
     }
 }

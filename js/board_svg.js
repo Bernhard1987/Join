@@ -43,6 +43,11 @@ function findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListed
             const result = addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, user.svg);
             collectedSVGs = result.collectedSVGs;
             currentListedItems = result.currentListedItems;
+        } else {
+            const unknownSVG = addCustomSVG('?');
+            const result = addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, unknownSVG);
+            collectedSVGs = result.collectedSVGs;
+            currentListedItems = result.currentListedItems;
         }
     }
     return { collectedSVGs, currentListedItems };
@@ -51,7 +56,7 @@ function findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListed
 
 /**
  * Checks if currentListedItems is smaller than taskAssignedTo.length. If so,
- * the subtracted number is provided to addNumberSVG() function.
+ * the subtracted number is provided to addCustomSVG() function.
  * 
  * @param {number} currentListedItems 
  * @param {array} taskAssignedTo 
@@ -61,7 +66,7 @@ function findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListed
 function setNumberSVG(currentListedItems, taskAssignedTo, collectedSVGs) {
     if (currentListedItems < taskAssignedTo.length) {
         const additionalSVGs = taskAssignedTo.length - currentListedItems;
-        collectedSVGs += addNumberSVG(additionalSVGs);
+        collectedSVGs += addCustomSVG('+', additionalSVGs);
     }
     return collectedSVGs;
 }
@@ -92,12 +97,12 @@ function addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, monogram) {
  * @param {number} result 
  * @returns 
  */
-function addNumberSVG(result) {
+function addCustomSVG(result) {
     let additionalSVG = `
     <svg width="100%" height="100%" viewBox="0 0 100 100">
         <circle cx="50" cy="50" r="40" fill="#000000"></circle>
         <text x="50" y="60" font-family="Arial" font-size="24" fill="white" text-anchor="middle">
-            +${result}
+            ${result}
         </text>
     </svg>
     `;

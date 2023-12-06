@@ -117,16 +117,27 @@ function generateContactList(contacts, contactList, currentHeader) {
     }
 }
 
-
 /**
- * Adds a header element to the contact list for a new grouping letter.
+ * Adds a header element to a contact list if the specified first letter does not
+ * already exist as a header in the list.
  *
- * @param {string} firstLetter -> The first letter of a contact's name.
- * @param {string} currentHeader -> The current header letter.
- * @param {HTMLElement} contactList -> The container element for the contact list.
+ * @param {string} firstLetter - The first letter to check and potentially add as a header.
+ * @param {string} currentHeader - The current header in the contact list.
+ * @param {HTMLElement} contactList - The HTML element representing the contact list.
+ * @returns {void} - This function does not return any value.
+ *
+ * @example
+ * // Usage example:
+ * const firstLetter = 'A';
+ * const currentHeader = 'B'; // Current header in the contact list
+ * const contactList = document.getElementById('contact-list'); // Assuming 'contact-list' is the ID of the contact list element
+ * addFirstLetterToList(firstLetter, currentHeader, contactList);
  */
 function addFirstLetterToList(firstLetter, currentHeader, contactList) {
-    if (firstLetter !== currentHeader) {
+    const existingHeaders = contactList.getElementsByClassName('contact-header');
+    console.log('existingHeaders', existingHeaders);
+    const headerExists = Array.from(existingHeaders).some(header => header.innerText === firstLetter);
+    if (!headerExists) {
         currentHeader = firstLetter;
         let headerElement = document.createElement('div');
         headerElement.classList.add('contact-header');

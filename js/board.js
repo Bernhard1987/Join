@@ -143,6 +143,8 @@ function generateTaskDetailsAssigneeList(assignedto) {
             taskDetailsAssigneeList += taskDetailsAssigneeListHTMLTemplate(foundContact.name, foundContact.monogram);
         } else if (assignedUserId === actualUser) {
             taskDetailsAssigneeList += taskDetailsAssigneeListHTMLTemplate('You', user.svg);
+        } else {
+            taskDetailsAssigneeList += taskDetailsAssigneeListHTMLTemplate(`Deleted (id: ${assignedUserId})`, addCustomSVG('?'));
         }
     }
     return taskDetailsAssigneeList;
