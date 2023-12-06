@@ -31,7 +31,7 @@ async function addNewTask() {
     actionsNewTaskDependsLocation();
     resetForm('add');
     subtasks = [];
-    showMessage('../assets/img/board.svg', 'Task added to Board!');
+    showMessage('./assets/img/board.svg', 'Task added to Board!');
 }
 
 /**

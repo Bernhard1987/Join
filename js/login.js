@@ -58,7 +58,7 @@ function comparePasswordsForResetPassword(password, passwordConfirm, email, noti
         updatePassword(user, password);
         notice.classList.add('d-none');
         changeForm('reset_pw', 'login');
-        showMessage('../assets/img/check.svg','Password changed!');
+        showMessage('./assets/img/check.svg','Password changed!');
     }
     else {
         notice.classList.remove('d-none');

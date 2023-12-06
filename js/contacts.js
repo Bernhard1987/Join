@@ -188,7 +188,7 @@ function mobileDelete() {
     deleteContact();
     showContent('hide', 'options-mobile', 'd-none');
     showContent('hide', 'contact-content', 'd-none');
-    showMessage('assets/img/delete_white.svg', 'contact successfully deleted');
+    showMessage('./assets/img/delete_white.svg', 'contact successfully deleted');
 }
 
 

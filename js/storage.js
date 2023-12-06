@@ -154,7 +154,7 @@ function registerUser(name, email, password, register, svg) {
         }
         users.push(user);
         setItem('users', JSON.stringify(users));
-        showMessage('../assets/img/register.png', 'Successfully registered!');
+        showMessage('./assets/img/register.png', 'Successfully registered!');
         changeForm('signup', 'login');
     }
 }
@@ -213,7 +213,7 @@ function setLogin(checkbox) {
         sessionStorage.setItem('actualUser', JSON.stringify(loggedInUser.id));
     }
     else {
-        showMessage('../assets/img/fail.png', 'Please check user name or password!');
+        showMessage('./assets/img/fail.png', 'Please check user name or password!');
     }
 }
 
