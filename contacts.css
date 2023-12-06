@@ -373,6 +373,11 @@
     border-radius: 50%;
 }
 
+.c-monogram svg {
+    width: 56px;
+    height: 56px;
+}
+
 .c-d-monogram {
     /* Display & box model */
     width: 120px;
