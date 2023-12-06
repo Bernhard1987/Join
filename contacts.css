@@ -329,6 +329,10 @@
     align-items: flex-start;
 }
 
+.contact-options {
+    width: 145px;
+}
+
 .contact-options-mobile-btn {
     display: none;
 }
@@ -622,6 +626,8 @@ input:focus {
 
     .contact-list-container {
         height: calc(100dvh - 80px);
+        min-width: none;
+        max-width: none;
         padding: 24px;
         box-shadow: unset;
         width: 100%;

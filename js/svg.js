@@ -14,7 +14,7 @@ function createSVGForUser(name) {
     
     // Extract the initials from the user's name
     let initials = name.split(' ').map(word => word[0]).join('');
-    initials = initials.toUpperCase();
+    initials = initials.toUpperCase().substring(0, 3);
 
     // Generate a random background color
     const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
