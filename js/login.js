@@ -39,8 +39,7 @@ function resetPassword() {
     let email = document.getElementById('pwResetEmail').value;
     let password = document.getElementById('passwordReset').value;
     let passwordConfirm = document.getElementById('passwordConfirmReset').value;
-    let notice = document.getElementById('supportingTextReset');
-    comparePasswordsForResetPassword(password, passwordConfirm, email, notice);
+    comparePasswordsForResetPassword(password, passwordConfirm, email);
 }
 
 
@@ -52,7 +51,7 @@ function resetPassword() {
  * @param {string} email -> The user's email address.
  * @param {HTMLElement} notice -> The notice element to display feedback.
  */
-function comparePasswordsForResetPassword(password, passwordConfirm, email, notice) {
+function comparePasswordsForResetPassword(password, passwordConfirm, email) {
     if(password == passwordConfirm) {
         let user = users.find(user => user.email == email);
         updatePassword(user, password);
@@ -61,7 +60,7 @@ function comparePasswordsForResetPassword(password, passwordConfirm, email, noti
         showMessage('./assets/img/check.svg','Password changed!');
     }
     else {
-        notice.classList.remove('d-none');
+        showMessage('./assets/img/fail.png', 'The passwords entered do not match');
     }
 }
 

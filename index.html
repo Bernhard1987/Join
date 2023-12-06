@@ -58,7 +58,6 @@
                 <img class="nav-icon icon-arrow" alt="Zurück" src="./assets/img/arrow-left.svg"
                     onclick="changeForm('signup', 'login')">
                 <div class="top">
-
                     <h2 class="custom-h2">Sign Up</h2>
                 </div>
                 <svg class="divider" width="154" height="4" viewBox="0 0 154 4" fill="none"
@@ -82,13 +81,12 @@
                         <input class="field" type="password" placeholder="Confirm password" id="passwordConfirm" required>
                         <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
                     </div>
-                    <div class="d-none supportingText" id="supportingText">The entered passwords do not match!</div>
                 
                 <div class="check-policy">
-                    <input id="checkPolicy" class="checkbox" type="checkbox" onchange="disableButton();" required>
+                    <input id="checkPolicy" class="checkbox" type="checkbox" required>
                     <div class="label" for="checkbox">I accept the </div><a>Privacy policy</a>
                 </div>
-                <button class="btn btn-primary" disabled id="signup-confirm" type="submit">Sign
+                <button class="btn btn-primary" type="submit">Sign
                     up</button>
                 </form>
             </div>
@@ -110,7 +108,7 @@
                         <img class="icon icon-email" src="./assets/img/mail.svg" alt="email icon">
                     </div>
                 </form>
-                <button class="btn btn-primary" id="signup-confirm" onclick="changeForm('forgot_pw', 'reset_pw')">Send me the email</button>
+                <button class="btn btn-primary" onclick="changeForm('forgot_pw', 'reset_pw')">Send me the email</button>
             </div>
 
             <div id="reset_pw" class="signup d-none">
@@ -133,9 +131,8 @@
                         <input class="field" type="password" placeholder="Confirm password" id="passwordConfirmReset" required>
                         <img class="icon icon-password" src="./assets/img/lock.svg" alt="password icon">
                     </div>
-                    <div class="d-none supportingText" id="supportingTextReset">The entered passwords do not match!</div>
                 </form>
-                <button class="btn btn-primary" id="signup-confirm" onclick="resetPassword();">Continue</button>
+                <button class="btn btn-primary" onclick="resetPassword();">Continue</button>
             </div>
 
         </div>

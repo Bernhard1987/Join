@@ -62,10 +62,9 @@ async function collectUserData() {
  */
 function comparePasswords(password, passwordConfirm) {
     if (password == passwordConfirm) {
-        document.getElementById('supportingText').classList.add('d-none');
         register = true;
     } else {
-        document.getElementById('supportingText').classList.remove('d-none');
+        showMessage('./assets/img/fail.png', 'The passwords entered do not match');
         register = false;
     }
 }

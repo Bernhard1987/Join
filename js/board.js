@@ -400,6 +400,7 @@ function closeCard(cardid) {
     selectAssigneeElements();
     showContent('hide', cardid, 'd-none');
     showContent('hide', 'cardBgr', 'd-none');
+    subtasks = [];
     initTasks();
 }
 

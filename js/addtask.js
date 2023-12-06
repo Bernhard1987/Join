@@ -29,7 +29,7 @@ async function addNewTask() {
     user.tasks.push(newTask);
     updateUser();
     actionsNewTaskDependsLocation();
-    resetForm('add');
+    resetAddForm();
     subtasks = [];
     showMessage('./assets/img/board.svg', 'Task added to Board!');
 }
@@ -331,16 +331,11 @@ function confirmEditSubtask(index, list) {
 
 
 /**
- * Resets the form fields of either the "Add Task" or "Edit Task" form.
- *
- * @param {string} addOrEdit - A string specifying whether to reset the "Add Task" or "Edit Task" form ('add' or 'edit').
+ * Resets the form fields of the "Add Task" form.
  */
-function resetForm(addOrEdit) {
-    if (addOrEdit == 'add') {
-        document.getElementById('addTaskForm').reset();
-    } else if (addOrEdit == 'edit') {
-        document.getElementById('editTaskForm').reset();
-    }
+function resetAddForm() {
+    document.getElementById('addTaskForm').reset();
+    document.getElementById('addSubtasksList').innerHTML = '';
     dropdownList.innerHTML = '';
     dropdownInput.value = '';
     assignedUsers = [];

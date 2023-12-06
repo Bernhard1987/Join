@@ -39,22 +39,6 @@
     overflow-y: auto;
 }
 
-.contact-list-container::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-.contact-list-container::-webkit-scrollbar-track {
-    background: var(--gray-light-2);
-    border-radius: 5px;
-}
-
-/* Handle */
-.contact-list-container::-webkit-scrollbar-thumb {
-    background: var(--blue-dark);
-    border-radius: 5px;
-}
-
 .contact-list-btn {
     /* Display & box model */
     display: flex;

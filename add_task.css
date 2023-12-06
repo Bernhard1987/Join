@@ -264,22 +264,6 @@ input .content {
     background-color: var(--blue-dark);
 }
 
-.assigned-dropdown-list::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-.assigned-dropdown-list::-webkit-scrollbar-track {
-    background: var(--gray-light-2);
-    border-radius: 5px;
-}
-
-/* Handle */
-.assigned-dropdown-list::-webkit-scrollbar-thumb {
-    background: var(--blue-dark);
-    border-radius: 5px;
-}
-
 .addTaskSeparator {
     width: 1px;
     height: 551px;
@@ -443,6 +427,8 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .addSubtasksList {
     width: 100%;
+    max-height: 196px;
+    overflow-y: auto;
 }
 
 /*-- Added 'position: relative' for date calendar --*/
