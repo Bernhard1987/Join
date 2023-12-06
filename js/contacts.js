@@ -40,12 +40,17 @@ function resetAddContactInputs() {
  * Deletes a contact from the user's contact list.
  */
 function deleteContact() {
-    contact = user.contacts.find(contact => contact.id === actualContact);
-    user.contacts.splice(contact, 1);
-    closeContact();
-    showContactList();
-    updateUser();
+    const index = user.contacts.findIndex(contact => contact.id === actualContact);
+    if (index !== -1) {
+        user.contacts.splice(index, 1);
+        closeContact();
+        showContactList();
+        updateUser();
+    } else {
+        console.error("Contact not found");
+    }
 }
+
 
 
 /**
@@ -156,7 +161,7 @@ function generateContactForList(contact, index, contactList) {
 function showContact(id) {
     let contact = user.contacts.find(contact => contact.id === id);
     fillDetailedView(contact);
-    document.getElementById('contact-detailed-info').classList.remove('d-none');
+    document.getElementById('contact-content').classList.remove('d-none');
     showMobileContact();
     actualContact = contact.id;
 }
@@ -200,7 +205,7 @@ function mobileDelete() {
  * Closes the contact details view.
  */
 function closeContact() {
-    showContent('hide', 'contact-content', 'contact-content-mobile-d-none');
+    showContent('hide', 'contact-content', 'd-none');
     showContent('hide', 'options-mobile', 'contact-content-mobile-d-none');
     showContent('show', 'contact-list-btn-mobile', 'contact-content-mobile-d-none');
 }

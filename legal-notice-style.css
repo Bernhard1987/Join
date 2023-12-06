@@ -89,3 +89,10 @@
     /* Other */
     background-color: var(--gray-light-1);
 }
+
+@media (max-width: 880px) {
+    .subtitle-content li::before {
+        font-size: 20px;
+        left: -24px;
+    }
+}
