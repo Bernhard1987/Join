@@ -118,16 +118,26 @@ function showAssigneeList() {
 
 
 /**
- * Selects the relevant HTML elements for the dropdown based on the editing mode.
+ * Selects the relevant HTML elements for the dropdown based on the task mode (add or edit).
+ * Uses an interval to periodically check for the existence of the required elements.
+ * The function sets global variables: `dropdownInput` and `dropdownList`.
+ * 
+ * @function
+ * @returns {void}
  */
 function selectDropdownBoxElement() {
-    if (taskMode == 'add') {
-        dropdownInput = document.getElementById('addtask-assign-new-user');
-        dropdownList = document.getElementById('addtask-assigned-dropdown-list');
-    } else if (taskMode == 'edit') {
-        dropdownInput = document.getElementById('edittask-assign-new-user');
-        dropdownList = document.getElementById('edittask-assigned-dropdown-list');
-    }
+    let checksetDropdownElementsInterval = setInterval(() => {
+        if (taskMode == 'add') {
+            dropdownInput = document.getElementById('addtask-assign-new-user');
+            dropdownList = document.getElementById('addtask-assigned-dropdown-list');
+        } else if (taskMode == 'edit') {
+            dropdownInput = document.getElementById('edittask-assign-new-user');
+            dropdownList = document.getElementById('edittask-assigned-dropdown-list');
+        }
+        if (dropdownInput && dropdownList) {
+            clearInterval(checksetDropdownElementsInterval);
+        }
+    }, 50);
 }
 
 
