@@ -14,8 +14,7 @@ function getAllSVGsForTask(task) {
     const findSVGs = findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListedItems, taskAssignedTo);
     collectedSVGs = findSVGs.collectedSVGs;
     currentListedItems = findSVGs.currentListedItems;
-
-    collectedSVGs = setNumberSVG(currentListedItems, taskAssignedTo, collectedSVGs);
+    collectedSVGs = setNumberSVG(currentListedItems, maxVisibleSVGs, collectedSVGs);
 
     return collectedSVGs;
 }
@@ -53,40 +52,38 @@ function findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListed
     return { collectedSVGs, currentListedItems };
 }
 
-
 /**
- * Checks if currentListedItems is smaller than taskAssignedTo.length. If so,
- * the subtracted number is provided to addCustomSVG() function.
- * 
- * @param {number} currentListedItems 
- * @param {array} taskAssignedTo 
- * @param {string} collectedSVGs 
- * @returns 
+ * Sets the number of SVGs based on the current listed items, maximum visible SVGs, and the collected SVGs.
+ *
+ * @param {number} currentListedItems - The current number of listed items.
+ * @param {number} maxVisibleSVGs - The maximum number of SVGs visible at a time.
+ * @param {string} collectedSVGs - The currently collected SVGs as a string.
+ * @returns {string} The updated collected SVGs string.
  */
-function setNumberSVG(currentListedItems, taskAssignedTo, collectedSVGs) {
-    if (currentListedItems < taskAssignedTo.length) {
-        const additionalSVGs = taskAssignedTo.length - currentListedItems;
-        collectedSVGs += addCustomSVG('+', additionalSVGs);
+function setNumberSVG(currentListedItems, maxVisibleSVGs, collectedSVGs) {
+    console.log(currentListedItems, maxVisibleSVGs);
+    if (currentListedItems > maxVisibleSVGs) {
+        const additionalSVGs = currentListedItems - maxVisibleSVGs;
+        collectedSVGs += addCustomSVG(`+${additionalSVGs}`);
     }
     return collectedSVGs;
 }
 
 
 /**
- * Sets the number of additional assignees if maxVisibleSVGs in getAllSVGsForTask() is higher than
- * selected value.
- * 
- * @param {*} collectedSVGs 
- * @param {*} currentListedItems 
- * @param {*} maxVisibleSVGs 
- * @param {*} monogram 
- * @returns 
+ * Adds an SVG to the collected SVGs based on the current listed items, maximum visible SVGs, and a monogram.
+ *
+ * @param {string} collectedSVGs - The currently collected SVGs as a string.
+ * @param {number} currentListedItems - The current number of listed items.
+ * @param {number} maxVisibleSVGs - The maximum number of SVGs visible at a time.
+ * @param {string} monogram - The monogram to be added as an SVG.
+ * @returns {Object} An object containing the updated collected SVGs string and the incremented currentListedItems.
  */
 function addSVG(collectedSVGs, currentListedItems, maxVisibleSVGs, monogram) {
     if (currentListedItems < maxVisibleSVGs) {
         collectedSVGs += monogram;
-        currentListedItems++;
     }
+    currentListedItems++;
     return { collectedSVGs, currentListedItems };
 }
 
