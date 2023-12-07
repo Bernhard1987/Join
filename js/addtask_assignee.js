@@ -8,10 +8,10 @@ let dropdownBoxEventListenerStarted = false;
 /**
  * Selects the relevant HTML elements for displaying assigned users and updates them.
  */
-function selectAssigneeElements() {
+async function selectAssigneeElements() {
+    await selectDropdownBox();
     showAssigneeList();
     listAssignedUsersBox();
-    selectDropdownBox();
 }
 
 
@@ -21,17 +21,10 @@ function selectAssigneeElements() {
  * @param {string} contactId - The ID of the contact to be added.
  */
 function addNewAssignee(contactId) {
-    let assigneeInput;
-    if (taskMode == 'add') {
-        assigneeInput = document.getElementById('addtask-assign-new-user');
-    } else {
-        assigneeInput = document.getElementById('edittask-assign-new-user');
-    }
-
     if (assignedUsers.indexOf(contactId) == -1) {
         assignedUsers.push(contactId);
     }
-    assigneeInput.value = '';
+    dropdownInput.value = '';
     selectAssigneeElements();
 }
 
@@ -177,12 +170,11 @@ function selectDropdownBox() {
             }
         });
 
-        document.addEventListener('click', function (event) {
-            if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
-                dropdownList.style.display = 'none';
-                dropdownBoxEventListenerStarted = false;
-            }
-        });
+        // document.addEventListener('click', function (event) {
+        //     if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
+        //         dropdownList.style.display = 'none';
+        //     }
+        // });
 
         dropdownList.addEventListener('click', function (event) {
             if (event.target.tagName === 'LI') {

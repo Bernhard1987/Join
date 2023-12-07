@@ -61,7 +61,6 @@ function findSVGsForContactsAndUser(maxVisibleSVGs, collectedSVGs, currentListed
  * @returns {string} The updated collected SVGs string.
  */
 function setNumberSVG(currentListedItems, maxVisibleSVGs, collectedSVGs) {
-    console.log(currentListedItems, maxVisibleSVGs);
     if (currentListedItems > maxVisibleSVGs) {
         const additionalSVGs = currentListedItems - maxVisibleSVGs;
         collectedSVGs += addCustomSVG(`+${additionalSVGs}`);

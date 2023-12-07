@@ -135,7 +135,6 @@ function generateContactList(contacts, contactList, currentHeader) {
  */
 function addFirstLetterToList(firstLetter, currentHeader, contactList) {
     const existingHeaders = contactList.getElementsByClassName('contact-header');
-    console.log('existingHeaders', existingHeaders);
     const headerExists = Array.from(existingHeaders).some(header => header.innerText === firstLetter);
     if (!headerExists) {
         currentHeader = firstLetter;

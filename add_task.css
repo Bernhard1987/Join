@@ -162,6 +162,8 @@ input .content {
     display: flex;
     width: 100%;
     min-height: 52px;
+    max-height: 150px; /* 196px = 4 rows / 150px = 3 rows */
+    overflow-y: auto;
     flex-wrap: wrap;
     font-family: 'Inter';
     font-size: 16px;

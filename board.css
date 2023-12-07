@@ -369,7 +369,10 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .addtask-submit-container {
-    margin-top: 140px;
+    position: absolute;
+    right: 64px;
+    bottom: 64px;
+    margin-top: 0px;
     width: unset !important;
 }
 
@@ -588,9 +591,19 @@ input[type="search"]::-webkit-search-results-decoration {
 
     .card-addtask {
         width: 100%;
-        height: 100dvh;
+        height: calc(100dvh - 80px);
+        margin-bottom: 80px;
         border-radius: 0;
         padding: 16px;
+    }
+
+    .addtask-submit-container {
+        position: absolute;
+        right: 50%;
+        left: 50%;
+        bottom: 0px;
+        margin-top: 0px;
+        width: unset !important;
     }
 }
 

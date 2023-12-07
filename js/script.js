@@ -78,7 +78,6 @@ function showMenu() {
 function checkLogin() {
     let partiallyPath = window.location.pathname.split('/');
     let pageName = partiallyPath[partiallyPath.length - 1];
-    console.log(pageName);
     if (!(pageName === 'index.html' ||
         pageName === 'privacy-policy.html' ||
         pageName === 'legal-notice.html')) {

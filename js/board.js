@@ -397,7 +397,6 @@ function showTask(divIdToShow) {
  * @param {number} cardid 
  */
 function closeCard(cardid) {
-    dropdownBoxEventListenerStarted = false;
     dropdownList.style.display = 'none';
     selectAssigneeElements();
     showContent('hide', cardid, 'd-none');
