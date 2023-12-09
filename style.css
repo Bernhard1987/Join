@@ -806,7 +806,7 @@ Media Queries / Responsiveness
     }
 
     h2 {
-        font-size: 47px;
+        font-size: 37px !important;
     }
 
     span {
