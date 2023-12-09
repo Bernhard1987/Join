@@ -605,7 +605,7 @@ input:focus {
     gap: 8px;
 }
 
-@media (max-width: 1460px) {
+@media (max-width: 1290px) {
     .dialog-add-contact {
         flex-direction: column;
         width: 100% !important;
@@ -680,9 +680,7 @@ input:focus {
         padding-right: 16px;
         padding-bottom: 8px;
     }
-}
 
-@media (max-width: 1290px) {
     h3 {
         font-size: 36px;
         font-style: normal;

@@ -340,7 +340,6 @@ input[type="search"]::-webkit-search-results-decoration {
 .card-addtask-include {
     display: flex;
     flex-direction: column;
-    height: calc(100dvh - 160px - 32px);
     justify-content: space-between;
 }
 
@@ -583,8 +582,10 @@ input[type="search"]::-webkit-search-results-decoration {
     .card-addtask-include {
         justify-content: unset;
     }
+
     form {
-        max-height: calc(100% - 160px);
+        flex: 1;
+        max-height: calc(100dvh - 260px);
     }
 }
 
@@ -595,10 +596,6 @@ input[type="search"]::-webkit-search-results-decoration {
         margin-bottom: 80px;
         border-radius: 0;
         padding: 16px;
-    }
-
-    .card-addtask-include {
-        justify-content: space-between;
     }
 
     .addtask-submit-container {
