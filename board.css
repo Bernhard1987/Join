@@ -575,26 +575,30 @@ input[type="search"]::-webkit-search-results-decoration {
 
     .addtask-form-container {
         overflow-y: auto;
-        min-height: 60dvh;
         padding-right: 8px;
     }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 1138px) {
+    .card-addtask-include {
+        justify-content: unset;
+    }
     form {
-        max-height: calc(100% - 100px);
+        max-height: calc(100% - 160px);
     }
+}
 
-    .addtask-form-container {
-        min-height: 50dvh;
-    }
-
+@media (max-width: 880px) {
     .card-addtask {
         width: 100%;
         height: calc(100dvh - 80px);
         margin-bottom: 80px;
         border-radius: 0;
         padding: 16px;
+    }
+
+    .card-addtask-include {
+        justify-content: space-between;
     }
 
     .addtask-submit-container {
@@ -704,11 +708,5 @@ input[type="search"]::-webkit-search-results-decoration {
 
     .board-all-progress-columns {
         padding-right: 12px;
-    }
-}
-
-@media (max-height: 698px) {
-    .addtask-form-container {
-        min-height: 46dvh;
     }
 }

@@ -44,10 +44,9 @@ function showMessage(icon, text) {
  * @param {string} actualClass -> The CSS class to add or remove.
  */
 function showContent(showOrHide, classId, actualClass) {
-    if (showOrHide == 'show') {
+    if (showOrHide === 'show') {
         document.getElementById(classId).classList.remove(actualClass);
-    }
-    if (showOrHide == 'hide') {
+    } else if (showOrHide === 'hide') {
         document.getElementById(classId).classList.add(actualClass);
     }
 }

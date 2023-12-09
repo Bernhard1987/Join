@@ -21,7 +21,10 @@ function addContact() {
     user.contacts.push(newContact);
     setItem('users', users); // allgemeiner Schlüssel für alles ;)
     showContactList();
-    showContent('hide', 'add-contact', 'd-none');
+    document.getElementById('add-contact-fly-in').classList.remove('open');
+    setTimeout(() => {
+        showContent('hide', 'add-contact', 'd-none');
+    }, 125);
     resetAddContactInputs();
 }
 
@@ -61,7 +64,7 @@ function editContact() {
     document.getElementById('edit-name').value = contact.name;
     document.getElementById('edit-email').value = contact.email;
     document.getElementById('edit-phone').value = contact.phone;
-    showContent('show', 'edit-contact', 'd-none');
+    openContactDialog('edit');
 }
 
 
@@ -97,6 +100,7 @@ function showContactList() {
 
     let currentHeader = '';
     generateContactList(contacts, contactList, currentHeader);
+    setActiveContactBackground();
 }
 
 
@@ -176,7 +180,18 @@ function showContact(id) {
     actualContact = contact.id;
 }
 
+function setActiveContactBackground() {
+    let contactItems = document.querySelectorAll(".c-l-item");
 
+    contactItems.forEach(function (item) {
+        item.addEventListener("mousedown", function () {
+            contactItems.forEach(function (contactItem) {
+                contactItem.classList.remove('c-l-item-active');
+            });
+            item.classList.add('c-l-item-active');
+        });
+    });
+}
 
 /**
  * Fills the detailed view with contact information.
@@ -210,6 +225,20 @@ function mobileDelete() {
 /* ==========================================================================
    CSS Class hide functions
    ========================================================================== */
+
+function openContactDialog(addOrEdit) {
+    showContent('show', `${addOrEdit}-contact`, 'd-none');
+    document.getElementById(`${addOrEdit}-contact-fly-in`).classList.add('open');
+}
+
+function closeContactDialog(addOrEdit) {
+    document.getElementById(`${addOrEdit}-contact-fly-in`).classList.remove('open');
+    document.getElementById(`${addOrEdit}-contact-fly-in`).classList.add('close');
+    setTimeout(() => {
+        showContent('hide', `${addOrEdit}-contact`, 'd-none');
+        document.getElementById(`${addOrEdit}-contact-fly-in`).classList.remove('close');
+    }, 500);
+}
 
 /**
  * Closes the contact details view.
@@ -255,8 +284,6 @@ function contactTemplate(id, name, email, monogram) {
             </div>
         </div>`;
 }
-
-
 
 
 /* ==========================================================================

@@ -21,39 +21,41 @@
     <div class="content contact-container-content">
 
         <!-- Dialog: Add contact -->
-        <div id="add-contact" class="dialog-bgr d-none">
-            <div class="dialog-add-contact">
-                <div class="add-contact-close-btn" onclick="showContent('hide', 'add-contact', 'd-none')"></div>
-                <!-- Dialog header -->
-                <div class="dialog-header">
-                    <img class="add-contact-logo" src="./assets/img/Capa 2.svg" alt="join logo">
-                    <h2 class="white">Add contact</h2>
-                    <h4 class="white">Tasks are better with a team</h4>
-                    <span class="line-blue-horizontal"></span>
-                </div>
-                <!-- Dialog textfields -->
-                <div class="dialog-content">
-                    <div class="content-row">
-                        <div class="d-c-monogram">
-                            <img src="./assets/img/person.svg" alt="person">
-                        </div>
-                        <div class="form-container column-gap-48px">
-                            <form onsubmit="addContact(); return false">
-                                <input class="input-field input-field-name" id="name" required type="text"
-                                    placeholder="Name">
-                                <input class="input-field input-field-email" id="email" required type="email"
-                                    placeholder="Email">
-                                <input class="input-field input-field-phone" id="phone" required type="number"
-                                    placeholder="Phone">
-                                <div class="row-24px">
-                                    <button class="btn-addcontact-cancel btn btn-secondary">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Create contact<img class="btn-icon"
-                                            src="./assets/img/check.svg" alt="check"></button>
-                                </div>
+        <div id="add-contact" class="dialog-bgr d-none" onclick="closeContactDialog('add')">
+            <div id="add-contact-fly-in" class="dialog-add-contact-fly-in-container" onclick="event.stopPropagation()">
+                <div class="dialog-add-contact">
+                    <div class="add-contact-close-btn" onclick="closeContactDialog('add')"></div>
+                    <!-- Dialog header -->
+                    <div class="dialog-header">
+                        <img class="add-contact-logo" src="./assets/img/Capa 2.svg" alt="join logo">
+                        <h2 class="white">Add contact</h2>
+                        <h4 class="white">Tasks are better with a team</h4>
+                        <span class="line-blue-horizontal"></span>
+                    </div>
+                    <!-- Dialog textfields -->
+                    <div class="dialog-content">
+                        <div class="content-row">
+                            <div class="d-c-monogram">
+                                <img src="./assets/img/person.svg" alt="person">
+                            </div>
+                            <div class="form-container column-gap-48px">
+                                <form onsubmit="addContact(); return false">
+                                    <input class="input-field input-field-name" id="name" required type="text"
+                                        placeholder="Name">
+                                    <input class="input-field input-field-email" id="email" required type="email"
+                                        placeholder="Email">
+                                    <input class="input-field input-field-phone" id="phone" required type="number"
+                                        placeholder="Phone">
+                                    <div class="row-24px">
+                                        <button class="btn-addcontact-cancel btn btn-secondary">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Create contact<img
+                                                class="btn-icon" src="./assets/img/check.svg" alt="check"></button>
+                                    </div>
 
-                            </form>
-                            <!-- Dialog buttons -->
+                                </form>
+                                <!-- Dialog buttons -->
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -63,36 +65,38 @@
 
         <!-- Dialog: Edit contact new -->
 
-        <div id="edit-contact" class="dialog-bgr d-none">
-            <div class="dialog-add-contact">
-                <div class="add-contact-close-btn" onclick="showContent('hide', 'edit-contact', 'd-none')"></div>
-                <!-- Dialog header -->
-                <div class="dialog-header">
-                    <img class="add-contact-logo" src="./assets/img/Capa 2.svg" alt="join logo">
-                    <h2 class="white">Edit contact</h2>
-                    <span class="line-blue-horizontal"></span>
-                </div>
-                <!-- Dialog textfields -->
-                <div class="dialog-content">
-                    <div class="content-row">
-                        <div class="d-c-monogram">
-                            <img src="./assets/img/person.svg" alt="person">
-                        </div>
-                        <div class="form-container column-gap-48px">
-                            <form action="">
-                                <input class="input-field input-field-name" id="edit-name" required type="text"
-                                    placeholder="Name">
-                                <input class="input-field input-field-email" id="edit-email" required type="email"
-                                    placeholder="Email">
-                                <input class="input-field input-field-phone" id="edit-phone" required type="number"
-                                    placeholder="Phone">
-                            </form>
-                            <!-- Dialog buttons -->
-                            <div class="row-24px">
-                                <button id="editDeleteBtn" class="btn btn-secondary"
-                                    onclick="deleteContact();">Delete</button>
-                                <button id="editSaveBtn" class="btn btn-primary" onclick="saveContact();">Save<img
-                                        class="btn-icon" src="./assets/img/check.svg" alt="check"></button>
+        <div id="edit-contact" class="dialog-bgr d-none"  onclick="closeContactDialog('edit')">
+            <div id="edit-contact-fly-in" class="dialog-add-contact-fly-in-container" onclick="event.stopPropagation()">
+                <div class="dialog-add-contact">
+                    <div class="add-contact-close-btn" onclick="closeContactDialog('edit')"></div>
+                    <!-- Dialog header -->
+                    <div class="dialog-header">
+                        <img class="add-contact-logo" src="./assets/img/Capa 2.svg" alt="join logo">
+                        <h2 class="white">Edit contact</h2>
+                        <span class="line-blue-horizontal"></span>
+                    </div>
+                    <!-- Dialog textfields -->
+                    <div class="dialog-content">
+                        <div class="content-row">
+                            <div class="d-c-monogram">
+                                <img src="./assets/img/person.svg" alt="person">
+                            </div>
+                            <div class="form-container column-gap-48px">
+                                <form action="">
+                                    <input class="input-field input-field-name" id="edit-name" required type="text"
+                                        placeholder="Name">
+                                    <input class="input-field input-field-email" id="edit-email" required type="email"
+                                        placeholder="Email">
+                                    <input class="input-field input-field-phone" id="edit-phone" required type="number"
+                                        placeholder="Phone">
+                                </form>
+                                <!-- Dialog buttons -->
+                                <div class="row-24px">
+                                    <button id="editDeleteBtn" class="btn btn-secondary"
+                                        onclick="deleteContact();">Delete</button>
+                                    <button id="editSaveBtn" class="btn btn-primary" onclick="saveContact();">Save<img
+                                            class="btn-icon" src="./assets/img/check.svg" alt="check"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,15 +109,14 @@
         <div id="contact-list-container" class="contact-list-container">
             <!-- Add button -->
             <div class="contact-list-btn contact-list-btn-d-none">
-                <button id="contact-list-btn" class="btn btn-primary"
-                    onclick="showContent('show', 'add-contact', 'd-none')">New contact<img class="btn-icon"
-                        src="./assets/img/person_add.svg" alt="person add"></button>
+                <button id="contact-list-btn" class="btn btn-primary" onclick="openContactDialog('add')">New contact<img
+                        class="btn-icon" src="./assets/img/person_add.svg" alt="person add"></button>
             </div>
             <!-- List -->
             <div id="contact-list" class="contact-list">
                 <!-- List header -->
                 <div class="c-l-header">
-                    <h6>N</h6>
+
                 </div>
             </div>
 
@@ -169,10 +172,11 @@
                     <div id="options-mobile" class="contact-options-mobile d-none">
                         <div class="contact-options-mobile-row"
                             onclick="showContent('show', 'edit-contact', 'd-none'); showContent('hide', 'options-mobile', 'd-none'); editContact(); event.stopPropagation();">
-                            <img class="btn-icon" src="./assets/img/edit.svg" alt="edit">Edit</div>
-                        <div class="contact-options-mobile-row"
-                            onclick="mobileDelete()">
-                            <img class="btn-icon" src="./assets/img/delete.svg" alt="delete">Delete</div>
+                            <img class="btn-icon" src="./assets/img/edit.svg" alt="edit">Edit
+                        </div>
+                        <div class="contact-options-mobile-row" onclick="mobileDelete()">
+                            <img class="btn-icon" src="./assets/img/delete.svg" alt="delete">Delete
+                        </div>
                     </div>
                 </div>
             </div>

@@ -107,6 +107,49 @@
     border-radius: 30px;
 }
 
+.dialog-add-contact-fly-in-container {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: translate(100%, -50%);
+    animation-duration: 0.5s;
+}
+
+.dialog-add-contact-fly-in-container.open {
+    display: flex;
+    animation-name: slideIn;
+    animation-fill-mode: forwards;
+}
+
+.dialog-add-contact-fly-in-container.close {
+    display: flex;
+    animation-name: slideOut;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translate(100%, -50%);
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        transform: translate(100%, -50%);
+    }
+}
+
 .dialog-header {
     /* Display & box model */
     display: flex;
@@ -281,17 +324,30 @@
     width: 100%;
     padding-top: 4px;
     padding-bottom: 4px;
+    padding-right: 4px;
+    margin-bottom: 4px;
     gap: 8px;
 
     /* Other */
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.125s ease-in-out;
 }
 
 .c-l-item:hover {
     /* Other */
     background-color: var(--blue-dark);
+    transition: all 0.125s ease-in-out;
+}
+
+.c-l-item-active {
+    /* Other */
+    background-color: var(--blue-dark);
+    transition: all 0.125s ease-in-out;
+}
+
+.c-l-item-active h6 {
+    color: var(--white);
 }
 
 /* Selector for element with 'name' class */
@@ -553,7 +609,12 @@ input:focus {
     .dialog-add-contact {
         flex-direction: column;
         width: 100% !important;
-        height: calc(100% - 160px);
+        height: 100%;
+    }
+
+    .dialog-add-contact-fly-in-container{
+        width: calc(100% - 596px);
+        height: calc(100% - 320px);
     }
 
     .dialog-header {
@@ -672,6 +733,16 @@ input:focus {
         font-size: 27px;
     }
 
+    .c-l-item-active {
+        /* Other */
+        background-color: var(--white);
+        transition: all 0.125s ease-in-out;
+    }
+
+    .c-l-item-active h6 {
+        color: var(--black);
+    }
+
     .contact-content-back-arrow {
         position: absolute;
         width: 36px;
@@ -710,7 +781,6 @@ input:focus {
         position: fixed;
         bottom: 32px;
         right: 16px;
-        
     }
 
     .contact-list-btn-mobile:hover {
@@ -800,6 +870,15 @@ input:focus {
 
     .dialog-bgr {
         left: 0;
+    }
+
+    .dialog-header {
+        border-radius: 0;
+    }
+
+    .dialog-add-contact-fly-in-container{
+        width: 100%;
+        height: 100%;
     }
 }
 
