@@ -126,8 +126,7 @@ input .content {
 
 .addtask-headline-container {
     display: flex;
-    justify-content: left;
-    width: 1000px;
+    justify-content: left; 
 }
 
 .addtask-form-container {
@@ -456,12 +455,8 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 @media (max-width: 1260px) {
     .addtask-headline-container {
+        margin-left: 0;
         width: 100%;
-        margin-bottom: 16px;
-    }
-
-    .addtask-separator {
-        margin: 0 16px 0 16px;
     }
 
     .addtask-submit-container {
@@ -469,12 +464,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
         margin-bottom: 16px;
     }
 
-    .addtask-priority-container button {
-        width: 30%;
-    }
-}
-
-@media (max-width: 1138px) {
     .content {
         margin-left: 270px;
         margin-right: 16px;
@@ -510,7 +499,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 @media (max-width: 880px) {
-
     .content {
         margin-left: 0px;
         margin-right: 0px;
@@ -525,16 +513,19 @@ input[type='date']::-webkit-calendar-picker-indicator {
     }
 }
 
-@media (max-width: 396px) {
-    .addtask-headline-container {
-        padding-left: 0px;
-    }
-
+@media (max-width: 470px) {
     .addtask-priority-container {
         flex-direction: column;
+        width: 100%;
     }
 
     .addtask-priority-container button {
         width: 100%;
+    }
+}
+
+@media (max-width: 396px) {
+    .addtask-headline-container {
+        padding-left: 0px;
     }
 }

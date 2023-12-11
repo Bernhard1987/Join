@@ -4,7 +4,6 @@ h5 {
 
 form {
     display: flex;
-    height: calc(100% - 60px);
 }
 
 .dnone {
@@ -329,8 +328,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .card-addtask-fly-in-container {
     display: none;
     position: fixed;
-    max-height: calc(100vh - 160px);
-    right: 0;
+    height: 866px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -401,7 +399,8 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .card-taskinfo {
     display: inline-flex;
-    width: 523px;
+    max-width: 832px;
+    min-width: 720px;
     max-height: calc(100% - 200px);
     padding: 50px;
     padding-bottom: 100px;
@@ -591,14 +590,15 @@ input[type="search"]::-webkit-search-results-decoration {
     }
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1260px) {  
     .card-addtask {
-        max-height: 100dvh;
+        width: 840px;
     }
 
     .addtask-form-container {
         overflow-y: auto;
-        padding-right: 8px;
+        max-height: 590px;
+        padding-right: 4px;
     }
 }
 
@@ -606,20 +606,41 @@ input[type="search"]::-webkit-search-results-decoration {
     .card-addtask-include {
         justify-content: unset;
     }
-
-    form {
-        flex: 1;
-        max-height: calc(100dvh - 260px);
-    }
 }
 
 @media (max-width: 880px) {
+    .addtask-form-container {
+        max-height: calc(100dvh - 218px);
+    }
+
+    .card-addtask-fly-in-container {
+        max-height: calc(100dvh - 160px);
+        height: unset;
+    }
     .card-addtask {
-        width: 100%;
+        width: 100vw;
         height: calc(100dvh - 80px);
+        transform: translateY(-80px);
         margin-bottom: 80px;
         border-radius: 0;
         padding: 16px;
+    }
+
+    .card-taskinfo {
+        width: 100vw;
+        height: calc(100vh - 80px);
+        transform: translateY(-80px);
+        max-height: unset;
+        max-width: unset;
+        min-width: unset;
+        border-radius: 0;
+        padding: 16px;
+        padding-bottom: 68px;
+        margin-bottom: 80px;
+    }
+
+    .card-taskinfo-btns {
+        bottom: 16px;
     }
 
     .addtask-submit-container {
@@ -703,22 +724,6 @@ input[type="search"]::-webkit-search-results-decoration {
     .board-progress-item-list::-webkit-scrollbar {
         display: none;
     }
-}
-
-@media (max-width: 550px) {
-    .card-taskinfo {
-        width: 100%;
-        height: calc(100vh - 80px);
-        max-height: unset;
-        border-radius: 0;
-        padding: 16px;
-        padding-bottom: 68px;
-        margin-bottom: 80px;
-    }
-
-    .card-taskinfo-btns {
-        bottom: 16px;
-    } 
 }
 
 @media (max-width: 406px) {
