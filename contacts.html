@@ -121,7 +121,7 @@
             </div>
 
             <div id="contact-list-btn-mobile" class="contact-list-btn-mobile"
-                onclick="showContent('show', 'add-contact', 'd-none')"></div>
+                onclick="openContactDialog('add')"></div>
         </div>
 
         <!-- Contact content -->
@@ -147,7 +147,7 @@
                             <!-- Buttons -->
                             <div class="row-16px contact-options">
                                 <button id="detailed-edit-button" class="btn btn-tetriary"
-                                    onclick="showContent('show', 'edit-contact', 'd-none'); editContact();"><img
+                                    onclick="openContactDialog('edit'); editContact();"><img
                                         class="btn-icon" src="./assets/img/edit.svg" alt="edit">Edit</button>
                                 <button id="detailed-delete-button" class="btn btn-tetriary"
                                     onclick="deleteContact(); showMessage('./assets/img/delete_white.svg', 'contact successfully deleted')"><img
@@ -171,7 +171,7 @@
                 <div id="mobile-menu-bgr" class="d-none" onclick="showContent('hide', 'options-mobile', 'd-none')">
                     <div id="options-mobile" class="contact-options-mobile d-none">
                         <div class="contact-options-mobile-row"
-                            onclick="showContent('show', 'edit-contact', 'd-none'); showContent('hide', 'options-mobile', 'd-none'); editContact(); event.stopPropagation();">
+                            onclick="openContactDialog('edit'); showContent('hide', 'options-mobile', 'd-none'); editContact(); event.stopPropagation();">
                             <img class="btn-icon" src="./assets/img/edit.svg" alt="edit">Edit
                         </div>
                         <div class="contact-options-mobile-row" onclick="mobileDelete()">

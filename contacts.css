@@ -888,6 +888,22 @@ input:focus {
     }
 }
 
+@media (max-height: 904px) {
+    .dialog-add-contact {
+        height: 100dvh;
+    }
+    
+    .dialog-header {
+        max-height: 45vh;
+        min-height: 200px;
+    }
+
+    .dialog-content {
+        margin-bottom: 80px;
+        height: 420px;
+    }
+}
+
 @media (max-height: 720px) {
     .contact-content {
         padding-top: 32px;
