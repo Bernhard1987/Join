@@ -358,6 +358,13 @@ function checkColorizeCategoryLocation(location) {
    CSS Class hide functions
    ========================================================================== */
 
+/**
+ * Opens a task dialog based on the specified container ID and task ID or progress state.
+ *
+ * @param {string} containerId - The ID of the container ('add', 'edit', or 'details').
+ * @param {string|number} taskIdOrProgressState - The ID of the task or the progress state.
+ * @returns {void}
+ */
 function openTaskDialog(containerId, taskIdOrProgressState) {
     showContent('show', 'cardBgr', 'd-none');
     if (containerId == 'add') {
@@ -369,12 +376,26 @@ function openTaskDialog(containerId, taskIdOrProgressState) {
     }
 }
 
+
+/**
+ * Opens the "Add Task" dialog, sets its visibility, and triggers the addition of a task.
+ *
+ * @param {string|number} taskIdOrProgressState - The ID of the task or the progress state.
+ * @returns {void}
+ */
 function openDialogAddTask(taskIdOrProgressState) {
     document.getElementById('addtask-fly-in').classList.add('open');
     showContent('show', 'addTaskBox', 'd-none');
     addTask(taskIdOrProgressState);
 }
 
+
+/**
+ * Opens the "Edit Task" dialog, sets its visibility, and triggers the editing of a task.
+ *
+ * @param {string|number} taskIdOrProgressState - The ID of the task or the progress state.
+ * @returns {void}
+ */
 function openDialogEditTask(taskIdOrProgressState) {
     showContent('hide', 'cardTaskDetails', 'd-none');
     editTask(taskIdOrProgressState);
@@ -382,6 +403,13 @@ function openDialogEditTask(taskIdOrProgressState) {
         showContent('show', 'editTaskBox', 'd-none');
 }
 
+
+/**
+ * Opens the "Task Details" dialog, sets its visibility, and displays task details.
+ *
+ * @param {string|number} taskIdOrProgressState - The ID of the task or the progress state.
+ * @returns {void}
+ */
 function openDialogTaskDetails(taskIdOrProgressState) {
     console.log('openTaskDialog show details');
     document.getElementById('detailstask-fly-in').classList.add('open');
@@ -389,6 +417,12 @@ function openDialogTaskDetails(taskIdOrProgressState) {
     showTaskDetails(taskIdOrProgressState);
 }
 
+
+/**
+ * Closes the task dialog by removing the 'open' class and triggering its hiding.
+ *
+ * @returns {void}
+ */
 function closeTaskDialog() {
     let dialogs = ['add', 'edit', 'details'];
     for (let i = 0; i < dialogs.length; i++) {
@@ -396,15 +430,26 @@ function closeTaskDialog() {
         document.getElementById(`${dialog}task-fly-in`).classList.remove('open');
         document.getElementById(`${dialog}task-fly-in`).classList.add('close');
         setTimeout(() => {
-            if (dialog == 'add' || dialog == 'edit') {
-                showContent('hide', `${dialog}TaskBox`, 'd-none');
-            } else if (dialog == 'details') {
-                showContent('hide', `cardTaskDetails`, 'd-none');
-            }
-            document.getElementById(`${dialog}task-fly-in`).classList.remove('close');
-            showContent('hide', 'cardBgr', 'd-none');
+            hideTaskDialog(dialog);
         }, 500);
     }
+}
+
+
+/**
+ * Hides the specified task dialog by adjusting visibility and removing the 'close' class.
+ *
+ * @param {string} dialog - The type of task dialog ('add', 'edit', or 'details').
+ * @returns {void}
+ */
+function hideTaskDialog(dialog) {
+    if (dialog == 'add' || dialog == 'edit') {
+        showContent('hide', `${dialog}TaskBox`, 'd-none');
+    } else if (dialog == 'details') {
+        showContent('hide', `cardTaskDetails`, 'd-none');
+    }
+    document.getElementById(`${dialog}task-fly-in`).classList.remove('close');
+    showContent('hide', 'cardBgr', 'd-none');
 }
 
 /**

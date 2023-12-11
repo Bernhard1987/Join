@@ -623,7 +623,7 @@ input[type="search"]::-webkit-search-results-decoration {
         transform: translateY(-80px);
         margin-bottom: 80px;
         border-radius: 0;
-        padding: 16px;
+        padding: 16px 4px 16px 16px;
     }
 
     .card-taskinfo {

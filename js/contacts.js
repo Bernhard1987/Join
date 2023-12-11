@@ -180,6 +180,17 @@ function showContact(id) {
     actualContact = contact.id;
 }
 
+
+/**
+ * Sets the background style to indicate an active state for the clicked contact item.
+ *
+ * This function adds a 'mousedown' event listener to each contact item with the class 'c-l-item'.
+ * When a contact item is clicked, it removes the 'c-l-item-active' class from all contact items
+ * and adds the 'c-l-item-active' class to the clicked item, indicating it as the active contact.
+ *
+ * @function
+ * @returns {void}
+ */
 function setActiveContactBackground() {
     let contactItems = document.querySelectorAll(".c-l-item");
 
@@ -226,11 +237,28 @@ function mobileDelete() {
    CSS Class hide functions
    ========================================================================== */
 
+/**
+ * Opens the contact dialog for adding or editing contacts.
+ *
+ * This function displays the specified contact dialog and adds the 'open' class to the corresponding fly-in element.
+ *
+ * @param {string} addOrEdit - Specifies whether the dialog is for adding or editing contacts ('add' or 'edit').
+ * @returns {void}
+ */
 function openContactDialog(addOrEdit) {
     showContent('show', `${addOrEdit}-contact`, 'd-none');
     document.getElementById(`${addOrEdit}-contact-fly-in`).classList.add('open');
 }
 
+/**
+ * Closes the contact dialog for adding or editing contacts.
+ *
+ * This function removes the 'open' class and adds the 'close' class to the corresponding fly-in element,
+ * then triggers hiding the contact dialog after a delay.
+ *
+ * @param {string} addOrEdit - Specifies whether the dialog is for adding or editing contacts ('add' or 'edit').
+ * @returns {void}
+ */
 function closeContactDialog(addOrEdit) {
     document.getElementById(`${addOrEdit}-contact-fly-in`).classList.remove('open');
     document.getElementById(`${addOrEdit}-contact-fly-in`).classList.add('close');
