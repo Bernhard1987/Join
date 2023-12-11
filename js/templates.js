@@ -118,7 +118,7 @@ function getSubtaskTemplate(index, list) {
 
 function taskHTMLTemplate(id, category, title, description, prio, svg, subtasks, subtasksDone) {
     let taskTemplate = /*html*/ `
-        <div id="${title}" onclick="showTaskDetails(${id})" draggable="true" ondragstart="startDragging('${id}')" class="board-progress-item">
+        <div id="${title}" onclick="openTaskDialog('details', ${id})" draggable="true" ondragstart="startDragging('${id}')" class="board-progress-item">
             <div class="board-progress-item-category">
                 <div id="category-id(${id})" class="category-btn">${category}</div>
             </div>
@@ -190,10 +190,10 @@ function taskDetailsHTMLTemplate(taskId, title, description, category, duedate, 
                     <ul id="subTaskList">
                     </ul>
             </div>
-            <div class="card-close" onclick="closeCard('cardTaskDetails')"></div>
+            <div class="card-close" onclick="closeTaskDialog()"></div>
             <div class="card-taskinfo-btns">
                 <div class="card-taskinfo-btn-delete" onclick="deleteTask(${taskId})"></div>
-                <div class="card-taskinfo-btn-edit" onclick="editTask(${taskId})"></div>
+                <div class="card-taskinfo-btn-edit" onclick="openTaskDialog('edit', ${taskId})"></div>
             </div>
         </div>
 

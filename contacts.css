@@ -130,26 +130,6 @@
     animation-fill-mode: forwards;
 }
 
-@keyframes slideIn {
-    from {
-        transform: translate(100%, -50%);
-    }
-
-    to {
-        transform: translate(-50%, -50%);
-    }
-}
-
-@keyframes slideOut {
-    from {
-        transform: translate(-50%, -50%);
-    }
-
-    to {
-        transform: translate(100%, -50%);
-    }
-}
-
 .dialog-header {
     /* Display & box model */
     display: flex;
@@ -892,7 +872,7 @@ input:focus {
     .dialog-add-contact {
         height: 100dvh;
     }
-    
+
     .dialog-header {
         max-height: 45vh;
         min-height: 200px;

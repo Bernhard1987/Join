@@ -875,6 +875,32 @@ Media Queries / Responsiveness
     }
 }
 
+    /* keyframes for slide animation
+   ========================================================================== */
+
+@keyframes slideIn {
+    from {
+        transform: translate(100%, -50%);
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        transform: translate(100%, -50%);
+    }
+}
+
+    /* @media ...
+   ========================================================================== */
+
 @media (max-width: 480px) {
     .full-height {
         margin-left: 16px;

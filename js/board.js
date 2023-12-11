@@ -122,7 +122,6 @@ async function showTaskDetails(id) {
 
     listSubtasks(idInArray);
     subtaskCheckboxCheck(idInArray);
-    showTask('cardTaskDetails');
     taskprioImageIntoId(prio);
 
     colorizeCategory(category, idInArray, 'showTaskDetails');
@@ -359,6 +358,55 @@ function checkColorizeCategoryLocation(location) {
    CSS Class hide functions
    ========================================================================== */
 
+function openTaskDialog(containerId, taskIdOrProgressState) {
+    showContent('show', 'cardBgr', 'd-none');
+    if (containerId == 'add') {
+        openDialogAddTask(taskIdOrProgressState);
+    } else if (containerId == 'edit') {
+        openDialogEditTask(taskIdOrProgressState);
+    } else if (containerId == 'details') {
+        openDialogTaskDetails(taskIdOrProgressState);
+    }
+}
+
+function openDialogAddTask(taskIdOrProgressState) {
+    document.getElementById('addtask-fly-in').classList.add('open');
+    showContent('show', 'addTaskBox', 'd-none');
+    addTask(taskIdOrProgressState);
+}
+
+function openDialogEditTask(taskIdOrProgressState) {
+    showContent('hide', 'cardTaskDetails', 'd-none');
+    editTask(taskIdOrProgressState);
+        document.getElementById('edittask-fly-in').classList.add('open');
+        showContent('show', 'editTaskBox', 'd-none');
+}
+
+function openDialogTaskDetails(taskIdOrProgressState) {
+    console.log('openTaskDialog show details');
+    document.getElementById('detailstask-fly-in').classList.add('open');
+    showContent('show', 'cardTaskDetails', 'd-none');
+    showTaskDetails(taskIdOrProgressState);
+}
+
+function closeTaskDialog() {
+    let dialogs = ['add', 'edit', 'details'];
+    for (let i = 0; i < dialogs.length; i++) {
+        const dialog = dialogs[i];
+        document.getElementById(`${dialog}task-fly-in`).classList.remove('open');
+        document.getElementById(`${dialog}task-fly-in`).classList.add('close');
+        setTimeout(() => {
+            if (dialog == 'add' || dialog == 'edit') {
+                showContent('hide', `${dialog}TaskBox`, 'd-none');
+            } else if (dialog == 'details') {
+                showContent('hide', `cardTaskDetails`, 'd-none');
+            }
+            document.getElementById(`${dialog}task-fly-in`).classList.remove('close');
+            showContent('hide', 'cardBgr', 'd-none');
+        }, 500);
+    }
+}
+
 /**
  * Adds highlight effect to drag-n-drop columns
  * 
@@ -375,19 +423,6 @@ function highlight(id) {
  */
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
-}
-
-
-/**
- * This function removes 'display none' css class form tasks (pop up/dialog + background)
- * 
- * @param {string} divIdToShow 
- */
-function showTask(divIdToShow) {
-    let taskBox = document.getElementById(divIdToShow);
-    let card = document.getElementById('cardBgr');
-    taskBox.classList.remove('d-none');
-    card.classList.remove('d-none');
 }
 
 

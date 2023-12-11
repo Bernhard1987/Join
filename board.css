@@ -326,6 +326,30 @@ input[type="search"]::-webkit-search-results-decoration {
     z-index: 99;
 }
 
+.card-addtask-fly-in-container {
+    display: none;
+    position: fixed;
+    max-height: calc(100vh - 160px);
+    right: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: translate(100%, -50%);
+    animation-duration: 0.5s;
+}
+
+.card-addtask-fly-in-container.open {
+    display: flex;
+    animation-name: slideIn;
+    animation-fill-mode: forwards;
+}
+
+.card-addtask-fly-in-container.close {
+    display: flex;
+    animation-name: slideOut;
+    animation-fill-mode: forwards;
+}
+
 .card-addtask {
     display: flex;
     flex-direction: column;

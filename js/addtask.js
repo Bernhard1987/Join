@@ -134,12 +134,15 @@ function removeSubtask(index, list) {
 /**
  * Prepares the application to add a new task.
  */
-function addTask() {
-    taskProgressState = 'toDo';
+function addTask(progressState) {
+    if(progressState) {
+            taskProgressState = progressState;
+    } else {
+        taskProgressState = 'toDo';
+    }
     taskMode = 'add';
     assignedUsers = [];
     selectAssigneeElements();
-    showTask('addTaskBox');
 
     document.getElementById('addSubtasksList').innerHTML = '';
 }
@@ -153,7 +156,6 @@ function addTask() {
 function addTaskSmallBtn(state) {
     taskProgressState = state;
     taskMode = 'add';
-    showTask('addTaskBox');
 }
 
 
@@ -178,10 +180,6 @@ function editTask(taskId) {
     document.getElementById('editSubtasksList').innerHTML = actualiseSubtaskList('editSubtasksList');
     listEditSubtasks(taskId);
     subtasks = user.tasks[taskId].subtasks;
-
-    showContent('hide', 'cardTaskDetails', 'd-none');
-    showContent('show', 'editTaskBox', 'd-none');
-    showContent('show', 'cardBgr', 'd-none');
 }
 
 
