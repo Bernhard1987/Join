@@ -15,8 +15,8 @@ let currentDraggedElement = 0;
  */
 async function initTasks() {
     await getActualUserData();
-    await selectDropdownBoxElement();
-    displayTasks(user.tasks);
+    await displayTasks(user.tasks);
+    await selectAssigneeElements();
 }
 
 
@@ -378,7 +378,7 @@ function openTaskDialog(containerId, taskIdOrProgressState) {
 
 
 /**
- * Opens the "Add Task" dialog, sets its visibility, and triggers the addition of a task.
+ * Opens the "Add Task" dialog, sets its visibility.
  *
  * @param {string|number} taskIdOrProgressState - The ID of the task or the progress state.
  * @returns {void}
@@ -391,7 +391,7 @@ function openDialogAddTask(taskIdOrProgressState) {
 
 
 /**
- * Opens the "Edit Task" dialog, sets its visibility, and triggers the editing of a task.
+ * Opens the "Edit Task" dialog, sets its visibility.
  *
  * @param {string|number} taskIdOrProgressState - The ID of the task or the progress state.
  * @returns {void}
@@ -399,8 +399,8 @@ function openDialogAddTask(taskIdOrProgressState) {
 function openDialogEditTask(taskIdOrProgressState) {
     showContent('hide', 'cardTaskDetails', 'd-none');
     editTask(taskIdOrProgressState);
-        document.getElementById('edittask-fly-in').classList.add('open');
-        showContent('show', 'editTaskBox', 'd-none');
+    document.getElementById('edittask-fly-in').classList.add('open');
+    showContent('show', 'editTaskBox', 'd-none');
 }
 
 
@@ -411,7 +411,6 @@ function openDialogEditTask(taskIdOrProgressState) {
  * @returns {void}
  */
 function openDialogTaskDetails(taskIdOrProgressState) {
-    console.log('openTaskDialog show details');
     document.getElementById('detailstask-fly-in').classList.add('open');
     showContent('show', 'cardTaskDetails', 'd-none');
     showTaskDetails(taskIdOrProgressState);

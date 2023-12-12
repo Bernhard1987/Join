@@ -8,8 +8,8 @@ let dropdownBoxEventListenerStarted = false;
 /**
  * Selects the relevant HTML elements for displaying assigned users and updates them.
  */
-async function selectAssigneeElements() {
-    await selectDropdownBox();
+function selectAssigneeElements() {
+    selectDropdownBox();
     showAssigneeList();
     listAssignedUsersBox();
 }
@@ -31,7 +31,6 @@ function addNewAssignee(contactId) {
 
 /**
  * Lists assigned users and updates the corresponding HTML element (addTask or editTask).
- * Adds a placeholder if no assignedUsers were found.
  */
 function listAssignedUsersBox() {
     let assignedUsersBox;
@@ -40,7 +39,17 @@ function listAssignedUsersBox() {
     } else {
         assignedUsersBox = document.getElementById('edittask-assigned-users-box');
     }
+    checkAssignedUsersLength(assignedUsers, assignedUsersBox);
+}
 
+
+/**
+ * Adds a placeholder if no assignedUsers were found.
+ * 
+ * @param {array} assignedUsers - assignedUsers of a task
+ * @param {id} assignedUsersBox  - id of html element assigned users box
+ */
+function checkAssignedUsersLength(assignedUsers, assignedUsersBox) {
     if (assignedUsers.length === 0) {
         assignedUsersBox.innerHTML = `
             <div class="assigned-users-placeholder">
@@ -98,15 +107,24 @@ function showAssigneeList() {
         contactsDropDown = document.getElementById('edittask-assigned-dropdown-list');
     }
 
-    contactsDropDown.innerHTML = '';
-    contactsDropDown.innerHTML += `<li onclick="addNewAssignee('${user.id}')">${user.name} (You)</li>`;
+    addAssigneeToAssigneeList(contactsDropDown, contacts);
+}
 
-    for (let i = 0; i < contacts.length; i++) {
-        const contactName = contacts[i].name;
-        const contactId = contacts[i].id;
-        contactsDropDown.innerHTML +=
-            `<li onclick="addNewAssignee(${contactId})">${contactName}</li>`;
-    }
+function addAssigneeToAssigneeList(contactsDropDown, contacts) {
+    let assigneeListInterval = setInterval(() => {
+        if (contactsDropDown) {
+            contactsDropDown.innerHTML = '';
+            contactsDropDown.innerHTML += `<li onclick="addNewAssignee('${user.id}')">${user.name} (You)</li>`;
+
+            for (let i = 0; i < contacts.length; i++) {
+                const contactName = contacts[i].name;
+                const contactId = contacts[i].id;
+                contactsDropDown.innerHTML +=
+                    `<li onclick="addNewAssignee(${contactId})">${contactName}</li>`;
+            }
+            clearInterval(assigneeListInterval);
+        }
+    }, 50);
 }
 
 
@@ -153,34 +171,53 @@ function filterAssignees() {
 
 /**
  * Is only executed if it hasn't already been executed before.
- * Starts eventListeners for dropdownBox. First eventListener Toggles the visibility, 
- * second eventListener closes the dropdown if user clicks outside of it. Third
- * eventListener handles the selection of dropdown items.
  */
-function selectDropdownBox() {
+async function selectDropdownBox() {
     if (!dropdownBoxEventListenerStarted) {
-        selectDropdownBoxElement();
+        await selectDropdownBoxElement();
 
-        dropdownInput.addEventListener('click', function () {
-            if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
-                dropdownList.style.display = 'block';
-                dropdownBoxEventListenerStarted = true;
-            } else {
-                dropdownList.style.display = 'none';
-            }
-        });
-
-        // document.addEventListener('click', function (event) {
-        //     if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
-        //         dropdownList.style.display = 'none';
-        //     }
-        // });
-
-        dropdownList.addEventListener('click', function (event) {
-            if (event.target.tagName === 'LI') {
-                dropdownList.style.display = 'none';
-                dropdownBoxEventListenerStarted = false;
-            }
-        });
+        if (dropdownInput && dropdownList) {
+            addDropdownEventListenerStart(dropdownInput, dropdownList);
+            addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownList);
+            addDropdownEventListenerCloseByClickOnLI(dropdownList);
+        }
     }
+}
+
+/**
+ * First eventListener for dropdownBox. Toggles the visibility.
+ */
+function addDropdownEventListenerStart(dropdownInput, dropdownList) {
+    dropdownInput.addEventListener('click', function () {
+        if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
+            dropdownList.style.display = 'block';
+            dropdownBoxEventListenerStarted = true;
+        } else {
+            dropdownList.style.display = 'none';
+        }
+    });
+}
+
+/**
+ * Second eventListener closes the dropdown if user clicks outside of it.
+ */
+function addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownList) {
+    document.addEventListener('click', function (event) {
+        if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
+            dropdownList.style.display = 'none';
+            dropdownBoxEventListenerStarted = false;
+        }
+    });
+}
+
+/**
+ * Third eventListener handles the selection of dropdown items.
+ */
+function addDropdownEventListenerCloseByClickOnLI(dropdownList) {
+    dropdownList.addEventListener('click', function (event) {
+        if (event.target.tagName === 'LI') {
+            dropdownList.style.display = 'none';
+            dropdownBoxEventListenerStarted = false;
+        }
+    });
 }

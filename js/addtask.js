@@ -19,10 +19,8 @@ async function initAddTaskPage() {
 
 /**
  * Adds a new task to the user's task list and updates the user data.
- *
- * @async
  */
-async function addNewTask() {
+function addNewTask() {
     taskMode = 'add';
     let newTask = newTaskContent();
 
@@ -134,7 +132,7 @@ function removeSubtask(index, list) {
 /**
  * Prepares the application to add a new task.
  */
-function addTask(progressState) {
+async function addTask(progressState) {
     if(progressState) {
             taskProgressState = progressState;
     } else {
@@ -142,7 +140,7 @@ function addTask(progressState) {
     }
     taskMode = 'add';
     assignedUsers = [];
-    selectAssigneeElements();
+    await selectAssigneeElements();
 
     document.getElementById('addSubtasksList').innerHTML = '';
 }
@@ -165,11 +163,11 @@ function addTaskSmallBtn(state) {
  * @param {number} taskId - The unique identifier of the task to be edited.
  * @throws {Error} Throws an error if the provided task ID is invalid or if any UI updates fail.
  */
-function editTask(taskId) {
+async function editTask(taskId) {
     taskMode = 'edit';
     taskToEdit = user.tasks[taskId];
     assignedUsers = taskToEdit.assignedto;
-    selectAssigneeElements();
+    await selectAssigneeElements();
 
     document.getElementById('edit-title').value = taskToEdit.title;
     document.getElementById('edit-description').value = taskToEdit.description;
@@ -186,7 +184,7 @@ function editTask(taskId) {
 /**
  * Saves the edited task with updated information.
  */
-function saveEditedTask() {
+async function saveEditedTask() {
     let title = document.getElementById('edit-title').value;
     let description = document.getElementById('edit-description').value;
     let assignedto = assignedUsers;
@@ -203,7 +201,7 @@ function saveEditedTask() {
     taskToEdit.category = category;
     taskToEdit.status = progressState;
 
-    updateUser();
+    await updateUser();
     initTasks();
     closeCard('editTaskBox');
     showMessage('./assets/img/check.svg', 'Task successfully updated!');
@@ -216,9 +214,9 @@ function saveEditedTask() {
  * @param {number} taskId - The unique identifier of the task to be deleted.
  * @throws {Error} Throws an error if the provided task ID is invalid or if any action fails.
  */
-function deleteTask(taskId) {
+async function deleteTask(taskId) {
     user.tasks.splice(taskId, 1);
-    updateUser();
+    await updateUser();
     closeCard('cardTaskDetails');
     initTasks();
     showMessage('./assets/img/delete_white.svg', 'Task successfully deleted!');

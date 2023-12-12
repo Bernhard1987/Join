@@ -161,7 +161,7 @@ input .content {
     display: flex;
     width: 100%;
     min-height: 52px;
-    max-height: 150px; /* 196px = 4 rows / 150px = 3 rows */
+    max-height: 104px; /* 196px = 4 rows / 150px = 3 rows */
     overflow-y: auto;
     flex-wrap: wrap;
     font-family: 'Inter';
@@ -451,6 +451,16 @@ input[type='date']::-webkit-calendar-picker-indicator {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
+}
+
+@media (min-height: 1280px) {
+    .assigned-users-box {
+        max-height: 154px;
+    }
+
+    .assigned-dropdown-list {
+        max-height: 224px;
+    }
 }
 
 @media (max-width: 1260px) {
