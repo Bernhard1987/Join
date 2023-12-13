@@ -133,13 +133,14 @@ function removeSubtask(index, list) {
  * Prepares the application to add a new task.
  */
 async function addTask(progressState) {
-    if(progressState) {
-            taskProgressState = progressState;
+    if (progressState) {
+        taskProgressState = progressState;
     } else {
         taskProgressState = 'toDo';
     }
     taskMode = 'add';
     assignedUsers = [];
+    subtasks = [];
     await selectAssigneeElements();
 
     document.getElementById('addSubtasksList').innerHTML = '';
@@ -165,6 +166,7 @@ function addTaskSmallBtn(state) {
  */
 async function editTask(taskId) {
     taskMode = 'edit';
+    subtasks = [];
     taskToEdit = user.tasks[taskId];
     assignedUsers = taskToEdit.assignedto;
     await selectAssigneeElements();
@@ -177,7 +179,7 @@ async function editTask(taskId) {
     setPrio(taskToEdit.prio, 'edit');
     document.getElementById('editSubtasksList').innerHTML = actualiseSubtaskList('editSubtasksList');
     listEditSubtasks(taskId);
-    subtasks = user.tasks[taskId].subtasks;
+
 }
 
 

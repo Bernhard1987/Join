@@ -16,7 +16,6 @@ let currentDraggedElement = 0;
 async function initTasks() {
     await getActualUserData();
     await displayTasks(user.tasks);
-    await selectAssigneeElements();
 }
 
 
@@ -195,17 +194,19 @@ function listSubtasks(taskId) {
  * @param {number} taskId 
  */
 function listEditSubtasks(taskId) {
-    let subtasks = user.tasks[taskId].subtasks;
+    subtasks = user.tasks[taskId].subtasks;
     let subTaskList = document.getElementById('editSubtasksList');
     subTaskList.innerHTML = '';
 
-    subtasks.forEach((subtask, index) => {
-        let subtaskElement = document.createElement('li');
-        subtaskElement.innerHTML += /*html*/ `<div id="subtask${index}_editSubtasksList">${subtask}</div>`;
-        subtaskElement.innerHTML += getSubtaskTemplate(index, 'editSubtasksList');
-        subtaskElement.classList.add('d-flex-space-between');
-        subTaskList.appendChild(subtaskElement);
-    });
+    if (subtasks) {
+        subtasks.forEach((subtask, index) => {
+            let subtaskElement = document.createElement('li');
+            subtaskElement.innerHTML += /*html*/ `<div id="subtask${index}_editSubtasksList">${subtask}</div>`;
+            subtaskElement.innerHTML += getSubtaskTemplate(index, 'editSubtasksList');
+            subtaskElement.classList.add('d-flex-space-between');
+            subTaskList.appendChild(subtaskElement);
+        });
+    }
 }
 
 
@@ -365,7 +366,8 @@ function checkColorizeCategoryLocation(location) {
  * @param {string|number} taskIdOrProgressState - The ID of the task or the progress state.
  * @returns {void}
  */
-function openTaskDialog(containerId, taskIdOrProgressState) {
+async function openTaskDialog(containerId, taskIdOrProgressState) {
+    await selectDropdownBox();
     showContent('show', 'cardBgr', 'd-none');
     if (containerId == 'add') {
         openDialogAddTask(taskIdOrProgressState);
@@ -476,7 +478,9 @@ function removeHighlight(id) {
  * @param {number} cardid 
  */
 function closeCard(cardid) {
-    dropdownList.style.display = 'none';
+    if (dropdownList) {
+        dropdownList.style.display = 'none';
+    }
     selectAssigneeElements();
     showContent('hide', cardid, 'd-none');
     showContent('hide', 'cardBgr', 'd-none');

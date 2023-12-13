@@ -8,8 +8,8 @@ let dropdownBoxEventListenerStarted = false;
 /**
  * Selects the relevant HTML elements for displaying assigned users and updates them.
  */
-function selectAssigneeElements() {
-    selectDropdownBox();
+async function selectAssigneeElements() {
+    await selectDropdownBoxElement();
     showAssigneeList();
     listAssignedUsersBox();
 }
@@ -148,7 +148,7 @@ function selectDropdownBoxElement() {
         if (dropdownInput && dropdownList) {
             clearInterval(checksetDropdownElementsInterval);
         }
-    }, 50);
+    }, 10);
 }
 
 
@@ -174,13 +174,17 @@ function filterAssignees() {
  */
 async function selectDropdownBox() {
     if (!dropdownBoxEventListenerStarted) {
-        await selectDropdownBoxElement();
+        event.stopImmediatePropagation();
 
-        if (dropdownInput && dropdownList) {
-            addDropdownEventListenerStart(dropdownInput, dropdownList);
-            addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownList);
-            addDropdownEventListenerCloseByClickOnLI(dropdownList);
-        }
+        let eventListenerInterval = await setInterval(() => {
+            if (dropdownInput && dropdownList) {
+                addDropdownEventListenerStart(dropdownInput, dropdownList);
+                addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownList);
+                addDropdownEventListenerCloseByClickOnLI(dropdownList);
+                clearInterval(eventListenerInterval);
+            }
+        }, 10);
+
     }
 }
 
@@ -189,6 +193,7 @@ async function selectDropdownBox() {
  */
 function addDropdownEventListenerStart(dropdownInput, dropdownList) {
     dropdownInput.addEventListener('click', function () {
+        event.stopImmediatePropagation();
         if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
             dropdownList.style.display = 'block';
             dropdownBoxEventListenerStarted = true;
@@ -203,6 +208,7 @@ function addDropdownEventListenerStart(dropdownInput, dropdownList) {
  */
 function addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownList) {
     document.addEventListener('click', function (event) {
+        event.stopImmediatePropagation();
         if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
             dropdownList.style.display = 'none';
             dropdownBoxEventListenerStarted = false;
@@ -215,6 +221,7 @@ function addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownLis
  */
 function addDropdownEventListenerCloseByClickOnLI(dropdownList) {
     dropdownList.addEventListener('click', function (event) {
+        event.stopImmediatePropagation();
         if (event.target.tagName === 'LI') {
             dropdownList.style.display = 'none';
             dropdownBoxEventListenerStarted = false;
