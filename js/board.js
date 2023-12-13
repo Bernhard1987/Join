@@ -15,7 +15,7 @@ let currentDraggedElement = 0;
  */
 async function initTasks() {
     await getActualUserData();
-    await displayTasks(user.tasks);
+    displayTasks(user.tasks);
 }
 
 

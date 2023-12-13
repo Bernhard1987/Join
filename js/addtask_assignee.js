@@ -12,6 +12,7 @@ async function selectAssigneeElements() {
     await selectDropdownBoxElement();
     showAssigneeList();
     listAssignedUsersBox();
+    selectDropdownBox();
 }
 
 
@@ -133,8 +134,6 @@ function addAssigneeToAssigneeList(contactsDropDown, contacts) {
  * Uses an interval to periodically check for the existence of the required elements.
  * The function sets global variables: `dropdownInput` and `dropdownList`.
  * 
- * @function
- * @returns {void}
  */
 function selectDropdownBoxElement() {
     let checksetDropdownElementsInterval = setInterval(() => {
@@ -172,15 +171,13 @@ function filterAssignees() {
 /**
  * Is only executed if it hasn't already been executed before.
  */
-async function selectDropdownBox() {
+function selectDropdownBox() {
     if (!dropdownBoxEventListenerStarted) {
-        event.stopImmediatePropagation();
-
-        let eventListenerInterval = await setInterval(() => {
+        let eventListenerInterval = setInterval(() => {
             if (dropdownInput && dropdownList) {
-                addDropdownEventListenerStart(dropdownInput, dropdownList);
-                addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownList);
-                addDropdownEventListenerCloseByClickOnLI(dropdownList);
+                addDropdownEventListenerStart();
+                addDropdownEventListenerCloseByClickAnywhere();
+                addDropdownEventListenerCloseByClickOnLI();
                 clearInterval(eventListenerInterval);
             }
         }, 10);
@@ -191,8 +188,8 @@ async function selectDropdownBox() {
 /**
  * First eventListener for dropdownBox. Toggles the visibility.
  */
-function addDropdownEventListenerStart(dropdownInput, dropdownList) {
-    dropdownInput.addEventListener('click', function () {
+function addDropdownEventListenerStart() {
+    dropdownInput.addEventListener('click', function (event) {
         event.stopImmediatePropagation();
         if (dropdownList.style.display === 'none' || dropdownList.style.display === '') {
             dropdownList.style.display = 'block';
@@ -206,7 +203,7 @@ function addDropdownEventListenerStart(dropdownInput, dropdownList) {
 /**
  * Second eventListener closes the dropdown if user clicks outside of it.
  */
-function addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownList) {
+function addDropdownEventListenerCloseByClickAnywhere() {
     document.addEventListener('click', function (event) {
         event.stopImmediatePropagation();
         if (!dropdownInput.contains(event.target) && !dropdownList.contains(event.target)) {
@@ -219,7 +216,7 @@ function addDropdownEventListenerCloseByClickAnywhere(dropdownInput, dropdownLis
 /**
  * Third eventListener handles the selection of dropdown items.
  */
-function addDropdownEventListenerCloseByClickOnLI(dropdownList) {
+function addDropdownEventListenerCloseByClickOnLI() {
     dropdownList.addEventListener('click', function (event) {
         event.stopImmediatePropagation();
         if (event.target.tagName === 'LI') {
