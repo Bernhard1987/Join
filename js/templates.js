@@ -190,7 +190,7 @@ function taskDetailsHTMLTemplate(taskId, title, description, category, duedate, 
                     <ul id="subTaskList">
                     </ul>
             </div>
-            <div class="card-close" onclick="closeTaskDialog()"></div>
+            <div class="card-close" onclick="closeTaskDialog(); displayTasks(user.tasks);"></div>
             <div class="card-taskinfo-btns">
                 <div class="card-taskinfo-btn-delete" onclick="deleteTask(${taskId})"></div>
                 <div class="card-taskinfo-btn-edit" onclick="openTaskDialog('edit', ${taskId})"></div>
