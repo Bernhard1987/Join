@@ -199,7 +199,7 @@ button:disabled {
 }
 
 .full-height {
-    animation: contentFadeIn 1s forwards 0.5s;
+    animation: contentFadeIn 1s forwards 1.3s;
     /* 1 Sekunde Dauer, 2 Sekunden Verzögerung */
     opacity: 0;
     /* Setze die Anfangs-Opazität auf 0 */
@@ -257,6 +257,7 @@ input[type='checkbox']:hover {
     border-radius: 30px;
     background: #FFF;
     box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    z-index: 1;
 }
 
 
@@ -646,14 +647,6 @@ input[type='checkbox']:hover {
     align-items: center;
     gap: 32px;
 }
-
-.full-height {
-    animation: contentFadeIn 1s forwards 0.5s;
-    /* 1 Sekunde Dauer, 2 Sekunden Verzögerung */
-    opacity: 0;
-    /* Setze die Anfangs-Opazität auf 0 */
-}
-
 
 .full-height {
     display: flex;
